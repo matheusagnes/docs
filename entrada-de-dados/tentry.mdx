@@ -3,7 +3,7 @@ title: 'TEntry'
 description: 'O `TEntry` é um componente de entrada de dados simples (derivado da classe `TField`), ou seja, serve para o usuário informar algum texto, como por exemplo, o nome de um produto.'
 ---
 
-
+<br/>
 
 ## __construct($name)
 Construtor da classe `TEntry`.
@@ -16,7 +16,7 @@ Exemplo de código:
 $cnpj = new TEntry('cnpj');
 ```
 
-
+<br/>
 
 ## setValue($value)
 Define o valor do campo.
@@ -30,7 +30,7 @@ $cnpj = new TEntry('cnpj');
 $cnpj->setValue('00.000.000/0000-00');
 ```
 
-
+<br/>
 
 ## setMask($mask, $replaceOnPost = FALSE)
 Define a máscara do campo.
@@ -45,7 +45,7 @@ $cpf = new TEntry('cpf');
 $cpf->setMask('000.000.000-00');
 ```
 
-
+<br/>
 
 ## setNumericMask($decimals, $decimalsSeparator, $thousandSeparator, $replaceOnPost = FALSE, $reverse = FALSE, $allowNegative = TRUE)
 Define a máscara numérica do campo.
@@ -64,15 +64,13 @@ $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.');
 ```
 
-<br/>
-
 Exemplo de código (com parâmetros opcionais):
 ```php
 $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.', true, true, false);
 ```
 
-
+<br/>
 
 ## setCompletion($options)
 Define as opções de preenchimento automático para o campo.
@@ -86,7 +84,7 @@ $genero = new TEntry('genero');
 $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);
 ```
 
-
+<br/>
 
 ## setMaxLength($length)
 Define o comprimento máximo do campo.
@@ -100,7 +98,7 @@ $rg = new TEntry('rg');
 $rg->setMaxLength(10);
 ```
 
-
+<br/>
 
 ## setMinLength($length)
 Define o comprimento mínimo para pesquisa (requer uso do 'setCompletion').
@@ -115,7 +113,7 @@ $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer'])
 $genero->setMinLength(3);
 ```
 
-
+<br/>
 
 ## setExitAction(TAction $action)
 Define a ação a ser executada quando o usuário sair do campo.
@@ -137,7 +135,7 @@ public static function onExitCampo($param = null)
 }
 ```
 
-
+<br/>
 
 ## setExitFunction($function)
 Define a função JavaScript a ser executada quando o usuário sair do campo.
@@ -151,7 +149,7 @@ $toast = new TEntry('usuario');
 $toast->setExitFunction('alert("Você saiu do campo Nome de Usuário.");');
 ```
 
-
+<br/>
 
 ## enableToggleVisibility($toggleVisibility = TRUE)
 Ativa ou desativa a opção de alternar a visibilidade do campo.
@@ -167,7 +165,7 @@ $cnpj->setSize(200);
 $cnpj->enableToggleVisibility();
 ```
 
-
+<br/>
 
 ## setDelimiter($delimiter)
 Define o delimitador de conclusão automática (permite múltiplas inserções).
@@ -182,7 +180,7 @@ $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer'])
 $genero->setDelimiter(',');
 ```
 
-
+<br/>
 
 ## disableAutoComplete()
 Desativa o preenchimento automático do navegador.
@@ -193,7 +191,7 @@ $senha = new TEntry('senha');
 $senha->disableAutoComplete();
 ```
 
-
+<br/>
 
 ## forceLowerCase()
 Força letras minúsculas no campo.
@@ -204,7 +202,7 @@ $codigo = new TEntry('codigo');
 $codigo->forceLowerCase();
 ```
 
-
+<br/>
 
 ## forceUpperCase()
 Força letras maiúsculas no campo.
@@ -215,7 +213,7 @@ $placaVeiculo = new TEntry('placaVeiculo');
 $placaVeiculo->forceUpperCase();
 ```
 
-
+<br/>
 
 ## setInnerIcon(TImage $image, $side = 'right')
 Define o ícone interno do campo.
@@ -231,7 +229,7 @@ $icone = new TImage('fas fa-user');
 $nomeUsuario->setInnerIcon($icone, 'left');
 ```
 
-
+<br/>
 
 ## getPostData()
 Obtém os dados enviados no POST (transformará valores de acordo com a máscara do banco de dados).
@@ -246,8 +244,6 @@ $cpf->setMask('000.000.000-00', true);
 $dadosPostados = $cpf->getPostData();
 ```
 
-<br/>
-
 Exemplo de código (com máscara numérica):
 ```php
 $preco = new TEntry('preco');
@@ -256,7 +252,7 @@ $preco->setNumericMask(2, ',', '.', true);
 $dadosPostados = $preco->getPostData();
 ```
 
-
+<br/>
 
 ## exitOnEnter()
 Ativa a ação de saída ao pressionar Enter no campo.
@@ -276,7 +272,7 @@ public static function onExitCampo($param = null)
 }
 ```
 
-
+<br/>
 
 ## reloadCompletion($field, $list, $options = null)
 (Método estático) Recarrega as opções de conclusão de um campo de entrada de forma dinâmica.
@@ -305,7 +301,7 @@ public static function alterarOpcoes($param = null)
 }
 ```
 
-
+<br/>
 
 ## changeMask($formName, $name, $mask)
 (Método estático) Altera a máscara de um campo de entrada dinamicamente.

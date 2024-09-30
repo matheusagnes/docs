@@ -82,10 +82,10 @@
       ]
     },
     {
-      "group": "Seleção de registros (banco de dados)",
+      "group": "Busca de registros (banco de dados)",
       "pages":
       [
-        "selecao-de-registros-banco-de-dados/tdbuniquesearch"
+        "busca-de-registros-banco-de-dados/tdbuniquesearch"
       ]
     },
     {
