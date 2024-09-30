@@ -64,42 +64,42 @@
       "group": "Seleção de dados (fixos)",
       "pages":
       [
-        ""
+        "selecao-de-dados-fixos/tarrowstep"
       ]
     },
     {
       "group": "Busca de dados (fixos)",
       "pages":
       [
-        ""
+        "busca-de-dados-fixos/tuniquesearch"
       ]
     },
     {
       "group": "Seleção de dados (banco de dados)",
       "pages":
       [
-        ""
+        "selecao-de-dados-banco-de-dados/tdbarrowstep"
       ]
     },
     {
       "group": "Seleção de registros (banco de dados)",
       "pages":
       [
-        ""
+        "selecao-de-registros-banco-de-dados/tdbuniquesearch"
       ]
     },
     {
       "group": "Upload de arquivos",
       "pages":
       [
-        ""
+        "upload-de-arquivos/tfile"
       ]
     },
     {
       "group": "Interface",
       "pages":
       [
-        ""
+        "interface/bpagecontainer"
       ]
     }
   ],
