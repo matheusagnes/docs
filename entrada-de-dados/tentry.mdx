@@ -3,8 +3,10 @@ title: 'TEntry'
 description: 'O `TEntry` é um componente de entrada de dados simples (derivado da classe `TField`), ou seja, serve para o usuário informar algum texto, como por exemplo, o nome de um produto.'
 ---
 
+
+
 ## __construct($name)
-Construtor da classe TEntry.
+Construtor da classe `TEntry`.
 
 - Parâmetros:
   - `$name`: Nome do campo que será utilizado no formulário.
@@ -14,15 +16,9 @@ Exemplo de código:
 $cnpj = new TEntry('cnpj');
 ```
 
-<div style="width: 180px">
-{$code_tentry_construct}
-</div>
-
-<br/>
 
 
-
-#### setValue($value)
+## setValue($value)
 Define o valor do campo.
 
 - Parâmetros:
@@ -34,15 +30,9 @@ $cnpj = new TEntry('cnpj');
 $cnpj->setValue('00.000.000/0000-00');
 ```
 
-<div style="width: 180px">
-{$code_tentry_setValue}
-</div>
-
-<br/>
 
 
-
-#### setMask($mask, $replaceOnPost = FALSE)
+## setMask($mask, $replaceOnPost = FALSE)
 Define a máscara do campo.
 
 - Parâmetros:
@@ -55,15 +45,9 @@ $cpf = new TEntry('cpf');
 $cpf->setMask('000.000.000-00');
 ```
 
-<div style="width: 180px">
-{$code_tentry_setMask}
-</div>
-
-<br/>
 
 
-
-#### setNumericMask($decimals, $decimalsSeparator, $thousandSeparator, $replaceOnPost = FALSE, $reverse = FALSE, $allowNegative = TRUE)
+## setNumericMask($decimals, $decimalsSeparator, $thousandSeparator, $replaceOnPost = FALSE, $reverse = FALSE, $allowNegative = TRUE)
 Define a máscara numérica do campo.
 
 - Parâmetros:
@@ -80,10 +64,6 @@ $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.');
 ```
 
-<div style="width: 180px">
-{$code_tentry_setNumericMask}
-</div>
-
 <br/>
 
 Exemplo de código (com parâmetros opcionais):
@@ -92,15 +72,9 @@ $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.', true, true, false);
 ```
 
-<div style="width: 180px">
-{$code_tentry_setNumericMask2}
-</div>
-
-<br/>
 
 
-
-#### setCompletion($options)
+## setCompletion($options)
 Define as opções de preenchimento automático para o campo.
 
 - Parâmetros:
@@ -112,15 +86,9 @@ $genero = new TEntry('genero');
 $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);
 ```
 
-<div style="width: 180px">
-{$code_tentry_setCompletion}
-</div>
-
-<br/>
 
 
-
-#### setMaxLength($length)
+## setMaxLength($length)
 Define o comprimento máximo do campo.
 
 - Parâmetros:
@@ -132,15 +100,9 @@ $rg = new TEntry('rg');
 $rg->setMaxLength(10);
 ```
 
-<div style="width: 180px">
-{$code_tentry_setMaxLength}
-</div>
-
-<br/>
 
 
-
-#### setMinLength($length)
+## setMinLength($length)
 Define o comprimento mínimo para pesquisa (requer uso do 'setCompletion').
 
 - Parâmetros:
@@ -153,15 +115,9 @@ $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer'])
 $genero->setMinLength(3);
 ```
 
-<div style="width: 180px">
-{$code_tentry_setMinLength}
-</div>
-
-<br/>
 
 
-
-#### setExitAction(TAction $action)
+## setExitAction(TAction $action)
 Define a ação a ser executada quando o usuário sair do campo.
 
 - Parâmetros:
@@ -181,15 +137,9 @@ public static function onExitCampo($param = null)
 }
 ```
 
-<div style="width: 180px">
-{$code_tentry_setExitAction}
-</div>
-
-<br/>
 
 
-
-#### setExitFunction($function)
+## setExitFunction($function)
 Define a função JavaScript a ser executada quando o usuário sair do campo.
 
 - Parâmetros:
@@ -201,15 +151,9 @@ $toast = new TEntry('usuario');
 $toast->setExitFunction('alert("Você saiu do campo Nome de Usuário.");');
 ```
 
-<div style="width: 180px">
-{$code_tentry_setExitFunction}
-</div>
-
-<br/>
 
 
-
-#### enableToggleVisibility($toggleVisibility = TRUE)
+## enableToggleVisibility($toggleVisibility = TRUE)
 Ativa ou desativa a opção de alternar a visibilidade do campo.
 
 - Parâmetros:
@@ -222,15 +166,10 @@ $cnpj->setValue('00.000.000/0000-00');
 $cnpj->setSize(200);
 $cnpj->enableToggleVisibility();
 ```
-<div style="width: 240px">
-{$code_tentry_enableToggleVisibility}
-</div>
-
-<br/>
 
 
 
-#### setDelimiter($delimiter)
+## setDelimiter($delimiter)
 Define o delimitador de conclusão automática (permite múltiplas inserções).
 
 - Parâmetros:
@@ -243,15 +182,9 @@ $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer'])
 $genero->setDelimiter(',');
 ```
 
-<div style="width: 180px">
-{$code_tentry_setDelimiter}
-</div>
-
-<br/>
 
 
-
-#### disableAutoComplete()
+## disableAutoComplete()
 Desativa o preenchimento automático do navegador.
 
 Exemplo de código:
@@ -260,15 +193,9 @@ $senha = new TEntry('senha');
 $senha->disableAutoComplete();
 ```
 
-<div style="width: 180px">
-{$code_tentry_disableAutoComplete}
-</div>
-
-<br/>
 
 
-
-#### forceLowerCase()
+## forceLowerCase()
 Força letras minúsculas no campo.
 
 Exemplo de código:
@@ -277,15 +204,9 @@ $codigo = new TEntry('codigo');
 $codigo->forceLowerCase();
 ```
 
-<div style="width: 180px">
-{$code_tentry_forceLowerCase}
-</div>
-
-<br/>
 
 
-
-#### forceUpperCase()
+## forceUpperCase()
 Força letras maiúsculas no campo.
 
 Exemplo de código:
@@ -294,15 +215,9 @@ $placaVeiculo = new TEntry('placaVeiculo');
 $placaVeiculo->forceUpperCase();
 ```
 
-<div style="width: 180px">
-{$code_tentry_forceUpperCase}
-</div>
-
-<br/>
 
 
-
-#### setInnerIcon(TImage $image, $side = 'right')
+## setInnerIcon(TImage $image, $side = 'right')
 Define o ícone interno do campo.
 
 - Parâmetros:
@@ -316,15 +231,9 @@ $icone = new TImage('fas fa-user');
 $nomeUsuario->setInnerIcon($icone, 'left');
 ```
 
-<div style="width: 180px">
-{$code_tentry_setInnerIcon}
-</div>
-
-<br/>
 
 
-
-#### getPostData()
+## getPostData()
 Obtém os dados enviados no POST (transformará valores de acordo com a máscara do banco de dados).
 
 * Obs.: pressione Enter para enviar o formulário.
@@ -337,11 +246,6 @@ $cpf->setMask('000.000.000-00', true);
 $dadosPostados = $cpf->getPostData();
 ```
 
-<div style="width: 180px">
-{$code_tentry_getPostData}
-Valor do POST: {$dadosPostados}
-</div>
-
 <br/>
 
 Exemplo de código (com máscara numérica):
@@ -352,16 +256,9 @@ $preco->setNumericMask(2, ',', '.', true);
 $dadosPostados = $preco->getPostData();
 ```
 
-<div style="width: 180px">
-{$code_tentry_getPostData2}
-Valor do POST: {$dadosPostados2}
-</div>
-
-<br/>
 
 
-
-#### exitOnEnter()
+## exitOnEnter()
 Ativa a ação de saída ao pressionar Enter no campo.
 
 Exemplo de código:
@@ -379,15 +276,9 @@ public static function onExitCampo($param = null)
 }
 ```
 
-<div style="width: 180px">
-{$code_tentry_exitOnEnter}
-</div>
-
-<br/>
 
 
-
-#### reloadCompletion($field, $list, $options = null)
+## reloadCompletion($field, $list, $options = null)
 (Método estático) Recarrega as opções de conclusão de um campo de entrada de forma dinâmica.
 
 - Parâmetros:
@@ -414,16 +305,9 @@ public static function alterarOpcoes($param = null)
 }
 ```
 
-<div style="width: 300px">
-{$code_tentry_reloadCompletion}
-{$code_tentry_btnReloadCompletion}
-</div>
-
-<br/>
 
 
-
-#### changeMask($formName, $name, $mask)
+## changeMask($formName, $name, $mask)
 (Método estático) Altera a máscara de um campo de entrada dinamicamente.
 
 - Parâmetros:
