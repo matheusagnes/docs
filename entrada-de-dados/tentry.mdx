@@ -3,10 +3,12 @@ title: 'TEntry'
 description: 'O `TEntry` é um componente de entrada de dados simples (derivado da classe `TField`), ou seja, serve para o usuário informar algum texto, como por exemplo, o nome de um produto.'
 ---
 
-<br/>
+import Parameter from '/snippets/';
 
-## __construct($name)
+## __construct(\$name)
 Construtor da classe `TEntry`.
+
+<Parameter>
 
 - Parâmetros:
   - `$name`: Nome do campo que será utilizado no formulário.
@@ -18,7 +20,7 @@ $cnpj = new TEntry('cnpj');
 
 <br/>
 
-## setValue($value)
+## setValue(\$value)
 Define o valor do campo.
 
 - Parâmetros:
@@ -32,7 +34,7 @@ $cnpj->setValue('00.000.000/0000-00');
 
 <br/>
 
-## setMask($mask, $replaceOnPost = FALSE)
+## setMask(\$mask, \$replaceOnPost = FALSE)
 Define a máscara do campo.
 
 - Parâmetros:
@@ -47,7 +49,7 @@ $cpf->setMask('000.000.000-00');
 
 <br/>
 
-## setNumericMask($decimals, $decimalsSeparator, $thousandSeparator, $replaceOnPost = FALSE, $reverse = FALSE, $allowNegative = TRUE)
+## setNumericMask(\$decimals, \$decimalsSeparator, \$thousandSeparator, \$replaceOnPost = FALSE, \$reverse = FALSE, \$allowNegative = TRUE)
 Define a máscara numérica do campo.
 
 - Parâmetros:
@@ -72,7 +74,7 @@ $preco->setNumericMask(2, ',', '.', true, true, false);
 
 <br/>
 
-## setCompletion($options)
+## setCompletion(\$options)
 Define as opções de preenchimento automático para o campo.
 
 - Parâmetros:
@@ -86,7 +88,7 @@ $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer'])
 
 <br/>
 
-## setMaxLength($length)
+## setMaxLength(\$length)
 Define o comprimento máximo do campo.
 
 - Parâmetros:
@@ -100,7 +102,7 @@ $rg->setMaxLength(10);
 
 <br/>
 
-## setMinLength($length)
+## setMinLength(\$length)
 Define o comprimento mínimo para pesquisa (requer uso do 'setCompletion').
 
 - Parâmetros:
@@ -115,7 +117,7 @@ $genero->setMinLength(3);
 
 <br/>
 
-## setExitAction(TAction $action)
+## setExitAction(TAction \$action)
 Define a ação a ser executada quando o usuário sair do campo.
 
 - Parâmetros:
@@ -137,7 +139,7 @@ public static function onExitCampo($param = null)
 
 <br/>
 
-## setExitFunction($function)
+## setExitFunction(\$function)
 Define a função JavaScript a ser executada quando o usuário sair do campo.
 
 - Parâmetros:
@@ -151,7 +153,7 @@ $toast->setExitFunction('alert("Você saiu do campo Nome de Usuário.");');
 
 <br/>
 
-## enableToggleVisibility($toggleVisibility = TRUE)
+## enableToggleVisibility(\$toggleVisibility = TRUE)
 Ativa ou desativa a opção de alternar a visibilidade do campo.
 
 - Parâmetros:
@@ -167,7 +169,7 @@ $cnpj->enableToggleVisibility();
 
 <br/>
 
-## setDelimiter($delimiter)
+## setDelimiter(\$delimiter)
 Define o delimitador de conclusão automática (permite múltiplas inserções).
 
 - Parâmetros:
@@ -215,7 +217,7 @@ $placaVeiculo->forceUpperCase();
 
 <br/>
 
-## setInnerIcon(TImage $image, $side = 'right')
+## setInnerIcon(TImage \$image, \$side = 'right')
 Define o ícone interno do campo.
 
 - Parâmetros:
@@ -274,7 +276,7 @@ public static function onExitCampo($param = null)
 
 <br/>
 
-## reloadCompletion($field, $list, $options = null)
+## reloadCompletion(\$field, \$list, \$options = null)
 (Método estático) Recarrega as opções de conclusão de um campo de entrada de forma dinâmica.
 
 - Parâmetros:
@@ -303,7 +305,7 @@ public static function alterarOpcoes($param = null)
 
 <br/>
 
-## changeMask($formName, $name, $mask)
+## changeMask(\$formName, \$name, \$mask)
 (Método estático) Altera a máscara de um campo de entrada dinamicamente.
 
 - Parâmetros:
