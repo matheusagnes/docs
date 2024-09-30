@@ -3,7 +3,9 @@ title: 'TEntry'
 description: 'O `TEntry` é um componente de entrada de dados simples (derivado da classe `TField`), ou seja, serve para o usuário informar algum texto, como por exemplo, o nome de um produto.'
 ---
 
+import DefaultParameter from '/snippets/default-parameter.mdx';
 import Parameter from '/snippets/parameter.mdx';
+import RequiredParameter from '/snippets/required-parameter.mdx';
 
 ## __construct(\$name)
 Construtor da classe `TEntry`.
@@ -12,6 +14,8 @@ Construtor da classe `TEntry`.
 
 - Parâmetros:
   - `$name`: Nome do campo que será utilizado no formulário.
+  
+<Parameter parameter="$name" type="string" description="teste" />
 
 Exemplo de código:
 ```php
