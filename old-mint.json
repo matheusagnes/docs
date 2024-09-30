@@ -1,33 +1,37 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Mad.Builder",
-  "logo":
-  {
+  "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
-  "colors":
-  {
+  "colors": {
     "primary": "#0D9373",
     "light": "#07C983",
     "dark": "#0D9373",
-    "anchors":
-    {
+    "anchors": {
       "from": "#0D9373",
       "to": "#07C983"
     }
   },
-  "topbarCtaButton":
-  {
+  "topbarLinks": [
+    {
+      "name": "Mad.Builder",
+      "url": "https://www.madbuilder.com.br"
+    }
+  ],
+  "topbarCtaButton": {
     "name": "Mad.Builder",
     "url": "https://www.madbuilder.com.br"
   },
-  "tabs":
-  [
+  "tabs": [
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
   ],
-  "anchors":
-  [
+  "anchors": [
     {
       "name": "Documentation",
       "icon": "book-open-cover",
@@ -44,55 +48,38 @@
       "url": "https://mintlify.com/blog"
     }
   ],
-  "navigation":
-  [
+  "navigation": [
     {
-      "group": "Entrada de dados",
-      "pages":
-      [
-        ""
+      "group": "Get Started",
+      "pages": [
+        "introduction",
+        "quickstart",
+        "development"
       ]
     },
     {
-      "group": "Seleção de dados (fixos)",
-      "pages":
-      [
-        ""
+      "group": "Essentials",
+      "pages": [
+        "essentials/markdown",
+        "essentials/code",
+        "essentials/images",
+        "essentials/settings",
+        "essentials/navigation",
+        "essentials/reusable-snippets"
       ]
     },
     {
-      "group": "Busca de dados (fixos)",
-      "pages":
-      [
-        ""
+      "group": "API Documentation",
+      "pages": [
+        "api-reference/introduction"
       ]
     },
     {
-      "group": "Seleção de dados (banco de dados)",
-      "pages":
-      [
-        ""
-      ]
-    },
-    {
-      "group": "Seleção de registros (banco de dados)",
-      "pages":
-      [
-        ""
-      ]
-    },
-    {
-      "group": "Upload de arquivos",
-      "pages":
-      [
-        ""
-      ]
-    },
-    {
-      "group": "Interface",
-      "pages":
-      [
-        ""
+      "group": "Endpoint Examples",
+      "pages": [
+        "api-reference/endpoint/get",
+        "api-reference/endpoint/create",
+        "api-reference/endpoint/delete"
       ]
     }
   ],
