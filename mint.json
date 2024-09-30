@@ -19,10 +19,10 @@
     }
   },
   "topbarLinks":
-  [
+  {
     "name": "Teste",
     "url": "https://www.madbuilder.com.br"
-  ],
+  },
   "topbarCtaButton":
   {
     "name": "Mad.Builder",
