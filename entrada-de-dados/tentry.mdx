@@ -10,34 +10,33 @@ import RequiredParameter from '/snippets/required-parameter.mdx';
 ## __construct(\$name)
 Construtor da classe `TEntry`.
 
-<Parameter />
-
 <AccordionGroup>
   <Accordion title="Parâmetros">
     <RequiredParameter parameter="$name" type="string" description="Nome do campo que será utilizado no formulário." />
   </Accordion>
   <Accordion title="Exemplo de código">
+    ```php
+    $cnpj = new TEntry('cnpj');
+    ```
   </Accordion>
 </AccordionGroup>
-
-Exemplo de código:
-```php
-$cnpj = new TEntry('cnpj');
-```
 
 <br/>
 
 ## setValue(\$value)
 Define o valor do campo.
 
-- Parâmetros:
-  - `$value`: Uma string contendo o valor do campo.
-
-Exemplo de código:
-```php
-$cnpj = new TEntry('cnpj');
-$cnpj->setValue('00.000.000/0000-00');
-```
+<AccordionGroup>
+  <Accordion title="Parâmetros">
+    <RequiredParameter parameter="$value" type="string" description="Uma string contendo o valor do campo." />
+  </Accordion>
+  <Accordion title="Exemplo de código">
+    ```php
+    $cnpj = new TEntry('cnpj');
+    $cnpj->setValue('00.000.000/0000-00');
+    ```
+  </Accordion>
+</AccordionGroup>
 
 <br/>
 
