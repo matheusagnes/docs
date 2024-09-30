@@ -43,15 +43,18 @@ Define o valor do campo.
 ## setMask(\$mask, \$replaceOnPost = FALSE)
 Define a máscara do campo.
 
-- Parâmetros:
-  - `$mask`: Máscara para os dados de entrada.
-  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário (padrão: `FALSE`).
-
-Exemplo de código:
-```php
-$cpf = new TEntry('cpf');
-$cpf->setMask('000.000.000-00');
-```
+<AccordionGroup>
+  <Accordion title="Parâmetros">
+    <RequiredParameter parameter="$mask" type="string" description="Máscara para os dados de entrada." />
+    <DefautParameter parameter="$replaceOnPost" type="bool" default="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
+  </Accordion>
+  <Accordion title="Exemplo de código">
+    ```php
+    $cpf = new TEntry('cpf');
+    $cpf->setMask('000.000.000-00');
+    ```
+  </Accordion>
+</AccordionGroup>
 
 <br/>
 
