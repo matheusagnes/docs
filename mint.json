@@ -17,13 +17,13 @@
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Mad.Builder",
+      "url": "https://www.madbuilder.com.br"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Mad.Builder",
+    "url": "https://www.madbuilder.com.br"
   },
   "tabs": [
     {
@@ -84,8 +84,8 @@
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "instagram": "https://www.instagram.com/madbuilder.com.br/",
+    "facebook": "https://www.facebook.com/madbuilder",
+    "youtube": "https://www.youtube.com/@madbuilder"
   }
 }
