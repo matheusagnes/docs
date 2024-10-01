@@ -2,3 +2,57 @@
 title: 'New file'
 description: 'Description of your new file.'
 ---
+
+##TNumeric
+
+O `TNumeric` é um componente de entrada de dados numéricos, que permite a inserção de valores numéricos formatados de acordo com a máscara numérica definida.
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TNumeric`. Acesse a documentação do componente/classe-pai para conhecê-los.
+
+<br/>
+
+
+
+#### __construct($name, $decimals, $decimalsSeparator, $thousandSeparator, $replaceOnPost = TRUE, $reverse = FALSE, $allowNegative = TRUE)
+Construtor da classe TNumeric.
+
+- Parâmetros:
+  - `$name`: Nome do campo que será utilizado no formulário.
+  - `$decimals`: Número de casas decimais.
+  - `$decimalsSeparator`: Separador para o ponto decimal.
+  - `$thousandSeparator`: Separador de milhares.
+  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário (padrão: `TRUE`).
+  - `$reverse` (opcional): Booleano indicando se a máscara deve ser invertida (padrão: `FALSE`).
+  - `$allowNegative` (opcional): Booleano indicando se valores negativos são permitidos (padrão: `TRUE`).
+
+Exemplo de código:
+```php
+$preco = new TNumeric('preco', 2, ',', '.');
+```
+
+<div style="width: 180px">
+{$code_tnumeric_construct}
+</div>
+
+<br/>
+
+
+
+#### setAllowNegative($allowNegative)
+Define se valores negativos são permitidos no campo.
+
+- Parâmetros:
+  - $allowNegative: Booleano indicando se valores negativos são permitidos.
+
+Exemplo de código:
+```php
+$preco = new TNumeric('preco', 2, ',', '.');
+$preco->setAllowNegative(false);
+$preco->setValue(-15);
+```
+
+<div style="width: 180px">
+{$code_tnumeric_setAllowNegative}
+</div>
+
+Obs.: note que o sinal negativo desaparecerá assim que o campo obtiver foco.
