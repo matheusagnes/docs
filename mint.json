@@ -41,20 +41,20 @@
       "url": "busca-de-dados-fixos"
     },
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Seleção de dados (banco de dados)",
+      "url": "selecao-de-dados-banco-de-dados"
     },
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Busca de registros (banco de dados)",
+      "url": "busca-de-registros-banco-de-dados"
     },
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Upload de arquivos",
+      "url": "upload-de-arquivos"
     },
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Interface",
+      "url": "interface"
     }
   ],
   "anchors":
