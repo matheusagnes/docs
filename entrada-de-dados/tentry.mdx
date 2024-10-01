@@ -3,7 +3,7 @@ title: 'TEntry'
 description: 'O `TEntry` é um componente de entrada de dados simples (derivado da classe `TField`), ou seja, serve para o usuário informar algum texto, como por exemplo, o nome de um produto.'
 ---
 
-import DefaultParameter from '/snippets/default-parameter.mdx';
+import OptionalParameter from '/snippets/optional-parameter.mdx';
 import Parameter from '/snippets/parameter.mdx';
 import RequiredParameter from '/snippets/required-parameter.mdx';
 
@@ -12,7 +12,7 @@ Construtor da classe `TEntry`.
 
 <AccordionGroup>
   <Accordion title="Parâmetros">
-    <RequiredParameter parameter="$name" type="string" description="Nome do campo que será utilizado no formulário." />
+    <RequiredParameter parameter="$name" type="mixed" description="Nome do campo que será utilizado no formulário." />
   </Accordion>
   <Accordion title="Exemplo de código">
     ```php
@@ -28,7 +28,7 @@ Define o valor do campo.
 
 <AccordionGroup>
   <Accordion title="Parâmetros">
-    <RequiredParameter parameter="$value" type="string" description="Uma string contendo o valor do campo." />
+    <RequiredParameter parameter="$value" type="mixed" description="Uma string contendo o valor do campo." />
   </Accordion>
   <Accordion title="Exemplo de código">
     ```php
@@ -45,8 +45,8 @@ Define a máscara do campo.
 
 <AccordionGroup>
   <Accordion title="Parâmetros">
-    <RequiredParameter parameter="$mask" type="string" description="Máscara para os dados de entrada." />
-    <DefaultParameter parameter="$replaceOnPost" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
+    <RequiredParameter parameter="$mask" type="mixed" description="Máscara para os dados de entrada." />
+    <OptionalParameter parameter="$replaceOnPost" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
   </Accordion>
   <Accordion title="Exemplo de código">
     ```php
@@ -61,25 +61,28 @@ Define a máscara do campo.
 ## setNumericMask(\$decimals, \$decimalsSeparator, \$thousandSeparator, \$replaceOnPost = FALSE, \$reverse = FALSE, \$allowNegative = TRUE)
 Define a máscara numérica do campo.
 
-- Parâmetros:
-  - `$decimals`: Número de casas decimais.
-  - `$decimalsSeparator`: Separador para o ponto decimal.
-  - `$thousandSeparator`: Separador de milhares.
-  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário (padrão: `FALSE`).
-  - `$reverse` (opcional): Booleano indicando se a máscara deve ser invertida (padrão: `FALSE`).
-  - `$allowNegative` (opcional): Booleano indicando se valores negativos são permitidos (padrão: `TRUE`).
-
-Exemplo de código:
-```php
-$preco = new TEntry('preco');
-$preco->setNumericMask(2, ',', '.');
-```
-
-Exemplo de código (com parâmetros opcionais):
-```php
-$preco = new TEntry('preco');
-$preco->setNumericMask(2, ',', '.', true, true, false);
-```
+<AccordionGroup>
+  <Accordion title="Parâmetros">
+    <RequiredParameter parameter="$decimals" type="mixed" description="" />
+    <RequiredParameter parameter="$decimalsSeparator" type="mixed" description="" />
+    <RequiredParameter parameter="$thousandSeparator" type="mixed" description="" />
+    <OptionalParameter parameter="$replaceOnPost" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
+    <OptionalParameter parameter="$reverse" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser invertida." />
+    <OptionalParameter parameter="$allowNegative" type="bool" defaultValue="true" description="(opcional) Booleano indicando se valores negativos são permitidos." />
+  </Accordion>
+  <Accordion title="Exemplo de código">
+    ```php
+    $preco = new TEntry('preco');
+    $preco->setNumericMask(2, ',', '.');    
+    ```
+  </Accordion>
+  <Accordion title="Exemplo de código (com parâmetros opcionais)">
+    ```php
+    $preco = new TEntry('preco');
+    $preco->setNumericMask(2, ',', '.', true, true, false); 
+    ```
+  </Accordion>
+</AccordionGroup>
 
 <br/>
 
