@@ -89,28 +89,34 @@ Define a máscara numérica do campo.
 ## setCompletion(\$options)
 Define as opções de preenchimento automático para o campo.
 
-- Parâmetros:
-  - `$options`: Array de opções para conclusão.
-
-Exemplo de código:
-```php
-$genero = new TEntry('genero');
-$genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);
-```
+<AccordionGroup>
+  <Accordion title="Parâmetros">
+    <RequiredParameter parameter="$options" type="array" description="Array de opções para conclusão." />
+  </Accordion>
+  <Accordion title="Exemplo de código">
+    ```php
+    $genero = new TEntry('genero');
+    $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);    
+    ```
+  </Accordion>
+</AccordionGroup>
 
 <br/>
 
 ## setMaxLength(\$length)
 Define o comprimento máximo do campo.
 
-- Parâmetros:
-  - `$length`: Comprimento máximo do campo.
-
-Exemplo de código:
-```php
-$rg = new TEntry('rg');
-$rg->setMaxLength(10);
-```
+<AccordionGroup>
+  <Accordion title="Parâmetros">
+    <RequiredParameter parameter="$length" type="mixed" description="Comprimento máximo do campo." />
+  </Accordion>
+  <Accordion title="Exemplo de código">
+    ```php
+    $rg = new TEntry('rg');
+    $rg->setMaxLength(10);
+    ```
+  </Accordion>
+</AccordionGroup>
 
 <br/>
 
