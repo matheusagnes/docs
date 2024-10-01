@@ -61,11 +61,15 @@ Define a máscara do campo.
 ## setNumericMask(\$decimals, \$decimalsSeparator, \$thousandSeparator, \$replaceOnPost = FALSE, \$reverse = FALSE, \$allowNegative = TRUE)
 Define a máscara numérica do campo.
 
+ Número de casas decimais.
+  - `$decimalsSeparator`: Separador para o ponto decimal.
+  - `$thousandSeparator`: Separador de milhares.
+
 <AccordionGroup>
   <Accordion title="Parâmetros">
-    <RequiredParameter parameter="$decimals" type="mixed" description="" />
-    <RequiredParameter parameter="$decimalsSeparator" type="mixed" description="" />
-    <RequiredParameter parameter="$thousandSeparator" type="mixed" description="" />
+    <RequiredParameter parameter="$decimals" type="mixed" description="Número de casas decimais." />
+    <RequiredParameter parameter="$decimalsSeparator" type="mixed" description="Separador para o ponto decimal." />
+    <RequiredParameter parameter="$thousandSeparator" type="mixed" description="Separador de milhares." />
     <OptionalParameter parameter="$replaceOnPost" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
     <OptionalParameter parameter="$reverse" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser invertida." />
     <OptionalParameter parameter="$allowNegative" type="bool" defaultValue="true" description="(opcional) Booleano indicando se valores negativos são permitidos." />
