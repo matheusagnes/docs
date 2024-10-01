@@ -38,7 +38,11 @@
       "group": "Entrada de dados",
       "pages":
       [
-        "entrada-de-dados/tentry"
+        "entrada-de-dados/tentry",
+        "entrada-de-dados/thidden",
+        "entrada-de-dados/tnumeric",
+        "entrada-de-dados/tpassword",
+        "entrada-de-dados/tdate"
       ]
     },
     {
