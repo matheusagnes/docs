@@ -3,10 +3,6 @@ title: 'TEntry'
 description: 'O `TEntry` é um componente de entrada de dados simples (derivado da classe `TField`), ou seja, serve para o usuário informar algum texto, como por exemplo, o nome de um produto.'
 ---
 
-import OptionalParameter from '/snippets/optional-parameter.mdx';
-import Parameter from '/snippets/parameter.mdx';
-import RequiredParameter from '/snippets/required-parameter.mdx';
-
 ## __construct
 Construtor da classe `TEntry`.
 
@@ -23,10 +19,10 @@ $cnpj = new TEntry('cnpj');
 ## setValue
 Define o valor do campo.
 
-#### Parâmetros:
-<RequiredParameter parameter="$value" type="mixed" description="Uma string contendo o valor do campo." />
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Uma string contendo o valor do campo.</ResponseField>
 
-#### Exemplo de código:
+**Exemplo de código:**
 ```php
 $cnpj = new TEntry('cnpj');
 $cnpj->setValue('00.000.000/0000-00');
@@ -37,11 +33,11 @@ $cnpj->setValue('00.000.000/0000-00');
 ## setMask
 Define a máscara do campo.
 
-#### Parâmetros:
-<RequiredParameter parameter="$mask" type="mixed" description="Máscara para os dados de entrada." />
-<OptionalParameter parameter="$replaceOnPost" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
+**Parâmetros:**
+<ResponseField name="$mask" type="mixed" required>Máscara para os dados de entrada.</ResponseField>
+<ResponseField name="$replaceOnPost" type="bool" default="false">(Opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário.</ResponseField>
 
-#### Exemplo de código:
+**Exemplo de código:**
 ```php
 $cpf = new TEntry('cpf');
 $cpf->setMask('000.000.000-00');
@@ -51,21 +47,21 @@ $cpf->setMask('000.000.000-00');
 
 ## setNumericMask
 
-#### Parâmetros:
-<RequiredParameter parameter="$decimals" type="mixed" description="Número de casas decimais." />
-<RequiredParameter parameter="$decimalsSeparator" type="mixed" description="Separador para o ponto decimal." />
-<RequiredParameter parameter="$thousandSeparator" type="mixed" description="Separador de milhares." />
-<OptionalParameter parameter="$replaceOnPost" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário." />
-<OptionalParameter parameter="$reverse" type="bool" defaultValue="false" description="(opcional) Booleano indicando se a máscara deve ser invertida." />
-<OptionalParameter parameter="$allowNegative" type="bool" defaultValue="true" description="(opcional) Booleano indicando se valores negativos são permitidos." />
+**Parâmetros:**
+<ResponseField name="$decimals" type="mixed" required>Número de casas decimais.</ResponseField>
+<ResponseField name="$decimalsSeparator" type="mixed" required>Separador para o ponto decimal.</ResponseField>
+<ResponseField name="$thousandSeparator" type="mixed" required>Separador de milhares.</ResponseField>
+<ResponseField name="$replaceOnPost" type="bool" default="false">(Opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário.</ResponseField>
+<ResponseField name="$reverse" type="bool" default="false">(Opcional) Booleano indicando se a máscara deve ser invertida.</ResponseField>
+<ResponseField name="$allowNegative" type="bool" default="true">(Opcional) Booleano indicando se valores negativos são permitidos.</ResponseField>
 
-#### Exemplo de código:
+**Exemplo de código:**
 ```php
 $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.');    
 ```
 
-#### Exemplo de código (com parâmetros opcionais):
+**Exemplo de código (com parâmetros opcionais):**
 ```php
 $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.', true, true, false); 
@@ -76,10 +72,10 @@ $preco->setNumericMask(2, ',', '.', true, true, false);
 ## setCompletion
 Define as opções de preenchimento automático para o campo.
 
-#### Parâmetros:
-<RequiredParameter parameter="$options" type="array" description="Array de opções para conclusão." />
+**Parâmetros:**
+<ResponseField name="$options" type="array" required>Array de opções para conclusão.</ResponseField>
 
-#### Exemplo de código:
+**Exemplo de código:**
 ```php
 $genero = new TEntry('genero');
 $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);    
@@ -90,10 +86,10 @@ $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer'])
 ## setMaxLength
 Define o comprimento máximo do campo.
 
-#### Parâmetros:
-<RequiredParameter parameter="$length" type="mixed" description="Comprimento máximo do campo." />
+**Parâmetros:**
+<ResponseField name="$length" type="mixed" required>Comprimento máximo do campo.</ResponseField>
 
-#### Exemplo de código:
+**Exemplo de código:**
 ```php
 $rg = new TEntry('rg');
 $rg->setMaxLength(10);
