@@ -1,4 +1,28 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'THidden'
+description: 'O `THidden` é um campo oculto (derivado da classe `TField`), ou seja, é um campo que não é visível para o usuário, mas cujo valor pode ser enviado em um formulário.'
 ---
+
+<br/>
+
+## __construct
+Construtor da classe `THidden`.
+
+**Parâmetros:**
+  - `$name`: Nome do campo que será utilizado no formulário.
+
+**Exemplo de código:**
+```php
+$campoOculto = new THidden('campoOculto');
+```
+
+<br/>
+
+##getPostData
+Retorna os dados enviados pelo método POST (transformará valores de acordo com a máscara do banco de dados).
+
+**Exemplo de código:**
+```php
+$campoOculto = new THidden('campoOculto');
+$dadosPostados = $campoOculto->getPostData();
+```
