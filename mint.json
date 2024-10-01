@@ -28,6 +28,34 @@
   },
   "tabs":
   [
+    {
+      "name": "Entrada de dados",
+      "url": "entrada-de-dados"
+    },
+    {
+      "name": "Seleção de dados (fixos)",
+      "url": "selecao-de-dados-fixos"
+    },
+    {
+      "name": "Busca de dados (fixos)",
+      "url": "busca-de-dados-fixos"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    },
+    {
+      "name": "API Reference",
+      "url": "api-reference"
+    }
   ],
   "anchors":
   [
