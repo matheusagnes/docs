@@ -7,23 +7,20 @@ import OptionalParameter from '/snippets/optional-parameter.mdx';
 import Parameter from '/snippets/parameter.mdx';
 import RequiredParameter from '/snippets/required-parameter.mdx';
 
-## __construct(\$name)
+## __construct
 Construtor da classe `TEntry`.
 
-<AccordionGroup>
-  <Accordion title="Parâmetros">
-    <RequiredParameter parameter="$name" type="mixed" description="Nome do campo que será utilizado no formulário." />
-  </Accordion>
-  <Accordion title="Exemplo de código">
-    ```php
-    $cnpj = new TEntry('cnpj');
-    ```
-  </Accordion>
-</AccordionGroup>
+#### Parâmetros:
+<RequiredParameter parameter="$name" type="mixed" description="Nome do campo que será utilizado no formulário." />
+
+#### Exemplo de código:
+```php
+$cnpj = new TEntry('cnpj');
+```
 
 <br/>
 
-## setValue(\$value)
+## setValue
 Define o valor do campo.
 
 <AccordionGroup>
@@ -40,7 +37,7 @@ Define o valor do campo.
 
 <br/>
 
-## setMask(\$mask, \$replaceOnPost = FALSE)
+## setMask
 Define a máscara do campo.
 
 <AccordionGroup>
