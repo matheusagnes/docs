@@ -100,10 +100,10 @@ $rg->setMaxLength(10);
 ## setMinLength
 Define o comprimento mínimo para pesquisa (requer uso do 'setCompletion').
 
-- Parâmetros:
-  - `$length`: Comprimento mínimo para pesquisa.
+**Parâmetros:**
+<ResponseField name="$length" type="mixed" required>Comprimento mínimo para pesquisa.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $genero = new TEntry('genero');
 $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);
@@ -115,10 +115,10 @@ $genero->setMinLength(3);
 ## setExitAction
 Define a ação a ser executada quando o usuário sair do campo.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
-  
-Exemplo de código:
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
 ```php
 $cep = new TEntry('cep');
 $cep->setExitAction(new TAction(['NomeClasseDeControle', 'onExitCampo']))
@@ -137,10 +137,10 @@ public static function onExitCampo($param = null)
 ## setExitFunction
 Define a função JavaScript a ser executada quando o usuário sair do campo.
 
-- Parâmetros:
-  - `$function`: Função JavaScript.
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $toast = new TEntry('usuario');
 $toast->setExitFunction('alert("Você saiu do campo Nome de Usuário.");');
@@ -151,10 +151,10 @@ $toast->setExitFunction('alert("Você saiu do campo Nome de Usuário.");');
 ## enableToggleVisibility
 Ativa ou desativa a opção de alternar a visibilidade do campo.
 
-- Parâmetros:
-  - `$toggleVisibility` (opcional): Booleano indicando se a opção deve ser ativada (padrão: `TRUE`).
+**Parâmetros:**
+<ResponseField name="$toggleVisibility" type="bool" default="true">(Opcional) Booleano indicando se a opção deve ser ativada.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $cnpj = new TEntry('cnpj');
 $cnpj->setValue('00.000.000/0000-00');
@@ -167,10 +167,10 @@ $cnpj->enableToggleVisibility();
 ## setDelimiter
 Define o delimitador de conclusão automática (permite múltiplas inserções).
 
-- Parâmetros:
-  - `$delimiter`: Delimitador de conclusão automática.
+**Parâmetros:**
+<ResponseField name="$delimiter" type="mixed" required>Delimitador de conclusão automática.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $genero = new TEntry('genero');
 $genero->setCompletion(['Feminino', 'Masculino', 'Outro', 'Prefiro não dizer']);
@@ -182,7 +182,7 @@ $genero->setDelimiter(',');
 ## disableAutoComplete
 Desativa o preenchimento automático do navegador.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $senha = new TEntry('senha');
 $senha->disableAutoComplete();
@@ -193,7 +193,7 @@ $senha->disableAutoComplete();
 ## forceLowerCase
 Força letras minúsculas no campo.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $codigo = new TEntry('codigo');
 $codigo->forceLowerCase();
@@ -204,7 +204,7 @@ $codigo->forceLowerCase();
 ## forceUpperCase
 Força letras maiúsculas no campo.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $placaVeiculo = new TEntry('placaVeiculo');
 $placaVeiculo->forceUpperCase();
@@ -215,11 +215,11 @@ $placaVeiculo->forceUpperCase();
 ## setInnerIcon
 Define o ícone interno do campo.
 
-- Parâmetros:
-  - `$image`: Objeto TImage representando o ícone.
-  - `$side` (opcional): Lado do ícone (padrão: 'right').
+**Parâmetros:**
+<ResponseField name="$image" type="TImage" required>Objeto `TImage` representando o ícone.</ResponseField>
+<ResponseField name="$side" type="string" default="right">(Opcional) Lado do ícone.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $nomeUsuario = new TEntry('nomeUsuario');
 $icone = new TImage('fas fa-user');
@@ -231,9 +231,7 @@ $nomeUsuario->setInnerIcon($icone, 'left');
 ## getPostData
 Obtém os dados enviados no POST (transformará valores de acordo com a máscara do banco de dados).
 
-* Obs.: pressione Enter para enviar o formulário.
-
-Exemplo de código (com máscara):
+**Exemplo de código (com máscara):**
 ```php
 $cpf = new TEntry('cpf');
 $cpf->setMask('000.000.000-00', true);
@@ -241,7 +239,7 @@ $cpf->setMask('000.000.000-00', true);
 $dadosPostados = $cpf->getPostData();
 ```
 
-Exemplo de código (com máscara numérica):
+**Exemplo de código (com máscara numérica):**
 ```php
 $preco = new TEntry('preco');
 $preco->setNumericMask(2, ',', '.', true);
@@ -254,7 +252,7 @@ $dadosPostados = $preco->getPostData();
 ## exitOnEnter
 Ativa a ação de saída ao pressionar Enter no campo.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $email = new TEntry('email');
 $email->setExitAction(new TAction(['NomeClasseDeControle', 'onExitCampo']));
@@ -274,12 +272,12 @@ public static function onExitCampo($param = null)
 ## reloadCompletion
 (Método estático) Recarrega as opções de conclusão de um campo de entrada de forma dinâmica.
 
-- Parâmetros:
-  - `$field`: Nome ou ID do campo.
-  - `$list`: Lista de opções para a conclusão.
-  - `$options` (opcional): Opções adicionais para a conclusão.
+**Parâmetros:**
+<ResponseField name="$field" type="mixed" required>Nome ou ID do campo.</ResponseField>
+<ResponseField name="$list" type="mixed" required>Lista de opções para a conclusão.</ResponseField>
+<ResponseField name="$options" type="mixed" default="null">(Opcional) Opções adicionais para a conclusão.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $genero = new TEntry('generoReloadCompletion');
 $genero->setCompletion(['Feminino', 'Masculino']);
@@ -303,12 +301,12 @@ public static function alterarOpcoes($param = null)
 ## changeMask
 (Método estático) Altera a máscara de um campo de entrada dinamicamente.
 
-- Parâmetros:
-  - `$formName`: Nome do formulário.
-  - `$name`: Nome do campo no formulário.
-  - `$mask`: Nova máscara para o campo.
+**Parâmetros:**
+<ResponseField name="$formName" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$name" type="mixed" required>Nome do campo no formulário.</ResponseField>
+<ResponseField name="$mask" type="mixed" required>Nova máscara para o campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $cnpj = new TEntry('cnpjChangeMask');
 $cnpj->setValue('1234567800019900000');
