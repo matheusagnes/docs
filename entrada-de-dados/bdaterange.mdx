@@ -1,0 +1,427 @@
+---
+title: 'BDateRange'
+description: 'O `BDateRange` é um componente para seleção de intervalos de datas (derivado da classe `TField`), permitindo ao usuário escolher um período de tempo de forma fácil e interativa.'
+---
+
+## __construct
+Construtor da classe `BDateRange`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo inicial.</ResponseField>
+<ResponseField name="$name_end" type="mixed" default="null">Nome do campo final.</ResponseField>
+
+**Exemplo de código:**
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+```
+
+<br/>
+
+## setFormName
+Define o nome do formulário ao qual o campo pertence, ajustando automaticamente para campos de início e fim quando aplicável.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setFormName('formDados');
+```
+
+<br/>
+
+## setEnableDates
+Define datas específicas que podem ser selecionadas.
+
+**Parâmetros:**
+<ResponseField name="$dates" type="array" required>Array de datas que são permitidas.</ResponseField>
+
+**Exemplo de código:**
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setEnableDates(['2025-01-01', '2025-01-02', '2025-01-03', '2025-01-04', '2025-01-05']);
+```
+
+<br/>
+
+#### getEnableDates
+Obtém as datas que estão habilitadas para seleção.
+
+**Exemplo de código:**
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setEnableDates(['2026-02-01', '2026-02-04']);
+$datasPermitidas = $intervaloDatas->getEnableDates(); // ['2026-02-01', '2026-02-04']
+```
+
+<br/>
+
+## setDisableDates
+Define datas específicas que não podem ser selecionadas.
+
+**Parâmetros:**
+<ResponseField name="$dates" type="array" required>Array de datas que não são permitidas.</ResponseField>
+
+**Exemplo de código:**
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setDisableDates(['2025-01-01', '2026-01-01', '2027-01-01', '2028-01-01', '2029-01-01', '2030-01-01', '2031-01-01', '2032-01-01', '2033-01-01', '2034-01-01', '2035-01-01']);
+```
+
+<br/>
+
+#### getDisableDates
+Obtém as datas que estão desabilitadas para seleção.
+
+**Exemplo de código:**
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setDisableDates(['2030-04-10', '2030-04-20', '2030-04-30']);
+$datasProibidas = $intervaloDatas->getDisableDates();
+```
+
+<br/>
+
+#### setSeparator(string $separator)
+Define o separador entre as datas no campo.
+
+- Parâmetros:
+  - `$separator`: Caractere ou texto usado como separador.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('intervaloDatas');
+$intervaloDatas->setSeparator(' até ');
+```
+
+<br/>
+
+#### getSeparator()
+Obtém o separador utilizado entre as datas.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('intervaloDatas');
+$intervaloDatas->setSeparator(' - ');
+$separador = $intervaloDatas->getSeparator(); // -
+```
+
+<br/>
+
+#### setCalendars(int $calendars)
+Define o número de calendários a serem exibidos.
+
+- Parâmetros:
+  - `$calendars`: Número de calendários.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setCalendars(1);
+```
+
+<br/>
+
+#### getCalendars()
+Obtém o número de calendários exibidos.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setCalendars(3);
+$numCalendarios = $intervaloDatas->getCalendars();
+```
+
+<br/>
+
+#### setMask($mask)
+Define a máscara para os campos de datas.
+
+- Parâmetros:
+  - `$mask`: Máscara para os dados de entrada.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setMask('DD-MM-YYYY');
+```
+
+Obs.: caso a máscara inclua horas, minutos e/ou segundos, tais campos serão adicionados ao calendário para edição.
+
+<br/>
+
+#### getMask()
+Obtém a máscara atualmente configurada para os campos de data.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setMask('dd-mm-yyyy');
+$mascara = $intervaloDatas->getMask(); // dd-mm-yyyy
+```
+
+<br/>
+
+#### setDatabaseMask($mask)
+Define a máscara usada para coletar os dados para o banco de dados.
+
+- Parâmetros:
+  - `$mask`: Máscara para o banco de dados.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setDatabaseMask('YYYY-MM-DD');
+```
+
+Obs.: perceba que a máscara presente em nível de aplicação não foi alterada.
+
+<br/>
+
+#### getDatabaseMask()
+Obtém a máscara do banco de dados atualmente configurada.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setDatabaseMask('yyyy-mm-dd');
+$mascaraDB = $intervaloDatas->getDatabaseMask(); // yyyy-mm-dd
+```
+
+<br/>
+
+#### setSteps($stepHours, $stepMinutes, $stepSeconds)
+Define os incrementos para horas, minutos e segundos nos seletores de tempo.
+
+- Parâmetros:
+  - `$stepHours`: Incremento das horas.
+  - `$stepMinutes`: Incremento dos minutos.
+  - `$stepSeconds`: Incremento dos segundos.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setMask('dd/mm/yyyy hh:ii:ss');
+$intervaloDatas->setSteps(1, 15, 30);
+```
+
+<br/>
+
+#### setGrid(int $grid)
+Define a grade para a exibição do calendário.
+
+- Parâmetros:
+  - `$grid`: Número que define a grade.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setCalendars(3);
+$intervaloDatas->setGrid(2); // Exibe apenas dois calendários por linha
+```
+
+<br/>
+
+#### getGrid()
+Obtém a configuração da grade de exibição para os calendários.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setGrid(6);
+$grade = $intervaloDatas->getGrid(); // 6
+```
+
+<br/>
+
+#### showConfirmButtons()
+Ativa a exibição dos botões de confirmação nos calendários.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->showConfirmButtons();
+```
+
+<br/>
+
+#### hideConfirmButtons()
+Desativa a exibição dos botões de confirmação, aplicando automaticamente as seleções.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->showConfirmButtons();
+$intervaloDatas->hideConfirmButtons();
+```
+
+<br/>
+
+#### setTitle(string $title)
+Define o título para o popover do calendário.
+
+- Parâmetros:
+  - `$title`: Texto do título.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setTitle('Selecione um Intervalo');
+```
+
+<br/>
+
+#### getTitle()
+Obtém o título do popover dos calendários.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setTitle('Selecione um Intervalo');
+$titulo = $intervaloDatas->getTitle(); // Selecione um intervalo
+```
+
+<br/>
+
+#### setValue($value)
+Define o valor do campo com base na máscara de banco de dados.
+
+- Parâmetros:
+  - `$value`: Valor do campo.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('intervaloDatas');
+$intervaloDatas->setValue('01/01/2022 - 01/02/2022');
+```
+
+Obs.: caso o componente possua dois campos para exibição de datas, 'setValue' afetará apenas o primeiro.
+
+<br/>
+
+#### setEndValue($value)
+Define o valor para o campo de data final.
+
+- Parâmetros:
+  - `$value`: Valor da data final.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setEndValue('2025-12-31');
+```
+
+<br/>
+
+#### getEndValue()
+Obtém o valor do campo de data final.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setEndValue('2025-05-15');
+$dataFinal = $intervaloDatas->getEndValue(); // 2025-05-15
+```
+
+<br/>
+
+#### setExitAction(TAction $action)
+Define a ação a ser executada quando o usuário sai do campo.
+
+- Parâmetros:
+  - `$action`: Objeto TAction.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setExitAction(new TAction(['NomeClasseDeControle', 'onExitAction']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onExitAction($param = null)
+{
+    new TMessage('info', print_r($param, true));
+}
+```
+
+<br/>
+
+#### setChangeAction(TAction $action)
+Define a ação a ser executada quando o usuário altera o campo.
+
+- Parâmetros:
+  - `$action`: Objeto TAction.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$intervaloDatas->setChangeAction(new TAction(['NomeClasseDeControle', 'onChangeAction']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onChangeAction($param = null)
+{
+    new TMessage('info', print_r($param, true));
+}
+```
+
+<br/>
+
+#### getPostData()
+Obtém os dados enviados pelo formulário, ajustados para a máscara do banco de dados.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$dadosPostados = $intervaloDatas->getPostData();
+```
+
+<br/>
+
+#### enableField($formName, $field) e disableField($formName, $field)
+(Método estático) Ativa e desativa um campo de intervalo de datas em um formulário.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('intervaloDatas');
+$btnAtivar = new TButton('btnAtivar');
+$btnAtivar->setAction(new TAction(['BDateRange', 'enableField'], ['nomeForm', 'nomeCampo']), 'Ativar Campo');
+$btnAtivar->show();
+```
+
+<br/>
+
+#### convertMask($mask)
+(Método estático) Converte uma máscara de data para o formato utilizado pelo componente.
+
+- Parâmetros:
+  - `$mask`: Máscara original.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$mascaraConvertida = BDateRange::convertMask('dd-mm-yyyy');
+```
+
+<br/>
+
+#### replaceToMask($value, $fromMask, $toMask)
+(Método estático) Substitui uma máscara de data por outra em um valor específico.
+
+- Parâmetros:
+  - `$value`: Valor original.
+  - `$fromMask`: Máscara original.
+  - `$toMask`: Nova máscara.
+
+Exemplo de código:
+```php
+$intervaloDatas = new BDateRange('dataInicio', 'dataFim');
+$dataFormatada = BDateRange::replaceToMask('01-01-2024', 'dd-mm-yyyy', 'yyyy-mm-dd');
+```
