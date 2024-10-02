@@ -70,7 +70,8 @@
         "entrada-de-dados/thidden",
         "entrada-de-dados/tnumeric",
         "entrada-de-dados/tpassword",
-        "entrada-de-dados/tdate"
+        "entrada-de-dados/tdate",
+        "entrada-de-dados/tdatetime"
       ]
     },
     {
