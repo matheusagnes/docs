@@ -9,7 +9,7 @@ Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também s
 Construtor da classe `TDate`.
 
 **Parâmetros:**
-  - `$name`: Nome do widget.
+<ResponseField name="$name" type="mixed" required >Nome do widget.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -22,7 +22,7 @@ $dataNascimento = new TDate('dataNascimento');
 Armazena o valor dentro do objeto.
 
 **Parâmetros:**
-  - `$value`: Valor a ser definido.
+<ResponseField name="$value" type="mixed" required >Valor a ser definido.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -36,8 +36,8 @@ $dataNascimento->setValue('2023-05-10');
 Define a máscara do campo.
 
 **Parâmetros:**
-  - `$mask`: Máscara para os dados de entrada.
-  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário.
+<ResponseField name="$mask" type="mixed" required >Máscara para os dados de entrada.</ResponseField>
+<ResponseField name="$replaceOnPost" type="bool" default="false" >(Opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -63,7 +63,7 @@ $mask = $dataNascimento->getMask(); // mm/dd/yyyy
 Define a máscara do banco de dados para coleta dos dados.
 
 **Parâmetros:**
-  - `$mask`: Máscara para os dados.
+<ResponseField name="$mask" type="mixed" required >Máscara para os dados.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -71,7 +71,7 @@ $dataNascimento = new TDate('dataNascimento');
 $dataNascimento->setDatabaseMask('mm/dd/yyyy');
 ```
 
-Obs.: perceba que a máscara presente em nível de aplicação não foi alterada.
+_Obs.: perceba que, ao executar o código acima, a máscara presente em nível de aplicação não terá sido alterada._
 
 <br/>
 
@@ -91,8 +91,8 @@ $dbMask = $dataNascimento->getDatabaseMask(); // yyyy-mm-dd
 Define opções extras do datepicker.
 
 **Parâmetros:**
-  - `$option`: Opção a ser definida.
-  - `$value`: Valor da opção.
+<ResponseField name="$option" type="mixed" required >Opção a ser definida.</ResponseField>
+<ResponseField name="$value" type="mixed" required >Valor da opção.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -106,7 +106,7 @@ $dataNascimento->setOption('calendarWeeks', true);
 Define a ação a ser executada quando o usuário altera o valor do campo.
 
 **Parâmetros:**
-  - `$action`: Objeto TAction que define a ação a ser executada.
+<ResponseField name="$action" type="TAction" required >Objeto `TAction`.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -128,7 +128,7 @@ public static function onExitCampo($param = null)
 Define a ação a ser executada quando o usuário alterar o campo.
 
 **Parâmetros:**
-  - `$action`: Objeto TAction.
+<ResponseField name="$action" type="TAction" required >Objeto `TAction`.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -150,7 +150,7 @@ public static function onDateChange($param = null)
 Define a função JavaScript a ser executada quando o usuário alterar o campo.
 
 **Parâmetros:**
-  - `$function`: Função JavaScript.
+<ResponseField name="$function" type="mixed" required >Função JavaScript.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -177,9 +177,9 @@ $dadosPostados = $dataNascimento->getPostData();
 (Método estático) Converte uma data de uma máscara para outra.
 
 **Parâmetros:**
-  - `$value`: Data original.
-  - `$fromMask`: Máscara de origem.
-  - `$toMask`: Máscara de destino.
+<ResponseField name="$value" type="mixed" required >Data original.</ResponseField>
+<ResponseField name="$fromMask" type="mixed" required >Máscara de origem.</ResponseField>
+<ResponseField name="$toMask" type="mixed" required >Máscara de destino.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -194,10 +194,10 @@ echo $dataUs; // 2025-10-03
 <br/>
 
 ## date2us
-(Método estático) Converte uma data do formato dd/mm/yyyy para yyyy-mm-dd.
+(Método estático) Converte uma data do formato `dd/mm/yyyy` para `yyyy-mm-dd`.
 
 **Parâmetros:**
-  - `$date`: Data em formato dd/mm/yyyy.
+<ResponseField name="$date" type="mixed" required >Data em formato `dd/mm/yyyy`.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -207,10 +207,10 @@ echo TDate::date2us('20/05/2023'); // 2023-05-20
 <br/>
 
 ## date2br
-(Método estático) Converte uma data do formato yyyy-mm-dd para dd/mm/yyyy.
+(Método estático) Converte uma data do formato `yyyy-mm-dd` para `dd/mm/yyyy`.
 
 **Parâmetros:**
-  - `$date`: Data em formato yyyy-mm-dd.
+<ResponseField name="$date" type="mixed" required >Data em formato `yyyy-mm-dd`.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -223,8 +223,8 @@ echo TDate::date2br('2023-05-20'); // 20/05/2023
 (Método estático) Habilita ou desabilita um campo de data no formulário.
 
 **Parâmetros:**
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+<ResponseField name="$form_name" type="mixed" required >Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required >Nome do campo.</ResponseField>
 
 **Exemplo de código:**
 ```php
