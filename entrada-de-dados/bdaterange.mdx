@@ -135,19 +135,19 @@ $numCalendarios = $intervaloDatas->getCalendars();
 
 <br/>
 
-#### setMask($mask)
+## setMask
 Define a máscara para os campos de datas.
 
-- Parâmetros:
-  - `$mask`: Máscara para os dados de entrada.
+**Parâmetros:**
+<ResponseField name="$mask" type="mixed" required>Máscara para os dados de entrada.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setMask('DD-MM-YYYY');
 ```
 
-Obs.: caso a máscara inclua horas, minutos e/ou segundos, tais campos serão adicionados ao calendário para edição.
+_Obs.: caso a máscara inclua horas, minutos e/ou segundos, tais campos serão adicionados ao calendário para edição._
 
 <br/>
 
