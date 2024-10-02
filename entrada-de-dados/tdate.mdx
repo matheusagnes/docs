@@ -1,4 +1,256 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'TDate'
+description: 'O `TDate` é um componente para seleção de datas, oferecendo funcionalidades como máscaras de data e ação ao alterar a data.'
 ---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TDate`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
+
+## __construct
+Construtor da classe `TDate`.
+
+**Parâmetros:**
+  - `$name`: Nome do widget.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+```
+
+<br/>
+
+## setValue
+Armazena o valor dentro do objeto.
+
+**Parâmetros:**
+  - `$value`: Valor a ser definido.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setValue('2023-05-10');
+```
+
+<br/>
+
+## setMask
+Define a máscara do campo.
+
+**Parâmetros:**
+  - `$mask`: Máscara para os dados de entrada.
+  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setMask('dd/mm/yyyy');
+```
+
+<br/>
+
+## getMask
+Retorna a máscara atual do campo.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setMask('mm/dd/yyyy');
+$mask = $dataNascimento->getMask(); // mm/dd/yyyy
+```
+
+<br/>
+
+## setDatabaseMask
+Define a máscara do banco de dados para coleta dos dados.
+
+**Parâmetros:**
+  - `$mask`: Máscara para os dados.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setDatabaseMask('mm/dd/yyyy');
+```
+
+Obs.: perceba que a máscara presente em nível de aplicação não foi alterada.
+
+<br/>
+
+## getDatabaseMask
+Retorna a máscara do banco de dados.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setDatabaseMask('yyyy-mm-dd');
+$dbMask = $dataNascimento->getDatabaseMask(); // yyyy-mm-dd
+```
+
+<br/>
+
+## setOption
+Define opções extras do datepicker.
+
+**Parâmetros:**
+  - `$option`: Opção a ser definida.
+  - `$value`: Valor da opção.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setOption('calendarWeeks', true);
+```
+
+<br/>
+
+## setExitAction
+Define a ação a ser executada quando o usuário altera o valor do campo.
+
+**Parâmetros:**
+  - `$action`: Objeto TAction que define a ação a ser executada.
+
+**Exemplo de código:**
+```php
+$dataEvento = new TDate('dataEvento');
+$dataEvento->setExitAction(new TAction(['NomeClasseDeControle', 'onExitCampo']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onExitCampo($param = null)
+{
+    new TMessage('info', print_r($param, true));
+}
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário alterar o campo.
+
+**Parâmetros:**
+  - `$action`: Objeto TAction.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setChangeAction(new TAction(['NomeClasseDeControle', 'onDateChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onDateChange($param = null)
+{
+    new TMessage('info', 'A data foi alterada com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define a função JavaScript a ser executada quando o usuário alterar o campo.
+
+**Parâmetros:**
+  - `$function`: Função JavaScript.
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setChangeFunction('alert("Data alterada.");');
+```
+
+<br/>
+
+## getPostData
+Retorna o dado enviado pelo formulário (transformará valores de acordo com a máscara do banco de dados).
+
+**Exemplo de código:**
+```php
+$dataNascimento = new TDate('dataNascimento');
+$dataNascimento->setMask('mm/dd/yyyy');
+
+$dadosPostados = $dataNascimento->getPostData();
+```
+
+<br/>
+
+## convertToMask
+(Método estático) Converte uma data de uma máscara para outra.
+
+**Parâmetros:**
+  - `$value`: Data original.
+  - `$fromMask`: Máscara de origem.
+  - `$toMask`: Máscara de destino.
+
+**Exemplo de código:**
+```php
+$data = new TDate('dataNascimento');
+$data->setMask('dd/mm/yyyy');
+$data->setValue('03/10/2025');
+
+$dataUs = TDate::convertToMask($data->getValue(), $data->getMask(), 'yyyy-mm-dd');
+echo $dataUs; // 2025-10-03
+```
+
+<br/>
+
+## date2us
+(Método estático) Converte uma data do formato dd/mm/yyyy para yyyy-mm-dd.
+
+**Parâmetros:**
+  - `$date`: Data em formato dd/mm/yyyy.
+
+**Exemplo de código:**
+```php
+echo TDate::date2us('20/05/2023'); // 2023-05-20
+```
+
+<br/>
+
+## date2br
+(Método estático) Converte uma data do formato yyyy-mm-dd para dd/mm/yyyy.
+
+**Parâmetros:**
+  - `$date`: Data em formato yyyy-mm-dd.
+
+**Exemplo de código:**
+```php
+echo TDate::date2br('2023-05-20'); // 20/05/2023
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita ou desabilita um campo de data no formulário.
+
+**Parâmetros:**
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+**Exemplo de código:**
+```php
+$data = new TDate('dataEnableDisableField');
+$data->setValue(date('d/m/Y'));
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Campo de Data');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Campo de Data');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TDate::enableField('nomeForm', 'dataEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TDate::disableField('nomeForm', 'dataEnableDisableField');
+}
+```
