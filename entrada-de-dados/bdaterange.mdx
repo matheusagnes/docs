@@ -45,7 +45,7 @@ $intervaloDatas->setEnableDates(['2025-01-01', '2025-01-02', '2025-01-03', '2025
 
 <br/>
 
-#### getEnableDates
+## getEnableDates
 Obtém as datas que estão habilitadas para seleção.
 
 **Exemplo de código:**
@@ -71,7 +71,7 @@ $intervaloDatas->setDisableDates(['2025-01-01', '2026-01-01', '2027-01-01', '202
 
 <br/>
 
-#### getDisableDates
+## getDisableDates
 Obtém as datas que estão desabilitadas para seleção.
 
 **Exemplo de código:**
@@ -83,13 +83,13 @@ $datasProibidas = $intervaloDatas->getDisableDates();
 
 <br/>
 
-#### setSeparator(string $separator)
+## setSeparator
 Define o separador entre as datas no campo.
 
-- Parâmetros:
-  - `$separator`: Caractere ou texto usado como separador.
+**Parâmetros:**
+<ResponseField name="$separator" type="string" required>Caractere ou texto usado como separador.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('intervaloDatas');
 $intervaloDatas->setSeparator(' até ');
@@ -97,10 +97,10 @@ $intervaloDatas->setSeparator(' até ');
 
 <br/>
 
-#### getSeparator()
+## getSeparator
 Obtém o separador utilizado entre as datas.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('intervaloDatas');
 $intervaloDatas->setSeparator(' - ');
@@ -109,13 +109,13 @@ $separador = $intervaloDatas->getSeparator(); // -
 
 <br/>
 
-#### setCalendars(int $calendars)
+## setCalendars
 Define o número de calendários a serem exibidos.
 
-- Parâmetros:
-  - `$calendars`: Número de calendários.
+**Parâmetros:**
+<ResponseField name="$calendars" type="int" required>Número de calendários.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setCalendars(1);
@@ -123,10 +123,10 @@ $intervaloDatas->setCalendars(1);
 
 <br/>
 
-#### getCalendars()
+## getCalendars
 Obtém o número de calendários exibidos.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setCalendars(3);
