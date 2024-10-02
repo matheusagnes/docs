@@ -151,10 +151,10 @@ _Obs.: caso a máscara inclua horas, minutos e/ou segundos, tais campos serão a
 
 <br/>
 
-#### getMask()
+## getMask
 Obtém a máscara atualmente configurada para os campos de data.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setMask('dd-mm-yyyy');
@@ -179,10 +179,10 @@ Obs.: perceba que a máscara presente em nível de aplicação não foi alterada
 
 <br/>
 
-#### getDatabaseMask()
+## getDatabaseMask
 Obtém a máscara do banco de dados atualmente configurada.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setDatabaseMask('yyyy-mm-dd');
@@ -223,10 +223,10 @@ $intervaloDatas->setGrid(2); // Exibe apenas dois calendários por linha
 
 <br/>
 
-#### getGrid()
+## getGrid
 Obtém a configuração da grade de exibição para os calendários.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setGrid(6);
@@ -235,10 +235,10 @@ $grade = $intervaloDatas->getGrid(); // 6
 
 <br/>
 
-#### showConfirmButtons()
+## showConfirmButtons
 Ativa a exibição dos botões de confirmação nos calendários.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->showConfirmButtons();
@@ -246,10 +246,10 @@ $intervaloDatas->showConfirmButtons();
 
 <br/>
 
-#### hideConfirmButtons()
+## hideConfirmButtons
 Desativa a exibição dos botões de confirmação, aplicando automaticamente as seleções.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->showConfirmButtons();
@@ -272,10 +272,10 @@ $intervaloDatas->setTitle('Selecione um Intervalo');
 
 <br/>
 
-#### getTitle()
+## getTitle
 Obtém o título do popover dos calendários.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setTitle('Selecione um Intervalo');
@@ -314,10 +314,10 @@ $intervaloDatas->setEndValue('2025-12-31');
 
 <br/>
 
-#### getEndValue()
+## getEndValue
 Obtém o valor do campo de data final.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setEndValue('2025-05-15');
@@ -370,10 +370,10 @@ public static function onChangeAction($param = null)
 
 <br/>
 
-#### getPostData()
+## getPostData
 Obtém os dados enviados pelo formulário, ajustados para a máscara do banco de dados.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $dadosPostados = $intervaloDatas->getPostData();
