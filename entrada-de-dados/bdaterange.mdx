@@ -191,30 +191,29 @@ $mascaraDB = $intervaloDatas->getDatabaseMask(); // yyyy-mm-dd
 
 <br/>
 
-#### setSteps($stepHours, $stepMinutes, $stepSeconds)
+## setSteps
 Define os incrementos para horas, minutos e segundos nos seletores de tempo.
 
-- Parâmetros:
-  - `$stepHours`: Incremento das horas.
-  - `$stepMinutes`: Incremento dos minutos.
-  - `$stepSeconds`: Incremento dos segundos.
+**Parâmetros:**
+<ResponseField name="$stepHours" type="mixed" required>Incremento das horas.</ResponseField>
+<ResponseField name="$stepMinutes" type="mixed" required>Incremento dos minutos.</ResponseField>
+<ResponseField name="$stepSeconds" type="mixed" required>Incremento dos segundos.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setMask('dd/mm/yyyy hh:ii:ss');
 $intervaloDatas->setSteps(1, 15, 30);
 ```
-
 <br/>
 
-#### setGrid(int $grid)
+## setGrid
 Define a grade para a exibição do calendário.
 
-- Parâmetros:
-  - `$grid`: Número que define a grade.
+**Parâmetros:**
+<ResponseField name="$grid" type="int" required>Número que define a grade.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setCalendars(3);
@@ -258,13 +257,13 @@ $intervaloDatas->hideConfirmButtons();
 
 <br/>
 
-#### setTitle(string $title)
+## setTitle
 Define o título para o popover do calendário.
 
-- Parâmetros:
-  - `$title`: Texto do título.
+**Parâmetros:**
+<ResponseField name="$title" type="string" required>Texto do título.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setTitle('Selecione um Intervalo');
@@ -284,29 +283,29 @@ $titulo = $intervaloDatas->getTitle(); // Selecione um intervalo
 
 <br/>
 
-#### setValue($value)
+## setValue
 Define o valor do campo com base na máscara de banco de dados.
 
-- Parâmetros:
-  - `$value`: Valor do campo.
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('intervaloDatas');
 $intervaloDatas->setValue('01/01/2022 - 01/02/2022');
 ```
 
-Obs.: caso o componente possua dois campos para exibição de datas, 'setValue' afetará apenas o primeiro.
+_Obs.: caso o componente possua dois campos para exibição de datas, 'setValue' afetará apenas o primeiro._
 
 <br/>
 
-#### setEndValue($value)
+## setEndValue
 Define o valor para o campo de data final.
 
-- Parâmetros:
-  - `$value`: Valor da data final.
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor da data final.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setEndValue('2025-12-31');
@@ -326,13 +325,13 @@ $dataFinal = $intervaloDatas->getEndValue(); // 2025-05-15
 
 <br/>
 
-#### setExitAction(TAction $action)
+## setExitAction
 Define a ação a ser executada quando o usuário sai do campo.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto TAction.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setExitAction(new TAction(['NomeClasseDeControle', 'onExitAction']));
@@ -348,13 +347,13 @@ public static function onExitAction($param = null)
 
 <br/>
 
-#### setChangeAction(TAction $action)
+## setChangeAction
 Define a ação a ser executada quando o usuário altera o campo.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto TAction.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $intervaloDatas->setChangeAction(new TAction(['NomeClasseDeControle', 'onChangeAction']));
