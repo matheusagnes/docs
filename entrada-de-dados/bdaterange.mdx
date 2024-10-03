@@ -426,7 +426,21 @@ public static function desabilitarCampo($param = null)
 **Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
-$mascaraConvertida = BDateRange::convertMask('dd-mm-yyyy');
+$intervaloDatas->setMask('DD/MM/YYYY');
+$intervaloDatas->setValue('01/01/2025 - 01/02/2026');
+
+$btnConverter = new TButton('btnEnableField');
+$btnConverter->addStyleClass('btn-default');
+$btnConverter->setImage('far:circle #000000');
+$btnConverter->setAction(new TAction([$this, 'converterMascara']), 'Converter Máscara de Data');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function converterMascara($param = null)
+{
+    BDateRange::convertMask('MM/DD/YYYY');
+}
 ```
 
 <br/>
