@@ -1,0 +1,125 @@
+---
+title: 'TText'
+description: 'O `TText` é um componente de widget de texto (derivado da classe `TField`).'
+---
+
+## __construct
+Construtor da classe `TText`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$descricao = new TText('descricao');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do widget.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do widget.</ResponseField><br/>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$descricao = new TText('descricao');
+$descricao->setSize(300, 200);
+```
+
+<br/>
+
+## getSize
+Retorna o tamanho do widget como um array contendo largura e altura.
+
+**Exemplo de código:**
+```php
+$descricao = new TText('descricao');
+$descricao->setSize(150, 100);
+$tamanho = $descricao->getSize(); // (150, 100)
+```
+
+<br/>
+
+## setMaxLength
+Define o comprimento máximo do texto.
+
+**Parâmetros:**
+<ResponseField name="$length" type="mixed" required>Comprimento máximo do texto.</ResponseField>
+
+**Exemplo de código:**
+```php
+$descricao = new TText('descricao');
+$descricao->setMaxLength(50);
+```
+
+<br/>
+
+## setExitAction
+Define a ação a ser executada quando o usuário sair do campo.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$descricao = new TText('descricao');
+$descricao->setExitAction(new TAction(['NomeClasseDeControle', 'onExitCampo']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onExitCampo($param = null)
+{
+    new TMessage('info', print_r($param, true));
+}
+```
+
+<br/>
+
+## setExitFunction
+Define a função JavaScript a ser executada quando o usuário sair do campo.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$descricao = new TText('descricao');
+$descricao->setExitFunction('alert("Você saiu do campo Descrição.");');
+```
+
+<br/>
+
+#### forceLowerCase()
+Força o texto a ser convertido para minúsculas.
+
+Exemplo de código:
+```php
+$descricao = new TText('descricao');
+$descricao->forceLowerCase();
+```
+
+<br/>
+
+#### forceUpperCase()
+Força o texto a ser convertido para maiúsculas.
+
+Exemplo de código:
+```php
+$descricao = new TText('descricao');
+$descricao->forceUpperCase();
+```
+
+<br/>
+
+#### getPostData()
+Retorna os dados postados para este campo.
+
+Exemplo de código:
+```php
+$descricao = new TText('descricao');
+$postData = $descricao->getPostData();
+```
