@@ -7,11 +7,11 @@ Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também s
 
 <br/>
 
-## __construct($name)
+## __construct
 Construtor da classe `TTime`.
 
 **Parâmetros:**
-  - `$name`: Nome do campo que será utilizado no formulário.
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -20,12 +20,12 @@ $horario = new TTime('horario');
 
 <br/>
 
-## setMask($mask, $replaceOnPost = FALSE)
+## setMask
 Define a máscara do campo de tempo.
 
 **Parâmetros:**
-  - `$mask`: Máscara para os dados de entrada.
-  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário (padrão: `FALSE`).
+<ResponseField name="$mask" type="mixed" required>Máscara para os dados de entrada.</ResponseField>
+<ResponseField name="$replaceOnPost" type="bool" default="false">(Opcional) Booleano indicando se a máscara deve ser substituída após o envio do formulário.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -35,11 +35,11 @@ $horario->setMask('hh:ii:ss');
 
 <br/>
 
-## setChangeAction(TAction $action)
+## setChangeAction
 Define a ação a ser executada quando o usuário altera o campo de tempo.
 
 **Parâmetros:**
-  - `$action`: Objeto TAction.
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -57,11 +57,11 @@ public static function onTimeChange($param = null)
 
 <br/>
 
-## setChangeFunction($function)
+## setChangeFunction
 Define a função JavaScript a ser executada quando o usuário altera o campo de tempo.
 
 **Parâmetros:**
-  - `$function`: Função JavaScript.
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -71,16 +71,16 @@ $horario->setChangeFunction('alert("Hora alterada.");');
 
 <br/>
 
-## enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita ou desabilita um campo de hora no formulário.
 
 **Parâmetros:**
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
 **Exemplo de código:**
 ```php
-$horario = new TTime('horaEnableDisableField');
+$horario = new TTime('hora');
 $horario->setValue('10:00');
 
 $btnHabilitar = new TButton('btnEnableField');
@@ -98,11 +98,11 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TTime::enableField('nomeForm', 'horaEnableDisableField');
+    TTime::enableField('nomeForm', 'hora');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TTime::disableField('nomeForm', 'horaEnableDisableField');
+    TTime::disableField('nomeForm', 'hora');
 }
 ```
