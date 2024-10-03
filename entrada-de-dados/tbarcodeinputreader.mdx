@@ -1,0 +1,54 @@
+---
+title: 'TBarCodeInputReader'
+description: 'O `TBarCodeInputReader` é um componente de entrada de dados para leitura de códigos de barras.'
+---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TBarCodeInputReader`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
+
+## __construct($name)
+Construtor da classe `TBarCodeInputReader`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$leitorCodigo = new TBarCodeInputReader('codigoBarras');
+```
+
+<br/>
+
+## setChangeAction(TAction $action)
+Define a ação a ser executada quando o conteúdo do campo muda.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$leitorCodigo = new TBarCodeInputReader('codigoBarras');
+$acao = new TAction(['Controlador', 'metodo']);
+$leitorCodigo->setChangeAction($acao);
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onDateTimeChange($param = null)
+{
+    new TMessage('info', 'O código de barras foi alterado com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction($function)
+Define uma função JavaScript a ser executada quando o conteúdo do campo muda.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$leitorCodigo = new TBarCodeInputReader('codigoBarras');
+$leitorCodigo->setChangeFunction("alert('Conteúdo alterado');");
+```
