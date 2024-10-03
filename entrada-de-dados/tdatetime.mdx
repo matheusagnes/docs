@@ -176,7 +176,7 @@ echo $dataHoraUs; // 2025-10-03 15:30
 
 **Exemplo de código:**
 ```php
-$dataHora = new TDateTime('dataHoraEnableDisableField');
+$dataHora = new TDateTime('dataHora');
 $dataHora->setValue(date('d/m/Y h:i'));
 
 $btnHabilitar = new TButton('btnEnableField');
@@ -194,11 +194,11 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TDateTime::enableField('nomeForm', 'dataHoraEnableDisableField');
+    TDateTime::enableField('nomeForm', 'dataHora');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TDateTime::disableField('nomeForm', 'dataHoraEnableDisableField');
+    TDateTime::disableField('nomeForm', 'dataHora');
 }
 ```
