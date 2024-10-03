@@ -75,7 +75,10 @@
         "entrada-de-dados/tdatetime",
         "entrada-de-dados/ttime",
         "entrada-de-dados/tcolor",
-        "entrada-de-dados/ttext"
+        "entrada-de-dados/ttext",
+        "entrada-de-dados/thtmleditor",
+        "entrada-de-dados/tspinner",
+        "entrada-de-dados/tslider"
       ]
     },
     {
