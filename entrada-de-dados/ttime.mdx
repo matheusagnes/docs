@@ -1,0 +1,108 @@
+---
+title: 'TTime'
+description: 'O `TTime` é um componente de escolha de tempo, possibilitando a inserção e manipulação de horários através de uma interface amigável que integra funcionalidades de um time picker.'
+---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TTime`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
+
+<br/>
+
+## __construct($name)
+Construtor da classe `TTime`.
+
+**Parâmetros:**
+  - `$name`: Nome do campo que será utilizado no formulário.
+
+**Exemplo de código:**
+```php
+$horario = new TTime('horario');
+```
+
+<br/>
+
+## setMask($mask, $replaceOnPost = FALSE)
+Define a máscara do campo de tempo.
+
+**Parâmetros:**
+  - `$mask`: Máscara para os dados de entrada.
+  - `$replaceOnPost` (opcional): Booleano indicando se a máscara deve ser substituída após o envio do formulário (padrão: `FALSE`).
+
+**Exemplo de código:**
+```php
+$horario = new TTime('horario');
+$horario->setMask('hh:ii:ss');
+```
+
+<br/>
+
+## setChangeAction(TAction $action)
+Define a ação a ser executada quando o usuário altera o campo de tempo.
+
+**Parâmetros:**
+  - `$action`: Objeto TAction.
+
+**Exemplo de código:**
+```php
+$horario = new TTime('horario');
+$horario->setChangeAction(new TAction(['NomeClasseDeControle', 'onTimeChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onTimeChange($param = null)
+{
+    new TMessage('info', 'A hora foi alterada com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction($function)
+Define a função JavaScript a ser executada quando o usuário altera o campo de tempo.
+
+**Parâmetros:**
+  - `$function`: Função JavaScript.
+
+**Exemplo de código:**
+```php
+$horario = new TTime('horario');
+$horario->setChangeFunction('alert("Hora alterada.");');
+```
+
+<br/>
+
+## enableField($formName, $field) e disableField($formName, $field)
+(Método estático) Habilita ou desabilita um campo de hora no formulário.
+
+**Parâmetros:**
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+**Exemplo de código:**
+```php
+$horario = new TTime('horaEnableDisableField');
+$horario->setValue('10:00');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Campo de Tempo');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Campo de Tempo');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TTime::enableField('nomeForm', 'horaEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TTime::disableField('nomeForm', 'horaEnableDisableField');
+}
+```
