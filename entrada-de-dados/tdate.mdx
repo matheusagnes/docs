@@ -228,7 +228,7 @@ echo TDate::date2br('2023-05-20'); // 20/05/2023
 
 **Exemplo de código:**
 ```php
-$data = new TDate('dataEnableDisableField');
+$data = new TDate('data');
 $data->setValue(date('d/m/Y'));
 
 $btnHabilitar = new TButton('btnEnableField');
@@ -246,11 +246,11 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TDate::enableField('nomeForm', 'dataEnableDisableField');
+    TDate::enableField('nomeForm', 'data');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TDate::disableField('nomeForm', 'dataEnableDisableField');
+    TDate::disableField('nomeForm', 'data');
 }
 ```
