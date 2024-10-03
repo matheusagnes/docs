@@ -5,37 +5,37 @@ description: 'O `TColor` é um componente para seleção de cores.'
 
 Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TColor`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
 
-#### __construct($name)
-Construtor da classe TColor.
+## __construct
+Construtor da classe `TColor`.
 
-- Parâmetros:
-  - `$name`: Nome do campo que será utilizado no formulário.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $seletorCor = new TColor('cor');
 ```
 
 <br/>
 
-#### getOptions()
+## getOptions
 Retorna todas as opções configuradas para o seletor de cores.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $corMenu = new TColor('corMenu');
-opcoes = $corMenu->getOptions();
+$opcoes = $corMenu->getOptions();
 ```
 
 <br/>
 
-#### getOption($option)
+## getOption
 Retorna o valor de uma opção específica.
 
-- Parâmetros:
-  - `$option`: Nome da opção.
+**Parâmetros:**
+<ResponseField name="$option" type="mixed" required>Nome da opção.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $corTitulo = new TColor('corTitulo');
 $opcao = $corTitulo->getOption();
@@ -43,13 +43,13 @@ $opcao = $corTitulo->getOption();
 
 <br/>
 
-#### setTheme($theme)
+## setTheme
 Define o tema visual do componente.
 
-- Parâmetros:
-  - `$theme`: Tema para o seletor de cores.
+**Parâmetros:**
+<ResponseField name="$theme" type="mixed" required>Tema para o seletor de cores.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $corTema = new TColor('corTema');
 $corTema->setTheme(TColor::THEME_NANO);
@@ -57,19 +57,19 @@ $corTema->setTheme(TColor::THEME_NANO);
 
 <br/>
 
-#### setChangeAction(TAction $action)
+## setChangeAction
 Define a ação a ser executada quando o usuário alterar a cor.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $corAcao = new TColor('acaoCor');
 $corAcao->setChangeAction(new TAction(['NomeClasseDeControle', 'onColorChange']));
 ```
-Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
 
+**Exemplo de código:**
 ```php
 public static function onColorChange($param = null)
 {
@@ -79,13 +79,13 @@ public static function onColorChange($param = null)
 
 <br/>
 
-#### setChangeFunction($function)
+## setChangeFunction
 Define uma função JavaScript a ser executada quando o usuário alterar a cor.
 
-- Parâmetros:
-  - `$function`: Função JavaScript.
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $corEvento = new TColor('corEvento');
 $corEvento->setChangeFunction('alert("Cor selecionada: " + color);');
@@ -93,16 +93,16 @@ $corEvento->setChangeFunction('alert("Cor selecionada: " + color);');
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita ou desabilita um campo de cor no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
-$cor = new TColor('corEnableDisableField');
+$cor = new TColor('cor');
 
 $btnHabilitar = new TButton('btnEnableField');
 $btnHabilitar->addStyleClass('btn-default');
@@ -119,11 +119,11 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TColor::enableField('nomeForm', 'corEnableDisableField');
+    TColor::enableField('nomeForm', 'cor');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TColor::disableField('nomeForm', 'corEnableDisableField');
+    TColor::disableField('nomeForm', 'cor');
 }
 ```
