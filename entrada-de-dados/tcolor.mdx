@@ -1,0 +1,129 @@
+---
+title: 'TColor'
+description: 'O `TColor` é um componente para seleção de cores.'
+---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TColor`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
+
+#### __construct($name)
+Construtor da classe TColor.
+
+- Parâmetros:
+  - `$name`: Nome do campo que será utilizado no formulário.
+
+Exemplo de código:
+```php
+$seletorCor = new TColor('cor');
+```
+
+<br/>
+
+#### getOptions()
+Retorna todas as opções configuradas para o seletor de cores.
+
+Exemplo de código:
+```php
+$corMenu = new TColor('corMenu');
+opcoes = $corMenu->getOptions();
+```
+
+<br/>
+
+#### getOption($option)
+Retorna o valor de uma opção específica.
+
+- Parâmetros:
+  - `$option`: Nome da opção.
+
+Exemplo de código:
+```php
+$corTitulo = new TColor('corTitulo');
+$opcao = $corTitulo->getOption();
+```
+
+<br/>
+
+#### setTheme($theme)
+Define o tema visual do componente.
+
+- Parâmetros:
+  - `$theme`: Tema para o seletor de cores.
+
+Exemplo de código:
+```php
+$corTema = new TColor('corTema');
+$corTema->setTheme(TColor::THEME_NANO);
+```
+
+<br/>
+
+#### setChangeAction(TAction $action)
+Define a ação a ser executada quando o usuário alterar a cor.
+
+- Parâmetros:
+  - `$action`: Objeto TAction.
+
+Exemplo de código:
+```php
+$corAcao = new TColor('acaoCor');
+$corAcao->setChangeAction(new TAction(['NomeClasseDeControle', 'onColorChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onColorChange($param = null)
+{
+    new TMessage('info', 'A cor foi alterada com sucesso!');
+}
+```
+
+<br/>
+
+#### setChangeFunction($function)
+Define uma função JavaScript a ser executada quando o usuário alterar a cor.
+
+- Parâmetros:
+  - `$function`: Função JavaScript.
+
+Exemplo de código:
+```php
+$corEvento = new TColor('corEvento');
+$corEvento->setChangeFunction('alert("Cor selecionada: " + color);');
+```
+
+<br/>
+
+#### enableField($formName, $field) e disableField($formName, $field)
+(Método estático) Habilita ou desabilita um campo de cor no formulário.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+Exemplo de código:
+```php
+$cor = new TColor('corEnableDisableField');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Seleção de Cor');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Seleção de Cor');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TColor::enableField('nomeForm', 'corEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TColor::disableField('nomeForm', 'corEnableDisableField');
+}
+```
