@@ -1,0 +1,248 @@
+---
+title: 'THtmlEditor'
+description: 'O `THtmlEditor` é um componente de edição de texto rico (derivado da classe `TField`), que facilita a entrada de conteúdo HTML pelo usuário.'
+---
+
+#### __construct($name)
+Construtor da classe THtmlEditor.
+
+- Parâmetros:
+  - `$name`: Nome do campo que será usado no formulário.
+
+Exemplo de código:
+```php
+$editorTexto = new THtmlEditor('textoArtigo');
+```
+
+<br/>
+
+#### setSize($width, $height = NULL)
+Define o tamanho do editor.
+
+- Parâmetros:
+  - `$width`: Largura do editor em pixels.
+  - `$height` (opcional): Altura do editor em pixels.
+
+Exemplo de código:
+```php
+$editorTexto = new THtmlEditor('textoArtigo');
+$editorTexto->setSize(500, 100);
+```
+
+<br/>
+
+#### getSize()
+Retorna as dimensões do editor.
+
+- Retorno:
+  - Array contendo a largura e a altura do editor em pixels.
+
+Exemplo de código:
+```php
+$editorTexto = new THtmlEditor('textoArtigo');
+$editorTexto->setSize(500, 300);
+$tamanho = $editorTexto->getSize(); // (500, 300)
+```
+
+<br/>
+
+#### setMaxLength($length)
+Define o comprimento máximo do texto.
+
+- Parâmetros:
+  - `$length`: Comprimento máximo do texto em caracteres.
+
+Exemplo de código:
+```php
+$editorTexto = new THtmlEditor('resumo');
+$editorTexto->setMaxLength(120);
+```
+
+<br/>
+
+#### setOption($option, $value)
+Configura opções adicionais do editor.
+
+- Parâmetros:
+  - `$option`: Nome da opção.
+  - `$value`: Valor da opção.
+
+Exemplo de código:
+```php
+$editorTexto = new THtmlEditor('textoArtigo');
+$editorTexto->setOption('placeholder', 'Digite seu texto aqui...');
+```
+
+<br/>
+
+#### addCustomButton($name, $function, $title, TImage $icon, $showLabel = false)
+Adiciona um botão customizado à barra de ferramentas.
+
+- Parâmetros:
+  - `$name`: Nome do botão.
+  - `$function`: Função JavaScript a ser executada.
+  - `$title`: Título do botão.
+  - `$icon`: Ícone do botão.
+  - `$showLabel` (opcional): Mostrar rótulo do botão (padrão: `false`).
+
+Exemplo de código:
+```php
+$icone = new TImage('far:circle #000000');
+$funcao = 'function() {
+    var editor = document.getElementById('editorCustomizado'); 
+    if (editor) {
+        editor.innerHTML += 'Texto inserido pelo botão customizado';
+    }
+}}';
+
+$editorTexto = new THtmlEditor('editorCustomizado');
+$editorTexto->addCustomButton('inserirForm', $funcao, 'Inserir Form', $icone, true);
+```
+
+<br/>
+
+#### disableToolbar()
+Desabilita a barra de ferramentas do editor.
+
+Exemplo de código:
+```php
+$editorSimples = new THtmlEditor('editorSimples');
+$editorSimples->disableToolbar();
+```
+
+Obs.: apesar de não ser visível, o campo `THtmlEditor` se faz presente.
+
+<br/>
+
+#### setCompletion($options)
+Define as opções de autoconclusão para o editor.
+
+- Parâmetros:
+  - `$options`: Array de opções para autoconclusão.
+
+Exemplo de código:
+```php
+$editorTexto = new THtmlEditor('editorAutoComplete');
+$editorTexto->setCompletion(['teste', 'texto', 'autocomplete']);
+```
+
+<br/>
+
+#### enableField($formName, $field) e disableField($formName, $field)
+(Método estático) Habilita ou desabilita um campo HtmlEditor no formulário.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+Exemplo de código:
+```php
+$editor = new THtmlEditor('editorEnableDisableField');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Campo');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Campo');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    THtmlEditor::enableField('nomeForm', 'editorEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    THtmlEditor::disableField('nomeForm', 'editorEnableDisableField');
+}
+```
+
+<br/>
+
+#### clearField($form_name, $field)
+Limpa o conteúdo do editor HTML.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+Exemplo de código:
+```php
+$editorClearField = new THtmlEditor('editorClearField');
+
+$btnLimpar = new TButton('btnLimpar');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Campo');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    THtmlEditor::clearField('nomeForm', 'editorLimparCampo');
+}
+```
+
+<br/>
+
+#### reloadCompletion($field, $list, $options = null)
+(Método estático) Recarrega as opções de conclusão de um campo de entrada de forma dinâmica.
+
+- Parâmetros:
+  - `$field`: Nome ou ID do campo.
+  - `$list`: Lista de opções para a conclusão.
+  - `$options` (opcional): Opções adicionais para a conclusão.
+
+Exemplo de código:
+```php
+$editorReloadCompletion = new THtmlEditor('editorReloadCompletion');
+$editorReloadCompletion->setCompletion(['teste', 'texto']);
+
+$btnReloadCompletion = new TButton('btnReloadCompletion');
+$btnReloadCompletion->addStyleClass('btn-default');
+$btnReloadCompletion->setImage('far:circle #000000');
+$btnReloadCompletion->setAction(new TAction([$this, 'alterarOpcoes']), 'Alterar Opções de Preenchimento Automático');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function alterarOpcoes($param = null)
+{
+    THtmlEditor::reloadCompletion('editorReloadCompletion, ['teste2', 'texto2']);
+}
+```
+
+<br/>
+
+#### insertText($formName, $field, $content)
+Insere texto no editor HTML.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+  - `$content`: Conteúdo de texto a ser inserido.
+
+Exemplo de código:
+```php
+$editorInsertText = new THtmlEditor('editorInsertText');
+
+$btnInsertText = new TButton('btnInsertText');
+$btnInsertText->addStyleClass('btn-default');
+$btnInsertText->setImage('far:circle #000000');
+$btnInsertText->setAction(new TAction([$this, 'inserirTexto']), 'Inserir Texto no Campo');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function inserirTexto($param = null)
+{
+    THtmlEditor::insertText('nomeForm', 'editorInsertText', 'Texto inserido. ');
+}
+```
