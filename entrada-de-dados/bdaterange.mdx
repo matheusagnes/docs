@@ -384,8 +384,8 @@ $dadosPostados = $intervaloDatas->getPostData();
 (Método estático) Ativa e desativa um campo de intervalo de datas em um formulário.
 
 **Parâmetros:**
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -417,13 +417,13 @@ public static function desabilitarCampo($param = null)
 
 <br/>
 
-#### convertMask($mask)
+## convertMask
 (Método estático) Converte uma máscara de data para o formato utilizado pelo componente.
 
-- Parâmetros:
-  - `$mask`: Máscara original.
+**Parâmetros:**
+<ResponseField name="$mask" type="mixed" required>Máscara original.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $mascaraConvertida = BDateRange::convertMask('dd-mm-yyyy');
@@ -431,15 +431,15 @@ $mascaraConvertida = BDateRange::convertMask('dd-mm-yyyy');
 
 <br/>
 
-#### replaceToMask($value, $fromMask, $toMask)
+## replaceToMask
 (Método estático) Substitui uma máscara de data por outra em um valor específico.
 
-- Parâmetros:
-  - `$value`: Valor original.
-  - `$fromMask`: Máscara original.
-  - `$toMask`: Nova máscara.
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor original.</ResponseField>
+<ResponseField name="$fromMask" type="mixed" required>Máscara original.</ResponseField>
+<ResponseField name="$toMask" type="mixed" required>Nova máscara.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $intervaloDatas = new BDateRange('dataInicio', 'dataFim');
 $dataFormatada = BDateRange::replaceToMask('01-01-2024', 'dd-mm-yyyy', 'yyyy-mm-dd');
