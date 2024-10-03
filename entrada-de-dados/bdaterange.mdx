@@ -380,7 +380,7 @@ $dadosPostados = $intervaloDatas->getPostData();
 
 <br/>
 
-#### enableField e disableField
+## enableField e disableField
 (Método estático) Ativa e desativa um campo de intervalo de datas em um formulário.
 
 **Parâmetros:**
@@ -389,10 +389,30 @@ $dadosPostados = $intervaloDatas->getPostData();
 
 **Exemplo de código:**
 ```php
-$intervaloDatas = new BDateRange('intervaloDatas');
-$btnAtivar = new TButton('btnAtivar');
-$btnAtivar->setAction(new TAction(['BDateRange', 'enableField'], ['nomeForm', 'nomeCampo']), 'Ativar Campo');
-$btnAtivar->show();
+$etapas = new BDateRange('dataInicio', 'dataFim');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Componente BDateRange');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Componente BDateRange');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    BDateRange::enableField('nomeForm', 'dataInicio');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    BDateRange::disableField('nomeForm', 'dataInicio');
+}
 ```
 
 <br/>
