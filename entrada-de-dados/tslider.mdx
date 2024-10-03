@@ -1,0 +1,68 @@
+---
+title: 'TSlider'
+description: 'O `TSlider` é um componente que permite ao usuário selecionar um valor dentro de um intervalo deslizante (derivado da classe `TField`).'
+---
+
+## __construct
+Construtor da classe `TSlider`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$volume = new TSlider('volume');
+```
+
+<br/>
+
+## setRange
+Define o intervalo do slider, incluindo o valor mínimo, máximo e o passo.
+
+**Parâmetros:**
+<ResponseField name="$min" type="mixed" required>Valor mínimo.</ResponseField>
+<ResponseField name="$max" type="mixed" required>Valor máximo.</ResponseField>
+<ResponseField name="$step" type="mixed" required>Incremento entre os valores.</ResponseField>
+
+**Exemplo de código:**
+```php
+$idade = new TSlider('idade');
+$idade->setRange(18, 65, 1);
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita ou desabilita um campo slider no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$quantidade = new TSlider('quantidade');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Slider');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Slider');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TSlider::enableField('nomeForm', 'quantidade');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TSlider::disableField('nomeForm', 'quantidade');
+}
+```
