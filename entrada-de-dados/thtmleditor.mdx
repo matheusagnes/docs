@@ -165,14 +165,14 @@ public static function desabilitarCampo($param = null)
 
 <br/>
 
-#### clearField($form_name, $field)
-Limpa o conteúdo do editor HTML.
+## clearField
+(Método estático) Limpa o conteúdo do editor HTML.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorClearField = new THtmlEditor('editorClearField');
 
@@ -192,15 +192,15 @@ public static function limparCampo($param = null)
 
 <br/>
 
-#### reloadCompletion($field, $list, $options = null)
+## reloadCompletion
 (Método estático) Recarrega as opções de conclusão de um campo de entrada de forma dinâmica.
 
-- Parâmetros:
-  - `$field`: Nome ou ID do campo.
-  - `$list`: Lista de opções para a conclusão.
-  - `$options` (opcional): Opções adicionais para a conclusão.
+**Parâmetros:**
+<ResponseField name="$field" type="mixed" required>Nome ou ID do campo.</ResponseField>
+<ResponseField name="$list" type="mixed" required>Lista de opções para a conclusão.</ResponseField>
+<ResponseField name="$options" type="mixed" default="null">(Opcional) Opções adicionais para a conclusão.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorReloadCompletion = new THtmlEditor('editorReloadCompletion');
 $editorReloadCompletion->setCompletion(['teste', 'texto']);
@@ -215,21 +215,21 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function alterarOpcoes($param = null)
 {
-    THtmlEditor::reloadCompletion('editorReloadCompletion, ['teste2', 'texto2']);
+    THtmlEditor::reloadCompletion('editorReloadCompletion', ['teste2', 'texto2']);
 }
 ```
 
 <br/>
 
-#### insertText($formName, $field, $content)
-Insere texto no editor HTML.
+## insertText
+(Método estático) Insere texto no editor HTML.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
-  - `$content`: Conteúdo de texto a ser inserido.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$content" type="mixed" required>Conteúdo de texto a ser inserido.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorInsertText = new THtmlEditor('editorInsertText');
 
@@ -243,6 +243,6 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function inserirTexto($param = null)
 {
-    THtmlEditor::insertText('nomeForm', 'editorInsertText', 'Texto inserido. ');
+    THtmlEditor::insertText('nomeForm', 'editorInsertText', 'Texto inserido.');
 }
 ```
