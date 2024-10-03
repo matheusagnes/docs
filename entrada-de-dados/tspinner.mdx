@@ -3,28 +3,28 @@ title: 'TSpinner'
 description: 'O `TSpinner` é um widget conhecido como botão de rotação que permite ao usuário aumentar ou diminuir valores numéricos de forma incremental (derivado da classe `TField`).'
 ---
 
-#### __construct($name)
-Construtor da classe TSpinner.
+## __construct
+Construtor da classe `TSpinner`.
 
-- Parâmetros:
-  - `$name`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $quantidade = new TSpinner('quantidade');
 ```
 
 <br/>
 
-#### setRange($min, $max, $step)
+## setRange
 Define o intervalo mínimo e máximo, além do incremento de passos.
 
-- Parâmetros:
-  - `$min`: Valor mínimo.
-  - `$max`: Valor máximo.
-  - `$step`: Valor de incremento dos passos.
+**Parâmetros:**
+<ResponseField name="$min" type="mixed" required>Valor mínimo.</ResponseField>
+<ResponseField name="$max" type="mixed" required>Valor máximo.</ResponseField>
+<ResponseField name="$step" type="mixed" required>Valor de incremento dos passos.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $idade = new TSpinner('idade');
 $idade->setRange(1, 120, 1);
@@ -32,13 +32,13 @@ $idade->setRange(1, 120, 1);
 
 <br/>
 
-#### setValue($value)
-Define o valor do TSpinner.
+## setValue
+Define o valor do `TSpinner`.
 
-- Parâmetros:
-  - `$value`: Valor a ser definido.
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor a ser definido.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $altura = new TSpinner('altura');
 $altura->setValue(170);
@@ -46,17 +46,18 @@ $altura->setValue(170);
 
 <br/>
 
-#### setExitAction(TAction $action)
+## setExitAction
 Define a ação a ser executada quando o usuário sair do campo.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $peso = new TSpinner('peso');
 $peso->setExitAction(new TAction(['NomeClasseDeControle', 'onExitCampo']));
 ```
+
 Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
 
 ```php
@@ -68,13 +69,13 @@ public static function onExitCampo($param = null)
 
 <br/>
 
-#### setExitFunction($function)
+## setExitFunction
 Define a função JavaScript a ser executada quando o usuário sair do campo.
 
-- Parâmetros:
-  - `$function`: Função JavaScript.
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $volume = new TSpinner('volume');
 $volume->setExitFunction('alert("Volume ajustado.");');
@@ -82,10 +83,10 @@ $volume->setExitFunction('alert("Volume ajustado.");');
 
 <br/>
 
-#### enableStepper()
+## enableStepper
 Habilita os botões de incremento e decremento.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $dias = new TSpinner('dias');
 $dias->enableStepper();
@@ -93,10 +94,10 @@ $dias->enableStepper();
 
 <br/>
 
-#### disableStepper()
+## disableStepper
 Desabilita os botões de incremento e decremento.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $meses = new TSpinner('meses');
 $meses->enableStepper();
@@ -105,16 +106,16 @@ $meses->disableStepper();
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita ou desabilita um campo spinner no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
-$dias = new TSpinner('diasEnableDisableField');
+$dias = new TSpinner('dias');
 
 $btnHabilitar = new TButton('btnEnableField');
 $btnHabilitar->addStyleClass('btn-default');
@@ -126,16 +127,17 @@ $btnDesabilitar->addStyleClass('btn-default');
 $btnDesabilitar->setImage('far:circle #000000');
 $btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Spinner');
 ```
+
 Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
 
 ```php
 public static function habilitarCampo($param = null)
 {
-    TSpinner::enableField('nomeForm', 'diasEnableDisableField');
+    TSpinner::enableField('nomeForm', 'dias');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TSpinner::disableField('nomeForm', 'diasEnableDisableField');
+    TSpinner::disableField('nomeForm', 'dias');
 }
 ```
