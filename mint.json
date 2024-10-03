@@ -78,7 +78,10 @@
         "entrada-de-dados/ttext",
         "entrada-de-dados/thtmleditor",
         "entrada-de-dados/tspinner",
-        "entrada-de-dados/tslider"
+        "entrada-de-dados/tslider",
+        "entrada-de-dados/ticon",
+        "entrada-de-dados/tqrcodeinputreader",
+        "entrada-de-dados/tbarcodeinputreader"
       ]
     },
     {
