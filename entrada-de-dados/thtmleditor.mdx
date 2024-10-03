@@ -75,25 +75,25 @@ $editorTexto->setOption('placeholder', 'Digite seu texto aqui...');
 
 <br/>
 
-#### addCustomButton($name, $function, $title, TImage $icon, $showLabel = false)
+## addCustomButton
 Adiciona um botão customizado à barra de ferramentas.
 
-- Parâmetros:
-  - `$name`: Nome do botão.
-  - `$function`: Função JavaScript a ser executada.
-  - `$title`: Título do botão.
-  - `$icon`: Ícone do botão.
-  - `$showLabel` (opcional): Mostrar rótulo do botão (padrão: `false`).
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do botão.</ResponseField>
+<ResponseField name="$function" type="mixed" required>Função JavaScript a ser executada.</ResponseField>
+<ResponseField name="$title" type="mixed" required>Título do botão.</ResponseField>
+<ResponseField name="$icon" type="TImage" required>Ícone do botão.</ResponseField>
+<ResponseField name="$showLabel" type="bool" default="false">(Opcional) Mostrar rótulo do botão.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $icone = new TImage('far:circle #000000');
-$funcao = 'function() {
+$funcao = "function() {
     var editor = document.getElementById('editorCustomizado'); 
     if (editor) {
         editor.innerHTML += 'Texto inserido pelo botão customizado';
     }
-}}';
+}}";
 
 $editorTexto = new THtmlEditor('editorCustomizado');
 $editorTexto->addCustomButton('inserirForm', $funcao, 'Inserir Form', $icone, true);
@@ -101,26 +101,26 @@ $editorTexto->addCustomButton('inserirForm', $funcao, 'Inserir Form', $icone, tr
 
 <br/>
 
-#### disableToolbar()
+## disableToolbar
 Desabilita a barra de ferramentas do editor.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorSimples = new THtmlEditor('editorSimples');
 $editorSimples->disableToolbar();
 ```
 
-Obs.: apesar de não ser visível, o campo `THtmlEditor` se faz presente.
+_Obs.: apesar de não ser visível, o campo `THtmlEditor` se faz presente._
 
 <br/>
 
-#### setCompletion($options)
+## setCompletion
 Define as opções de autoconclusão para o editor.
 
-- Parâmetros:
-  - `$options`: Array de opções para autoconclusão.
+**Parâmetros:**
+<ResponseField name="$options" type="array" required>Array de opções para autoconclusão.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorTexto = new THtmlEditor('editorAutoComplete');
 $editorTexto->setCompletion(['teste', 'texto', 'autocomplete']);
@@ -128,16 +128,16 @@ $editorTexto->setCompletion(['teste', 'texto', 'autocomplete']);
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
-(Método estático) Habilita ou desabilita um campo HtmlEditor no formulário.
+## enableField e disableField
+(Método estático) Habilita ou desabilita um campo `HtmlEditor` no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
-$editor = new THtmlEditor('editorEnableDisableField');
+$editor = new THtmlEditor('editor');
 
 $btnHabilitar = new TButton('btnEnableField');
 $btnHabilitar->addStyleClass('btn-default');
@@ -154,12 +154,12 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    THtmlEditor::enableField('nomeForm', 'editorEnableDisableField');
+    THtmlEditor::enableField('nomeForm', 'editor');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    THtmlEditor::disableField('nomeForm', 'editorEnableDisableField');
+    THtmlEditor::disableField('nomeForm', 'editor');
 }
 ```
 
