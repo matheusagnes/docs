@@ -3,26 +3,26 @@ title: 'TArrowStep'
 description: 'O `TArrowStep` é um componente para criação de passos de progresso visualizados como setas (derivado da classe `TField`), permitindo a representação de etapas em um processo.'
 ---
 
-#### __construct($name)
+## __construct
 Construct do `TArrowStep`.
 
-- Parâmetros:
-  - `$name`: Nome do componente.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do componente.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 ```
 
 <br/>
 
-#### setEditable($editable)
+## setEditable
 Define se o componente é editável.
 
-- Parâmetros:
-  - `$editable`: Booleano para a edição.
+**Parâmetros:**
+<ResponseField name="$editable" type="mixed" required>Booleano para a edição.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -31,10 +31,10 @@ $etapas->setEditable(false);
 
 <br/>
 
-#### getEditable()
+## getEditable
 Retorna se o componente é editável.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->setEditable(false);
@@ -43,13 +43,13 @@ $isEditavel = $etapas->getEditable(); // false
 
 <br/>
 
-#### setFormName($name)
+## setFormName
 Define o nome do formulário ao qual o componente pertence.
 
-- Parâmetros:
-  - `$name`: Nome do formulário.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do formulário.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -58,13 +58,13 @@ $etapas->setFormName('formularioProcesso');
 
 <br/>
 
-#### setName($name)
+## setName
 Define o nome do componente.
 
-- Parâmetros:
-  - `$name`: Nome do componente.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do componente.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -73,10 +73,10 @@ $etapas->setName('progresso');
 
 <br/>
 
-#### getName()
+## getName
 Retorna o nome do componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $nome = $etapas->getName(); // etapas
@@ -84,13 +84,13 @@ $nome = $etapas->getName(); // etapas
 
 <br/>
 
-#### setValue($value)
+## setValue
 Define o valor do item atual.
 
-- Parâmetros:
-  - `$value`: Valor do item.
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor do item.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -99,10 +99,10 @@ $etapas->setValue('2');
 
 <br/>
 
-#### getValue()
+## getValue
 Obtém o valor do item atual.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -112,13 +112,13 @@ $valorAtual = $etapas->getValue(); // Meio
 
 <br/>
 
-#### setHideText(bool $hide = true)
+## setHideText
 Define se o texto dos itens deve ser ocultado.
 
-- Parâmetros:
-  - `$hide`: Booleano para ocultar texto.
+**Parâmetros:**
+<ResponseField name="$hide" type="bool" default="true">(Opcional) Booleano para ocultar texto.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -127,13 +127,13 @@ $etapas->setHideText(true);
 
 <br/>
 
-#### setFontSize($fontSize)
+## setFontSize
 Define o tamanho da fonte dos itens.
 
-- Parâmetros:
-  - `$fontSize`: Tamanho da fonte.
+**Parâmetros:**
+<ResponseField name="$fontSize" type="mixed" required>Tamanho da fonte.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -142,14 +142,14 @@ $etapas->setFontSize(24);
 
 <br/>
 
-#### setFilledColor(string $color, $fontColor = null)
+## setFilledColor
 Define a cor de preenchimento dos itens e opcionalmente a cor da fonte.
 
-- Parâmetros:
-  - `$color`: Cor de preenchimento.
-  - `$fontColor` (opcional): Cor da fonte.
+**Parâmetros:**
+<ResponseField name="$color" type="string" required>Cor de preenchimento.</ResponseField>
+<ResponseField name="$fontColor" type="mixed" default="null">(Opcional) Cor da fonte.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -158,13 +158,13 @@ $etapas->setFilledColor('#00FF00');
 
 <br/>
 
-#### setFilledFontColor(string $fontColor)
+## setFilledFontColor
 Define a cor da fonte dos itens preenchidos.
 
-- Parâmetros:
-  - `$fontColor`: Cor da fonte.
+**Parâmetros:**
+<ResponseField name="$fontColor" type="string" required>Cor da fonte.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -173,14 +173,14 @@ $etapas->setFilledFontColor('#FF0000');
 
 <br/>
 
-#### setUnfilledColor(string $color, $fontColor = null)
+## setUnfilledColor
 Define a cor de fundo dos itens não preenchidos e opcionalmente a cor da fonte.
 
-- Parâmetros:
-  - `$color`: Cor de fundo.
-  - `$fontColor` (opcional): Cor da fonte.
+**Parâmetros:**
+<ResponseField name="$color" type="string" required>Cor de fundo.</ResponseField>
+<ResponseField name="$fontColor" type="mixed" default="null">(Opcional) Cor da fonte.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -189,13 +189,13 @@ $etapas->setUnfilledColor('#CCCCCC');
 
 <br/>
 
-#### setUnfilledFontColor(string $color)
+## setUnfilledFontColor
 Define a cor da fonte dos itens não preenchidos.
 
-- Parâmetros:
-  - `$color`: Cor da fonte.
+**Parâmetros:**
+<ResponseField name="$color" type="string" required>Cor da fonte.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -204,14 +204,14 @@ $etapas->setUnfilledFontColor('#0037FF');
 
 <br/>
 
-#### setSize($width, $height = null)
+## setSize
 Define a largura e altura do componente.
 
-- Parâmetros:
-  - `$width`: Largura do componente.
-  - `$height` (opcional): Altura do componente.
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do componente.</ResponseField>
+<ResponseField name="$height" type="mixed" default="null">(Opcional) Altura do componente.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -220,10 +220,10 @@ $etapas->setSize('50%', 50);
 
 <br/>
 
-#### getSize()
+## getSize
 Obtém o tamanho do componente (largura e altura).
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->setSize(350);
@@ -232,13 +232,13 @@ $tamanho = $etapas->getSize(); // (350, 50)
 
 <br/>
 
-#### setWidth($width)
+## setWidth
 Define a largura do componente.
 
-- Parâmetros:
-  - `$width`: Largura do componente.
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do componente.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -247,10 +247,10 @@ $etapas->setWidth('80%');
 
 <br/>
 
-#### getWidth()
+## getWidth
 Obtém a largura do componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->setWidth(500);
@@ -259,13 +259,13 @@ $largura = $etapas->getWidth(); // 500
 
 <br/>
 
-#### setHeight($height)
+## setHeight
 Define a altura do componente.
 
-- Parâmetros:
-  - `$height`: Altura do componente.
+**Parâmetros:**
+<ResponseField name="$height" type="mixed" required>Altura do componente.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -274,10 +274,10 @@ $etapas->setHeight(100);
 
 <br/>
 
-#### getHeight()
+## getHeight
 Obtém a altura do componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->setHeight(75);
@@ -286,13 +286,13 @@ $altura = $etapas->getHeight(); // 75
 
 <br/>
 
-#### setColorItems($colorItems)
+## setColorItems
 Define as cores dos itens.
 
-- Parâmetros:
-  - `$colorItems`: Array associativo com as cores dos itens.
+**Parâmetros:**
+<ResponseField name="$colorItems" type="mixed" required>Array associativo com as cores dos itens.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -301,13 +301,13 @@ $etapas->setColorItems(['inicio' => '#FF0000', 'meio' => '#00FF00', 'fim' => '#0
 
 <br/>
 
-#### setItems($items)
+## setItems
 Define os itens do componente.
 
-- Parâmetros:
-  - `$items`: Array associativo com os itens.
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array associativo com os itens.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -316,15 +316,15 @@ $etapas->setItems(['inicio' => 'Começo', 'meio' => 'Meio', 'fim' => 'Término']
 
 <br/>
 
-#### addItem($title, $id = null, $color = null)
+## addItem
 Adiciona um item ao componente.
 
-- Parâmetros:
-  - `$title`: Título do item.
-  - `$id` (opcional): ID do item.
-  - `$color` (opcional): Cor do item.
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do item.</ResponseField>
+<ResponseField name="$id" type="mixed" default="null">(Opcional) ID do item.</ResponseField>
+<ResponseField name="$color" type="mixed" default="null">(Opcional) Cor do item.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItem('Início');
@@ -332,13 +332,13 @@ $etapas->addItem('Início');
 
 <br/>
 
-#### getItem($key)
+## getItem
 Obtém um item específico do componente.
 
-- Parâmetros:
-  - `$key`: Chave do item.
+**Parâmetros:**
+<ResponseField name="$key" type="mixed" required>Chave do item.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -347,13 +347,13 @@ $item = $etapas->getItem('inicio'); // Início
 
 <br/>
 
-#### addItems($items)
+## addItems
 Adiciona itens ao componente.
 
-- Parâmetros:
-  - `$items`: Array associativo com os itens a serem adicionados.
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array associativo com os itens a serem adicionados.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio']);
@@ -361,10 +361,10 @@ $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio']);
 
 <br/>
 
-#### getItems()
+## getItems
 Obtém os itens do componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'fim' => 'Fim']);
@@ -373,13 +373,13 @@ $itens = $etapas->getItems(); // ['inicio' => 'Início', 'fim' => 'Fim']
 
 <br/>
 
-#### setAction(TAction $action)
+## setAction
 Define a ação a ser executada quando um item é clicado.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['planejamento' => 'Planejamento', 'desenvolvimento' => 'Desenvolvimento', 'producao' => 'Produção']);
@@ -396,10 +396,10 @@ public static function onStepChange($param = null)
 
 <br/>
 
-#### getAction()
+## getAction
 Obtém a ação associada ao componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->setAction(new TAction(['NomeClasseDeControle, 'onChangeStep']));
@@ -408,13 +408,13 @@ $acao = $etapas->getAction();
 
 <br/>
 
-#### setCurrentKey($key)
+## setCurrentKey
 Define a chave do item atual.
 
-- Parâmetros:
-  - `$key`: Chave do item atual.
+**Parâmetros:**
+<ResponseField name="$key" type="mixed" required>Chave do item atual.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -423,10 +423,10 @@ $etapas->setCurrentKey('meio');
 
 <br/>
 
-#### getCurrent()
+## getCurrent
 Obtém a chave do item atual.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $itemAtual = $etapas->getCurrent();
@@ -434,13 +434,13 @@ $itemAtual = $etapas->getCurrent();
 
 <br/>
 
-#### setCurrent($title)
+## setCurrent
 Define o título do item atual.
 
-- Parâmetros:
-  - `$title`: Título do item atual.
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do item atual.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
@@ -449,10 +449,10 @@ $etapas->setCurrent('Fim');
 
 <br/>
 
-#### getPostData()
+## getPostData
 Retorna os dados postados pelo formulário.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $etapas = new TArrowStep('etapas');
 $dadosPostados = $etapas->getPostData();
@@ -460,16 +460,16 @@ $dadosPostados = $etapas->getPostData();
 
 <br/>
 
-#### defineCurrent($name, $value)
+## defineCurrent
 (Método estático) Define o item atual por meio de seu valor.
 
-- Parâmetros:
-  - `$name`: Nome do campo.
-  - `$value`: Chave do item desejado.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Chave do item desejado.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
-$etapas = new TArrowStep('etapasDefineCurrent');
+$etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
 
 $btnDefinir = new TButton('btnDefineCurrent');
@@ -477,27 +477,28 @@ $btnDefinir->addStyleClass('btn-default');
 $btnDefinir->setImage('far:circle #000000');
 $btnDefinir->setAction(new TAction([$this, 'definirAtual']), 'Definir Item Atual -> "Meio"');
 ```
+
 Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
 
 ```php
 public static function definirAtual($param = null)
 {
-    TArrowStep::defineCurrent('etapasDefineCurrent', 'meio');
+    TArrowStep::defineCurrent('etapas', 'meio');
 }
 ```
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita ou desabilita um campo no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
-$etapas = new TArrowStep('etapasEnableDisableField');
+$etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
 
 $btnHabilitar = new TButton('btnEnableField');
@@ -510,32 +511,33 @@ $btnDesabilitar->addStyleClass('btn-default');
 $btnDesabilitar->setImage('far:circle #000000');
 $btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Componente TArrowStep');
 ```
+
 Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
 
 ```php
 public static function habilitarCampo($param = null)
 {
-    TArrowStep::enableField('nomeForm', 'etapasEnableDisableField');
+    TArrowStep::enableField('nomeForm', 'etapas');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TArrowStep::disableField('nomeForm', 'etapasEnableDisableField');
+    TArrowStep::disableField('nomeForm', 'etapas');
 }
 ```
 
 <br/>
 
-#### clearField($formName, $name)
+## clearField
 (Método estático) Limpa os itens de um campo.
 
-- Parâmetros:
-  - `$formName`: Nome do formulário.
-  - `$name`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$formName" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
-$etapas = new TArrowStep('etapasClearField');
+$etapas = new TArrowStep('etapas');
 $etapas->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
 
 $btnLimpar = new TButton('btnEnableField');
@@ -543,11 +545,12 @@ $btnLimpar->addStyleClass('btn-default');
 $btnLimpar->setImage('far:circle #000000');
 $btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Seleção');
 ```
+
 Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
 
 ```php
 public static function limparCampo($param = null)
 {
-    TArrowStep::clearField('nomeForm', 'etapasClearField');
+    TArrowStep::clearField('nomeForm', 'etapas');
 }
 ```
