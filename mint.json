@@ -73,7 +73,9 @@
         "entrada-de-dados/tdate",
         "entrada-de-dados/bdaterange",
         "entrada-de-dados/tdatetime",
-        "entrada-de-dados/ttime"
+        "entrada-de-dados/ttime",
+        "entrada-de-dados/tcolor",
+        "entrada-de-dados/ttext"
       ]
     },
     {
