@@ -1,0 +1,68 @@
+---
+title: 'TIcon'
+description: 'O `TIcon` é um componente de entrada que permite o uso de ícones.'
+---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TIcon`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
+
+## __construct($name)
+Construtor da classe `TIcon`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required >Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$icone = new TIcon('iconeUsuario');
+```
+
+<br/>
+
+## setChangeFunction($function)
+Define uma função JavaScript a ser executada quando o valor do campo mudar.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required >Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$icone = new TIcon('iconeStatus');
+$icone->setChangeFunction('alert("Ícone alterado.");');
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita ou desabilita um campo de ícone no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required >Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required >Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$icone = new TIcon('icone');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Seleção de Ícone');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Seleção de Ícone');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TIcon::enableField('nomeForm', 'icone');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TIcon::disableField('nomeForm', 'icone');
+}
+```
