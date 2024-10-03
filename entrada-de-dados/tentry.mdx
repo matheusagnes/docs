@@ -280,7 +280,7 @@ public static function onExitCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$genero = new TEntry('generoReloadCompletion');
+$genero = new TEntry('genero');
 $genero->setCompletion(['Feminino', 'Masculino']);
 
 $btnGenero = new TButton('btnReloadCompletion');
@@ -293,7 +293,7 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function alterarOpcoes($param = null)
 {
-    TEntry::reloadCompletion('generoReloadCompletion', ['Masculino', 'Feminino', 'Outro', 'Prefiro não dizer']);
+    TEntry::reloadCompletion('genero', ['Masculino', 'Feminino', 'Outro', 'Prefiro não dizer']);
 }
 ```
 
@@ -309,7 +309,7 @@ public static function alterarOpcoes($param = null)
 
 **Exemplo de código:**
 ```php
-$cnpj = new TEntry('cnpjChangeMask');
+$cnpj = new TEntry('cnpj');
 $cnpj->setValue('1234567800019900000');
 
 $btnCnpj = new TButton('btnCnpjChangeMask');
@@ -322,6 +322,6 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function alterarMascara($param = null)
 {
-    TEntry::changeMask('nomeForm', 'cnpjChangeMask', '00.000.000/0000-00');
+    TEntry::changeMask('nomeForm', 'cnpj', '00.000.000/0000-00');
 }
 ```
