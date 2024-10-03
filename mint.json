@@ -72,7 +72,8 @@
         "entrada-de-dados/tpassword",
         "entrada-de-dados/tdate",
         "entrada-de-dados/bdaterange",
-        "entrada-de-dados/tdatetime"
+        "entrada-de-dados/tdatetime",
+        "entrada-de-dados/ttime"
       ]
     },
     {
