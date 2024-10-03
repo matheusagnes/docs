@@ -1,0 +1,53 @@
+---
+title: 'TQRCodeInputReader'
+description: 'O `TQRCodeInputReader` é um componente de entrada projetado para leitura de QR Code. Ele dispõe de funcionalidades específicas para lidar com QR Codes.'
+---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TQRCodeInputReader`. Acesse a [documentação do componente/classe-pai](entrada-de-dados/tentry) para conhecê-los.
+
+## __construct
+Construtor da classe `TQRCodeInputReader`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$leitorQRCode = new TQRCodeInputReader('leitorQRCode');
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário altera o conteúdo do campo.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$leitorQRCode = new TQRCodeInputReader('leitorQRCode');
+$leitorQRCode->setChangeAction(new TAction(['NomeClasseDeControle', 'onQRCodeChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onQRCodeChange($param = null)
+{
+    new TMessage('info', 'O código QR foi alterado com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define uma função JavaScript a ser executada quando o conteúdo do campo muda.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$leitorQRCode = new TQRCodeInputReader('leitorQRCode');
+$leitorQRCode->setChangeFunction('alert("Conteúdo alterado.");');
+```
