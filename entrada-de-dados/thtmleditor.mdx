@@ -3,27 +3,27 @@ title: 'THtmlEditor'
 description: 'O `THtmlEditor` é um componente de edição de texto rico (derivado da classe `TField`), que facilita a entrada de conteúdo HTML pelo usuário.'
 ---
 
-#### __construct($name)
-Construtor da classe THtmlEditor.
+## __construct
+Construtor da classe `THtmlEditor`.
 
-- Parâmetros:
-  - `$name`: Nome do campo que será usado no formulário.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será usado no formulário.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorTexto = new THtmlEditor('textoArtigo');
 ```
 
 <br/>
 
-#### setSize($width, $height = NULL)
+## setSize
 Define o tamanho do editor.
 
-- Parâmetros:
-  - `$width`: Largura do editor em pixels.
-  - `$height` (opcional): Altura do editor em pixels.
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do editor em pixels.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do editor em pixels.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorTexto = new THtmlEditor('textoArtigo');
 $editorTexto->setSize(500, 100);
@@ -31,13 +31,13 @@ $editorTexto->setSize(500, 100);
 
 <br/>
 
-#### getSize()
+## getSize
 Retorna as dimensões do editor.
 
-- Retorno:
-  - Array contendo a largura e a altura do editor em pixels.
+**Retorno:**
+<ResponseField name="Array" type="mixed" required>Array contendo a largura e a altura do editor em pixels.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorTexto = new THtmlEditor('textoArtigo');
 $editorTexto->setSize(500, 300);
@@ -46,13 +46,13 @@ $tamanho = $editorTexto->getSize(); // (500, 300)
 
 <br/>
 
-#### setMaxLength($length)
+## setMaxLength
 Define o comprimento máximo do texto.
 
-- Parâmetros:
-  - `$length`: Comprimento máximo do texto em caracteres.
+**Parâmetros:**
+<ResponseField name="$length" type="mixed" required>Comprimento máximo do texto em caracteres.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorTexto = new THtmlEditor('resumo');
 $editorTexto->setMaxLength(120);
@@ -60,14 +60,14 @@ $editorTexto->setMaxLength(120);
 
 <br/>
 
-#### setOption($option, $value)
+## setOption
 Configura opções adicionais do editor.
 
-- Parâmetros:
-  - `$option`: Nome da opção.
-  - `$value`: Valor da opção.
+**Parâmetros:**
+<ResponseField name="$option" type="mixed" required>Nome da opção.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Valor da opção.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $editorTexto = new THtmlEditor('textoArtigo');
 $editorTexto->setOption('placeholder', 'Digite seu texto aqui...');
