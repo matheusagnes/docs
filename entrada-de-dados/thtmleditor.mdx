@@ -174,7 +174,7 @@ public static function desabilitarCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$editorClearField = new THtmlEditor('editorClearField');
+$editor = new THtmlEditor('editor');
 
 $btnLimpar = new TButton('btnLimpar');
 $btnLimpar->addStyleClass('btn-default');
@@ -186,7 +186,7 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function limparCampo($param = null)
 {
-    THtmlEditor::clearField('nomeForm', 'editorLimparCampo');
+    THtmlEditor::clearField('nomeForm', 'editor');
 }
 ```
 
@@ -202,8 +202,8 @@ public static function limparCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$editorReloadCompletion = new THtmlEditor('editorReloadCompletion');
-$editorReloadCompletion->setCompletion(['teste', 'texto']);
+$editor = new THtmlEditor('editor');
+$editor->setCompletion(['teste', 'texto']);
 
 $btnReloadCompletion = new TButton('btnReloadCompletion');
 $btnReloadCompletion->addStyleClass('btn-default');
@@ -215,7 +215,7 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function alterarOpcoes($param = null)
 {
-    THtmlEditor::reloadCompletion('editorReloadCompletion', ['teste2', 'texto2']);
+    THtmlEditor::reloadCompletion('editor', ['teste2', 'texto2']);
 }
 ```
 
@@ -231,7 +231,7 @@ public static function alterarOpcoes($param = null)
 
 **Exemplo de código:**
 ```php
-$editorInsertText = new THtmlEditor('editorInsertText');
+$editor = new THtmlEditor('editor');
 
 $btnInsertText = new TButton('btnInsertText');
 $btnInsertText->addStyleClass('btn-default');
@@ -243,6 +243,6 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function inserirTexto($param = null)
 {
-    THtmlEditor::insertText('nomeForm', 'editorInsertText', 'Texto inserido.');
+    THtmlEditor::insertText('nomeForm', 'editor', 'Texto inserido.');
 }
 ```
