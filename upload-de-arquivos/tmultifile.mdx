@@ -1,0 +1,261 @@
+---
+title: 'TMultiFile'
+description: 'O `TMultiFile` é um componente para seleção de múltiplos arquivos (derivado da classe `TField`), permitindo upload, visualização e manipulação de arquivos múltiplos de uma vez.'
+---
+
+## __construct
+Construtor da classe `TMultiFile`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivos');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do campo.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do campo.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('tamanhoCampo');
+$arquivos->setSize(400, 75);
+```
+
+<br/>
+
+## setHeight
+Define a altura do campo.
+
+**Parâmetros:**
+<ResponseField name="$height" type="mixed" required>Altura do campo em pixels.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('alturaCampo');
+$arquivos->setHeight(100);
+```
+
+<br/>
+
+## setValue
+Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Array de strings com os caminhos dos arquivos.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivos');
+$arquivos->setValue(['arquivo1.txt', 'arquivo2.txt']);
+```
+
+<br/>
+
+## setCompleteAction
+Define a ação a ser executada ao completar o upload de um arquivo.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('uploadCompleto');
+$arquivos->setCompleteAction(new TAction(['NomeClasseDeControle', 'onCompleteUpload']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onUploadComplete($param = null)
+{
+    new TMessage('info', 'O upload foi realizado com sucesso!');
+}
+```
+
+<br/>
+
+## setAllowedExtensions
+Define as extensões permitidas para o upload de arquivos.
+
+**Parâmetros:**
+<ResponseField name="$extensions" type="mixed" required>Array de extensões permitidas.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivosImagens');
+$arquivos->setAllowedExtensions(['jpg', 'jpeg', 'png']);
+```
+
+<br/>
+
+## setLimitUploadSize
+Define o limite de tamanho para o upload de arquivos.
+
+**Parâmetros:**
+<ResponseField name="$limit" type="mixed" required>Tamanho máximo do arquivo em MBs.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('limiteUpload');
+$arquivos->setLimitUploadSize(5); // Limite de 5 MB
+```
+
+<br/>
+
+## enablePHPFileUploadLimit
+Habilita o limite de upload de arquivo baseado na configuração do PHP.
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('limitePHP');
+$arquivos->enablePHPFileUploadLimit();
+```
+
+<br/>
+
+## enableFileHandling
+Habilita o manuseio de arquivos.
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivos');
+$arquivos->enableFileHandling();
+```
+
+<br/>
+
+## disableFileHandling
+Desabilita o manuseio de arquivos.
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivos');
+$arquivos->enableFileHandling();
+$arquivos->disableFileHandling();
+```
+
+<br/>
+
+## enableImageGallery
+Habilita a visualização dos arquivos como uma galeria de imagens.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" default="null">(Opcional) Largura da galeria (padrão: `null`).</ResponseField>
+<ResponseField name="$height" type="mixed" default="100">(Opcional) Altura da galeria.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('galeriaImagens');
+$arquivos->enableImageGallery(300, 150);
+```
+
+<br/>
+
+## enablePopover
+Habilita um popover nos arquivos da galeria.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" default="null">(Opcional) Título do popover.</ResponseField>
+<ResponseField name="$content" type="mixed" default="">(Opcional) Conteúdo do popover.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('documentos');
+$arquivos->enablePopover('Detalhes', 'Mais informações sobre o arquivo.');
+```
+
+<br/>
+
+## setService
+Define a classe de serviço para manipulação dos arquivos.
+
+**Parâmetros:**
+<ResponseField name="$service" type="mixed" required>Nome da classe de serviço.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('servicoArquivos');
+$arquivos->setService('ServicoDeUploadCustomizado');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('dados');
+$dadosPostados = $arquivos->getPostData();
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita e desabilita um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivos');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Upload de Arquivos');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Upload de Arquivos');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TMultiFile::enableField('nomeForm', 'arquivos');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TMultiFile::disableField('nomeForm', 'arquivos');
+}
+```
+
+<br/>
+
+## clearField
+(Método estático) Limpa o valor de um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$arquivos = new TMultiFile('arquivos');
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Remover Uploads');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TMultiFile::clearField('nomeForm', 'arquivos');
+}
+```
