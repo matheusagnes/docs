@@ -1,0 +1,201 @@
+---
+title: 'New file'
+description: 'Description of your new file.'
+---
+
+## TSeekButton
+
+O `TSeekButton` é um widget que cria um campo de busca com um botão auxiliar para procurar valores de entidades associadas.
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TSeekButton`. Acesse a documentação do componente/classe-pai para conhecê-los.
+
+* Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco.
+
+* Obs. 2: para utilizar este componente de busca, faz-se necessário criar uma nova página "Janela de Busca" a partir da base de dados e tabela desejados. Nesta documentação, utilizaremos a janela de busca "ProdutoSeekWindow".
+
+* Obs. 3: todos os exemplos de código presentes nesta documentação seguirão como base o conteúdo de `__construct()`, acrescentando apenas seus respectivos métodos.
+
+<br/>
+
+
+
+#### __construct($name, $icon = NULL)
+Construtor da classe TSeekButton.
+
+- Parâmetros:
+  - `$name`: Nome do campo.
+  - `$icon` (opcional): Ícone para o botão de busca.
+
+Exemplo de código:
+```php
+$botaoBusca = new TSeekButton('botaoBusca');
+$campoNomeConstruct = new TEntry('campoNome');
+$campoPrecoConstruct = new TEntry('campoPreco');
+
+$code_tseekbutton_construct->setTip("Buscar produto");
+
+$campoNomeConstruct->setSize('100%');
+$campoPrecoConstruct->setSize('100%');
+
+$campoNomeConstruct->placeholder = "Nome do produto";
+$campoPrecoConstruct->placeholder = "Preço";
+        
+// Definição da ação do TSeekButton abstraída pelo builder a partir dos valores para preenchimento de campos fornecidos.
+```
+
+<div style="width: 300px">
+{$code_tseekbutton_construct}
+</div>
+
+<br/>
+
+
+
+#### setSize($width, $height = NULL)
+Define a largura do campo.
+
+- Parâmetros:
+  - `$width`: Largura do campo.
+  - `$height` (opcional): Altura do campo.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$botaoBusca->setSize(150);
+```
+
+<div style="width: 300px">
+{$code_tseekbutton_setSize}
+</div>
+
+<br/>
+
+
+
+#### setUseOutEvent($bool)
+Define se o evento de saída será disparado.
+
+- Parâmetros:
+  - `$bool`: Booleano para ativar ou desativar o evento.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$botaoBusca->setUseOutEvent(true);
+```
+
+<div style="width: 300px">
+{$code_tseekbutton_setUseOutEvent}
+</div>
+
+<br/>
+
+
+
+#### setAction(TAction $action)
+Define a ação para o botão de busca.
+
+- Parâmetros:
+  - `$action`: Ação a ser executada quando o botão de busca é clicado.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$botaoBusca->setAction($acao);
+```
+
+<div style="width: 300px">
+{$code_tseekbutton_setAction}
+</div>
+
+<br/>
+
+
+
+#### getAction()
+Retorna a ação definida para o botão de busca.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$acao = $botaoBusca->getAction();
+```
+
+<br/>
+
+
+
+#### setAuxiliar($object)
+Define um campo auxiliar.
+
+- Parâmetros:
+  - `$object`: Qualquer objeto TField.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$campoAuxiliar = new TEntry('campoAuxiliar');
+$botaoBusca->setAuxiliar($campoAuxiliar);
+```
+
+<div style="width: 300px">
+{$code_tseekbutton_setAuxiliar}
+</div>
+
+<br/>
+
+
+
+#### hasAuxiliar()
+Verifica se existe um campo auxiliar definido.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$temAuxiliar = $botaoBusca->hasAuxiliar();
+```
+
+<br/>
+
+
+
+#### enableField($formName, $field) e disableField($formName, $field)
+(Método estático) Habilita e desabilita um botão.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+Exemplo de código:
+```php
+// Instância inicial presente na seção '__construct()'
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarBotao']), 'Habilitar Botão de Busca');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarBotao']), 'Desabilitar Botão de Busca');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarBotao($param = null)
+{
+    TSeekButton::enableField('nomeForm', 'botaoBusca');
+}
+
+public static function desabilitarBotao($param = null)
+{
+    TSeekButton::disableField('nomeForm', 'botaoBusca');
+}
+```
