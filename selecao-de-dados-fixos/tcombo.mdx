@@ -182,7 +182,7 @@ $dadosPostados = $selecaoEstado->getPostData();
 
 **Exemplo de código:**
 ```php
-$combo = new TCombo('comboReload');
+$combo = new TCombo('combo');
 $combo->addItems(['1' => 'Paraná', '2' => 'Santa Catarina']);
 
 $btnRecarregar = new TButton('btnReload');
@@ -195,7 +195,7 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function recarregarCampo($param = null)
 {
-    TCombo::reload('nomeForm', 'comboReload', ['1' => 'Paraná', '2' => 'Santa Catarina', '3' => 'Rio Grande do Sul'], true);
+    TCombo::reload('nomeForm', 'combo', ['1' => 'Paraná', '2' => 'Santa Catarina', '3' => 'Rio Grande do Sul'], true);
 }
 ```
 
@@ -210,7 +210,7 @@ public static function recarregarCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$selecao = new TCombo('selecaoEnableDisableField');
+$selecao = new TCombo('selecao');
 
 $btnHabilitar = new TButton('btnEnableField');
 $btnHabilitar->addStyleClass('btn-default');
@@ -227,12 +227,12 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TCombo::enableField('nomeForm', 'selecaoEnableDisableField');
+    TCombo::enableField('nomeForm', 'selecao');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TCombo::disableField('nomeForm', 'selecaoEnableDisableField');
+    TCombo::disableField('nomeForm', 'selecao');
 }
 ```
 
@@ -248,7 +248,7 @@ public static function desabilitarCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$combo = new TCombo('comboClearField');
+$combo = new TCombo('combo');
 $combo->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
 
 $btnLimpar = new TButton('btnClearField');
@@ -261,6 +261,6 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function limparCampo($param = null)
 {
-    TCombo::clearField('nomeForm', 'comboClearField');
+    TCombo::clearField('nomeForm', 'combo');
 }
 ```
