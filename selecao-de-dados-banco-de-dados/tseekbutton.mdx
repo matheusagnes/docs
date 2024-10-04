@@ -11,14 +11,14 @@ _Obs. 2: para utilizar este componente de busca, faz-se necessário criar uma no
 
 _Obs. 3: todos os exemplos de código presentes nesta documentação seguirão como base o conteúdo de `__construct()`, acrescentando apenas seus respectivos métodos._
 
-#### __construct($name, $icon = NULL)
-Construtor da classe TSeekButton.
+## __construct
+Construtor da classe `TSeekButton`.
 
-- Parâmetros:
-  - `$name`: Nome do campo.
-  - `$icon` (opcional): Ícone para o botão de busca.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$icon" type="mixed" default="NULL">(Opcional) Ícone para o botão de busca.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $botaoBusca = new TSeekButton('botaoBusca');
 $campoNomeConstruct = new TEntry('campoNome');
@@ -37,14 +37,14 @@ $campoPrecoConstruct->placeholder = "Preço";
 
 <br/>
 
-#### setSize($width, $height = NULL)
+## setSize
 Define a largura do campo.
 
-- Parâmetros:
-  - `$width`: Largura do campo.
-  - `$height` (opcional): Altura do campo.
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do campo.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
@@ -53,13 +53,13 @@ $botaoBusca->setSize(150);
 
 <br/>
 
-#### setUseOutEvent($bool)
+## setUseOutEvent
 Define se o evento de saída será disparado.
 
-- Parâmetros:
-  - `$bool`: Booleano para ativar ou desativar o evento.
+**Parâmetros:**
+<ResponseField name="$bool" type="mixed" required>Booleano para ativar ou desativar o evento.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
@@ -68,13 +68,13 @@ $botaoBusca->setUseOutEvent(true);
 
 <br/>
 
-#### setAction(TAction $action)
+## setAction
 Define a ação para o botão de busca.
 
-- Parâmetros:
-  - `$action`: Ação a ser executada quando o botão de busca é clicado.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Ação a ser executada quando o botão de busca é clicado.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
@@ -83,10 +83,10 @@ $botaoBusca->setAction($acao);
 
 <br/>
 
-#### getAction()
+## getAction
 Retorna a ação definida para o botão de busca.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
@@ -95,13 +95,13 @@ $acao = $botaoBusca->getAction();
 
 <br/>
 
-#### setAuxiliar($object)
+## setAuxiliar
 Define um campo auxiliar.
 
-- Parâmetros:
-  - `$object`: Qualquer objeto TField.
+**Parâmetros:**
+<ResponseField name="$object" type="mixed" required>Qualquer objeto `TField`.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
@@ -111,10 +111,10 @@ $botaoBusca->setAuxiliar($campoAuxiliar);
 
 <br/>
 
-#### hasAuxiliar()
+## hasAuxiliar
 Verifica se existe um campo auxiliar definido.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
@@ -123,14 +123,14 @@ $temAuxiliar = $botaoBusca->hasAuxiliar();
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita e desabilita um botão.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 // Instância inicial presente na seção '__construct()'
 
