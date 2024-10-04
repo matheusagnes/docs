@@ -2,3 +2,192 @@
 title: 'TButton'
 description: 'O `TButton` é um componente que cria botões com ícones e ações associadas (derivado da classe `TField`). Ele é utilizado para realizar ações quando clicado, podendo conter tanto texto quanto ícones.'
 ---
+
+## __construct
+Construtor da classe `TButton`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+```
+
+<br/>
+
+## setAction
+Define a ação do botão.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+<ResponseField name="$label" type="mixed" default="NULL">(Opcional) Rótulo do botão.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setAction(new TAction(['NomeClasseDeControle', 'salvar']), 'Salvar');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function salvar($param = null)
+{
+    new TMessage('info', 'Salvo com sucesso!');
+}
+```
+
+<br/>
+
+## getAction
+Retorna a ação do botão.
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setAction(new TAction(['NomeClasseDeControle', 'salvar']), 'Salvar');
+$acao = $botaoSalvar->getAction();
+```
+
+<br/>
+
+## setLabel
+Define o rótulo do botão.
+
+**Parâmetros:**
+<ResponseField name="$label" type="mixed" required>Rótulo do botão.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setLabel('Salvar');
+```
+
+<br/>
+
+## getLabel
+Retorna o rótulo do botão.
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setLabel('Salvar');
+$rotulo = $botaoSalvar->getLabel(); // Salvar
+```
+
+<br/>
+
+## setImage
+Define o ícone do botão.
+
+**Parâmetros:**
+<ResponseField name="$image" type="mixed" required>Caminho da imagem.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setLabel('Salvar');
+$botaoSalvar->setImage('fas:save #000000');
+```
+
+<br/>
+
+## addStyleClass
+Adiciona uma classe CSS ao botão.
+
+**Parâmetros:**
+<ResponseField name="$class" type="mixed" required>Classe CSS.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setLabel('Salvar');
+$botaoSalvar->addStyleClass('btn-primary');
+```
+
+<br/>
+
+## addFunction
+Adiciona uma função JavaScript a ser executada pelo botão.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Código JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoSalvar = new TButton('botaoSalvar');
+$botaoSalvar->setLabel('Salvar');
+$botaoSalvar->addFunction("alert('Salvo com sucesso!');");
+```
+
+<br/>
+
+## setProperty
+Define uma propriedade HTML do componente.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome da propriedade.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Valor da propriedade.</ResponseField>
+<ResponseField name="$replace" type="bool" default="TRUE">(Opcional) Indica se o valor deve substituir o anterior.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botao = new TButton('botao');
+$botao->setLabel('Teste');
+$botao->setProperty('class', 'btn-teste');
+```
+
+<br/>
+
+## getProperty
+Retorna uma propriedade do componente.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome da propriedade.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botao = new TButton('botao');
+$botao->setLabel('Teste');
+$botao->setProperty('categoria', 'interface');
+$categoria = $botao->getProperty('categoria'); // interface
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita e desabilita um campo.
+
+**Parâmetros:**
+<ResponseField name="$formName" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botao = new TButton('botaoEnableDisableField');
+$botao->setLabel('Teste');
+$botao->addFunction('alert("Salvo com sucesso!");');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Botão "Teste"');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Botão "Teste"');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TButton::enableField('nomeForm', 'botaoEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TButton::disableField('nomeForm', 'botaoEnableDisableField');
+}
+```
