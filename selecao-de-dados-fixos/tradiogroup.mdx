@@ -1,0 +1,318 @@
+---
+title: 'TRadioGroup'
+description: 'O `TRadioGroup` é um componente que agrupa múltiplos RadioButtons (derivado da classe `TField`), permitindo ao usuário selecionar uma das várias opções fornecidas.'
+---
+
+## __construct
+Construtor da classe `TRadioGroup`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+```
+
+<br/>
+
+## __clone
+Clona o objeto `TRadioGroup`, replicando os botões e rótulos atuais.
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$generoClone = clone $genero;
+```
+
+<br/>
+
+## setBooleanMode
+Ativa o modo booleano, onde o grupo oferece apenas as opções "Sim" e "Não".
+
+**Exemplo de código:**
+```php
+$confirmacao = new TRadioGroup('confirmacao');
+$confirmacao->setBooleanMode();
+```
+
+<br/>
+
+## addItems
+Adiciona itens ao grupo.
+
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array associativo de itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+```
+
+<br/>
+
+## getItems
+Retorna os itens do grupo.
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$itens = $genero->getItems();
+```
+
+<br/>
+
+## setValue
+Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Uma string contendo o valor do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setValue('O');
+```
+
+<br/>
+
+## getValue
+Retorna o valor do campo.
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setValue('F');
+$valor = $genero->getValue();
+```
+
+<br/>
+
+## setLayout
+Define a direção dos itens do grupo.
+
+**Parâmetros:**
+<ResponseField name="$dir" type="mixed" required>Direção ('vertical' ou 'horizontal').</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setLayout('horizontal');
+```
+
+<br/>
+
+## getLayout
+Retorna a disposição atual dos botões no grupo (vertical ou horizontal).
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->setLayout('vertical');
+$layout = $genero->getLayout();
+```
+
+<br/>
+
+## setBreakItems
+Define após quantos itens o grupo deve quebrar a linha.
+
+**Parâmetros:**
+<ResponseField name="$breakItems" type="mixed" required>Número de itens antes de uma quebra.</ResponseField>
+
+**Exemplo de código:**
+```php
+$frequencia = new TRadioGroup('frequencia');
+$frequencia->addItems(['1' => 'Diariamente', '2' => 'Semanalmente', '3' => 'Mensalmente', '4' => 'Semestralmente', '5' => 'Anualmente', '6' => 'Raramente', '7' => 'Nunca']);
+$frequencia->setLayout('horizontal');
+$frequencia->setBreakItems(2);
+```
+
+<br/>
+
+## setUseButton
+Configura o grupo para exibir as opções como botões.
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setUseButton();
+```
+
+<br/>
+
+## getButtons
+Retorna os botões de opção do grupo.
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setUseButton();
+$botoes = $genero->getButtons();
+```
+
+<br/>
+
+## getLabels
+Retorna os rótulos dos botões de opção.
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$rotulos = $genero->getLabels();
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário altera a seleção.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setChangeAction(new TAction(['NomeClasseDeControle', 'onStatusChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onStatusChange($param = null)
+{
+    new TMessage('info', 'O status do botão foi alterado com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define uma função JavaScript a ser executada quando o usuário muda a seleção.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+$genero->setChangeFunction('alert("O status do botão foi alterado com sucesso!");');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário após serem processados pelo controle.
+
+**Exemplo de código:**
+```php
+$confirmacao = new TRadioGroup('confirmacao');
+$confirmacao->setBooleanMode();
+$dadosPostados = $confirmacao->getPostData();
+```
+
+<br/>
+
+## reload
+(Método estático) Recarrega os itens do grupo de rádio dinamicamente.
+
+**Parâmetros:**
+<ResponseField name="$formname" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$items" type="mixed" required>Array com os itens.</ResponseField>
+<ResponseField name="$options" type="array" default="[]">(Opcional) Array de opções.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Msaculino', 'F' => 'Feminno', 'O' => 'Ouyro']);
+
+$btnRecarregar = new TButton('btnReload');
+$btnRecarregar->addStyleClass('btn-default');
+$btnRecarregar->setImage('far:circle #000000');
+$btnRecarregar->setAction(new TAction([$this, 'recarregarCampo']), 'Recarregar Opções');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function recarregarCampo($param = null)
+{
+    TRadioGroup::reload('nomeForm', 'genero', ['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro'], true);
+}
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita ou desabilita um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Botões');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Botões');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TRadioGroup::enableField('nomeForm', 'genero');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TRadioGroup::disableField('nomeForm', 'genero');
+}
+```
+
+<br/>
+
+## clearField
+(Método estático) Limpa o valor de um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$genero = new TRadioGroup('genero');
+$genero->addItems(['M' => 'Masculino', 'F' => 'Feminino', 'O' => 'Outro']);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Seleção');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TRadioGroup::clearField('nomeForm', 'genero');
+}
+```
