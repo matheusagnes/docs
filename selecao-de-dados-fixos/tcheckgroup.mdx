@@ -1,0 +1,328 @@
+---
+title: 'TCheckGroup'
+description: 'O `TCheckGroup` é um componente que agrupa vários botões de seleção (CheckButtons) (derivado da classe `TField`), permitindo que o usuário selecione múltiplas opções de uma lista.'
+---
+
+## __construct
+Construtor da classe `TCheckGroup`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+```
+
+<br/>
+
+## __clone
+Clona o objeto, criando cópias dos botões e labels internos.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+$opcoesUsuarioClone = clone $opcoesUsuario;
+```
+
+<br/>
+
+## addItems
+Adiciona itens ao grupo de seleção.
+
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array associativo de itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+```
+
+<br/>
+
+## setValue
+Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->setValue('1;2');
+```
+
+<br/>
+
+## getItems
+Retorna os itens do grupo de seleção.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$itens = $opcoesUsuario->getItems();
+```
+
+<br/>
+
+## checkAll
+Marca todas as opções no grupo de seleção.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+$opcoesUsuario->checkAll();
+```
+
+<br/>
+
+## setLayout
+Define a direção das opções (vertical ou horizontal).
+
+**Parâmetros:**
+<ResponseField name="$dir" type="mixed" required>Direção das opções ('vertical' ou 'horizontal').</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+$opcoesUsuario->setLayout('horizontal');
+```
+
+<br/>
+
+## getLayout
+Obtém a direção atual das opções.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->setLayout('vertical');
+$layout = $opcoesUsuario->getLayout(); // vertical
+```
+
+<br/>
+
+## setBreakItems
+Define após quantos itens uma quebra deve ser inserida no layout.
+
+**Parâmetros:**
+<ResponseField name="$breakItems" type="mixed" required>Número de itens antes de uma quebra.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2', '3' => 'Opção 3', '4' => 'Opção 4']);
+$opcoesUsuario->setLayout('horizontal');
+$opcoesUsuario->setBreakItems(3);
+```
+
+<br/>
+
+## setUseButton
+Exibe as opções como botões.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+$opcoesUsuario->setUseButton();
+```
+
+<br/>
+
+## setUseSwitch
+Exibe as opções como interruptores (switch).
+
+**Parâmetros:**
+<ResponseField name="$useSwitch" type="bool" default="TRUE">(Opcional) Booleano indicando se deve usar o switch.</ResponseField>
+<ResponseField name="$labelClass" type="string" default="blue">(Opcional) Classe CSS para o label.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+$opcoesUsuario->setUseSwitch();
+```
+
+<br/>
+
+## getButtons
+Retorna os botões do grupo de seleção.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$botões = $opcoesUsuario->getButtons();
+```
+
+<br/>
+
+## getLabels
+Retorna os rótulos do grupo de seleção.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$rotulos = $opcoesUsuario->getLabels();
+```
+
+<br/>
+
+## setValueSeparator
+Define o separador para os valores do campo.
+
+**Parâmetros:**
+<ResponseField name="$sep" type="mixed" required>Separador dos valores do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->setValueSeparator(';');
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário alterar a seleção.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->setChangeAction(new TAction(['NomeClasseDeControle', 'onStatusChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onStatusChange($param = null)
+{
+    new TMessage('info', 'O status do botão foi alterado com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define a função JavaScript a ser executada quando o usuário alterar a seleção.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->setChangeFunction('alert("O estado do botão foi alterado com sucesso!");');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$dadosPostados = $opcoesUsuario->getPostData();
+```
+
+<br/>
+
+## reload
+(Método estático) Recarrega os itens do grupo de seleção após a exibição inicial.
+
+**Parâmetros:**
+<ResponseField name="$formname" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$items" type="mixed" required>Array com os itens.</ResponseField>
+<ResponseField name="$options" type="mixed" required>Array de opções.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnRecarregar = new TButton('btnReload');
+$btnRecarregar->addStyleClass('btn-default');
+$btnRecarregar->setImage('far:circle #000000');
+$btnRecarregar->setAction(new TAction([$this, 'recarregarCampo']), 'Recarregar Opções');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function recarregarCampo($param = null)
+{
+    TCheckGroup::reload('nomeForm', 'opcoesUsuario', ['1' => 'Opção 1', '2' => 'Opção 2', '3' => 'Opção 3'], true);
+}
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita e desabilita um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Botões de Seleção');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Botões de Seleção');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TCheckGroup::enableField('nomeForm', 'opcoesUsuario');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TCheckGroup::disableField('nomeForm', 'opcoesUsuario');
+}
+```
+
+<br/>
+
+## clearField
+(Método estático) Limpa um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Seleção');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TCheckGroup::clearField('nomeForm', 'opcoesUsuario');
+}
+```
