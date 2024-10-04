@@ -88,7 +88,11 @@
       "group": "Seleção de dados (fixos)",
       "pages":
       [
-        "selecao-de-dados-fixos/tarrowstep"
+        "selecao-de-dados-fixos/tarrowstep",
+        "selecao-de-dados-fixos/tcombo",
+        "selecao-de-dados-fixos/tcheckbutton",
+        "selecao-de-dados-fixos/tcheckgroup",
+        "selecao-de-dados-fixos/tradiogroup"
       ]
     },
     {
