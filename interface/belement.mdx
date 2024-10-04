@@ -2,3 +2,71 @@
 title: 'BElement'
 description: 'O `BElement` é um componente base para elementos HTML personalizados com algumas funcionalidades adcionais (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor da classe `BElement`.
+
+**Parâmetros:**
+<ResponseField name="$tagname" type="mixed" required>Nome da tag que será utilizada para o elemento.</ResponseField>
+
+**Exemplo de código:**
+```php
+$elemento = new BElement('input');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do widget.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do widget.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$elemento = new BElement('input');
+$elemento->setSize(250, 35);
+```
+
+<br/>
+
+## getSize
+Retorna o tamanho do elemento.
+
+**Exemplo de código:**
+```php
+$elemento = new BElement('div');
+$elemento->setSize(250, 150);
+$tamanho = $elemento->getSize(); // (250, 150)
+```
+
+<br/>
+
+## setProperty
+Define uma propriedade HTML para o componente.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome da propriedade.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Valor da propriedade.</ResponseField>
+<ResponseField name="$replace" type="bool" default="TRUE">(Opcional) Booleano para substituir o valor anterior (padrão: `TRUE`).</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotulo = new BElement('label');
+$rotulo->add('Nome completo:');
+$rotulo->setProperty('for', 'txtNome');
+
+$campoNome = new BElement('input');
+$campoNome->setProperty('id', 'txtNome');
+```
+
+**Exemplo de código:**
+```php
+$container = new BElement('div');
+$container->setProperty('class', 'container');
+$container->add($campoNome);
+$container->insert(0, $rotulo);
+```
+
+_Obs.: o método `insert` possui a mesma funcionalidade que o método `add`, porém com a possibilidade de inferir a posição do conteúdo adicionado._
