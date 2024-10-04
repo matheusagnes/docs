@@ -1,0 +1,48 @@
+---
+title: 'TDBCheckList'
+description: 'O `TDBCheckList` é um componente que permite criar uma lista de seleção múltipla (checklist) alimentada por dados de um banco de dados (derivado da classe `TCheckList`). Este componente é útil para exibir e selecionar múltiplos itens que são armazenados em uma tabela de banco de dados.'
+---
+
+_Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco._
+
+## __construct
+Construtor da classe `TDBCheckList`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do componente no formulário.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome do banco de dados.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Nome da classe do modelo.</ResponseField>
+<ResponseField name="$key" type="mixed" required>Campo da tabela usado como chave.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Campo da tabela que será listado.</ResponseField>
+<ResponseField name="$ordercolumn" type="mixed" default="null">(Opcional) Coluna para ordenação dos elementos.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="null">(Opcional) Objeto TCriteria para filtro.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaProduto = new TCheckList('listaProduto', 'docs', 'Produto', 'id', '{nome}, R$ {preco}');
+$listaProduto->setSize(180);
+```
+
+**Exemplo de código (com parâmetros opcionais):**
+```php
+$criterio = new TCriteria();
+$criterio->add(new TFilter('preco', '<', 5)); // Filtrar por itens da tabela cujo preço seja menor que 5
+
+$listaProduto = new TCheckList('listaProduto', 'docs', 'Produto', 'id', '{nome}, R$ {preco}', 'id asc', $criterio);
+$listaProduto->setSize(180);
+```
+
+**Exemplo de código (uma forma mais elaborada de utilizar):**
+```php
+$listaProduto = new TCheckList('listaProduto');
+$listaProduto->setSize(250);
+
+$listaProduto->addColumn('id', "ID", 'center', '33%');
+$listaProduto->addColumn('nome', "Nome", 'center', '33%');
+$listaProduto->addColumn('preco', "Preço", 'center', '33%');
+
+$listaProduto->setHeight(150);
+$listaProduto->makeScrollable();
+
+$listaProduto->fillWith('docs', 'Produto', 'id', 'id asc');
+```
