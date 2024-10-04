@@ -2,3 +2,30 @@
 title: 'TAlert'
 description: '`TAlert` é um componente para exibição de alertas no sistema, como mensagens de sucesso, informação, aviso ou perigo (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construct de `TAlert`.
+
+**Parâmetros:**
+<ResponseField name="$type" type="mixed" required>Tipo do alerta (success, info, warning, danger).</ResponseField>
+<ResponseField name="$message" type="mixed" required>Mensagem a ser exibida.</ResponseField>
+
+**Exemplo de código (alerta de sucesso):**
+```php
+$alertaSucesso = new TAlert('success', 'Operação realizada com sucesso!');
+```
+
+**Exemplo de código (alerta de informação):**
+```php
+$alertaInfo = new TAlert('info', 'Há uma atualização disponível!');
+```
+
+**Exemplo de código (alerta de aviso):**
+```php
+$alertaAviso = new TAlert('warning', 'O complemento selecionado foi descontinuado.');
+```
+
+**Exemplo de código (alerta de perigo):**
+```php
+$alertaPerigo = new TAlert('danger', 'Erro fatal!');
+```
