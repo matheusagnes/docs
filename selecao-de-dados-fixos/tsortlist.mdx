@@ -212,7 +212,7 @@ $dadosPostados = $listaOrdenavel->getPostData();
 
 **Exemplo de código:**
 ```php
-$listaOrdenavel = new TRadioGroup('listaReload');
+$listaOrdenavel = new TRadioGroup('listaOrdenavel');
 $listaOrdenavel->addItems(['Af azer', 'Em andamneto', 'Conclluído']);
 
 $btnRecarregar = new TButton('btnReload');
@@ -225,7 +225,7 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function recarregarCampo($param = null)
 {
-    TSortList::reload('nomeForm', 'listaReload', ['A fazer', 'Em andamento', 'Concluído']);
+    TSortList::reload('nomeForm', 'listaOrdenavel', ['A fazer', 'Em andamento', 'Concluído']);
 }
 ```
 
@@ -240,7 +240,7 @@ public static function recarregarCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$listaOrdenavel = new TSortList('listaEnableDisableField');
+$listaOrdenavel = new TSortList('listaOrdenavel');
 $listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
 
 $btnHabilitar = new TButton('btnEnableField');
@@ -258,12 +258,12 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TSortList::enableField('nomeForm', 'listaEnableDisableField');
+    TSortList::enableField('nomeForm', 'listaOrdenavel');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TSortList::disableField('nomeForm', 'listaEnableDisableField');
+    TSortList::disableField('nomeForm', 'listaOrdenavel');
 }
 ```
 
@@ -278,7 +278,7 @@ public static function desabilitarCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$listaOrdenavel = new TSortList('listaClearField');
+$listaOrdenavel = new TSortList('listaOrdenavel');
 $listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
 
 $btnLimpar = new TButton('btnClearField');
@@ -291,6 +291,6 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function limparCampo($param = null)
 {
-    TSortList::clearField('nomeForm', 'listaClearField');
+    TSortList::clearField('nomeForm', 'listaOrdenavel');
 }
 ```
