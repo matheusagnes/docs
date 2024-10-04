@@ -81,13 +81,13 @@ $itens = $selecaoEstado->getItems();
 
 <br/>
 
-#### setDefaultOption($option)
+## setDefaultOption
 Define a opção padrão do combo.
 
-- Parâmetros:
-  - `$option`: Valor da opção padrão.
+**Parâmetros:**
+<ResponseField name="$option" type="mixed" required>Valor da opção padrão.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TCombo('estado');
 $selecaoEstado->setDefaultOption('Selecione um Estado');
@@ -95,22 +95,22 @@ $selecaoEstado->setDefaultOption('Selecione um Estado');
 
 <br/>
 
-#### enableSearch()
+## enableSearch
 Habilita a busca dentro do combo.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TCombo('estado');
-$selecaoEstado->addItems(['1' => 'São Paulo', '2' => 'Rio de Janeiro', '3' => 'Minas Gerais', '4' => 'Espírito Santo'])
+$selecaoEstado->addItems(['1' => 'São Paulo', '2' => 'Rio de Janeiro', '3' => 'Minas Gerais', '4' => 'Espírito Santo']);
 $selecaoEstado->enableSearch();
 ```
 
 <br/>
 
-#### clear()
+## clear
 Limpa os itens do combo.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoNivelIngles = new TCombo('nivelIngles');
 $selecaoNivelIngles->addItems(['1' => 'Básico', '2' => 'Intermediário', '3' => 'Avançado']);
@@ -120,18 +120,19 @@ $selecaoNivelIngles->addItems(['1' => 'Básico', '2' => 'Intermediário', '3' =>
 
 <br/>
 
-#### setChangeAction(TAction $action)
+## setChangeAction
 Define a ação a ser executada quando o usuário altera a seleção do combo.
 
-- Parâmetros:
-  - `$action`: Objeto TAction.
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TCombo('estado');
 $selecaoEstado->addItems(['1' => 'Bahia', '2' => 'Sergipe', '3' => 'Alagoas', '4' => 'Pernambuco', '5' => 'Piauí', '6' => 'Paraíba', '7' => 'Rio Grande do Norte', '8' => 'Ceará', '9' => 'Maranhão']);
 $selecaoEstado->setChangeAction(new TAction(['NomeClasseDeControle', 'onOptionChange']));
 ```
+
 Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
 
 ```php
@@ -143,13 +144,13 @@ public static function onOptionChange($param = null)
 
 <br/>
 
-#### setChangeFunction($function)
+## setChangeFunction
 Define a função JavaScript a ser executada quando o usuário altera a seleção do combo.
 
-- Parâmetros:
-  - `$function`: Função JavaScript.
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TCombo('estado');
 $selecaoEstado->addItems(['1' => 'Tocantins', '2' => 'Rondônia', '3' => 'Acre', '4' => 'Amazonas', '5' => 'Pará', '6' => 'Roraima', '7' => 'Amapá']);
@@ -158,10 +159,10 @@ $selecaoEstado->setChangeFunction('alert("O estado foi alterado com sucesso!");'
 
 <br/>
 
-#### getPostData()
+## getPostData
 Obtém os dados enviados pelo formulário.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TCombo('estado');
 $dadosPostados = $selecaoEstado->getPostData();
@@ -169,17 +170,17 @@ $dadosPostados = $selecaoEstado->getPostData();
 
 <br/>
 
-#### reload($formName, $name, $items, $startEmpty = FALSE, $fireEvents = TRUE)
+## reload
 (Método estático) Recarrega os itens do combo.
 
-- Parâmetros:
-  - `$formname`: Nome do formulário.
-  - `$name`: Nome do campo.
-  - `$items`: Array com os itens.
-  - `$startEmpty` (opcional): Se o combo começará vazio.
-  - `$fire_events` (opcional): Se a ação de mudança será disparada.
+**Parâmetros:**
+<ResponseField name="$formname" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$items" type="mixed" required>Array com os itens.</ResponseField>
+<ResponseField name="$startEmpty" type="bool" default="FALSE">(Opcional) Se o combo começará vazio.</ResponseField>
+<ResponseField name="$fire_events" type="bool" default="TRUE">(Opcional) Se a ação de mudança será disparada.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $combo = new TCombo('comboReload');
 $combo->addItems(['1' => 'Paraná', '2' => 'Santa Catarina']);
@@ -200,14 +201,14 @@ public static function recarregarCampo($param = null)
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita o campo no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecao = new TCombo('selecaoEnableDisableField');
 
@@ -237,15 +238,15 @@ public static function desabilitarCampo($param = null)
 
 <br/>
 
-#### clearField($formName, $field, $fireEvents = TRUE) (Método estático)
-Limpa o campo no formulário.
+## clearField
+(Método estático) Limpa o campo no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
-  - `$fire_events` (opcional): Se a ação de mudança será disparada.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$fire_events" type="bool" default="TRUE">(Opcional) Se a ação de mudança será disparada.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $combo = new TCombo('comboClearField');
 $combo->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
