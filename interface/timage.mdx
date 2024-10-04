@@ -2,3 +2,34 @@
 title: 'TImage'
 description: 'O `TImage` é um componente utilizado para a exibição de imagens ou ícones na interface de usuário (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor da classe `TImage`.
+
+**Parâmetros:**
+<ResponseField name="$source" type="mixed" required>Caminho da imagem ou identificador de ícone.</ResponseField>
+
+**Exemplo de código (ícone):**
+```php
+$iconeUsuario = new TImage('fas:user #000000');
+```
+
+**Exemplo de código (imagem da web):**
+```php
+$imagemWeb = new TImage('https://images.pexels.com/photos/349758/hummingbird-bird-birds-349758.jpeg');
+$imagemWeb->width = '200px';
+```
+
+**Exemplo de código (imagem do servidor/diretório):**
+```php
+$imagemLocal = new TImage('images/programming.png');
+$imagemLocal->width = '200px';
+```
+
+**Exemplo de código (imagem do servidor/diretório acessada através de um script PHP):**
+```php
+$imagemProtegida = new TImage('download.php?file=images/dove.jpg');
+$imagemProtegida->width = '200px';
+```
+
+_Obs.: "download.php" é um script PHP presente no servidor que gerencia o download/acesso a uma imagem. Isto é útil em casos de imagens protegidas que precisam de processamento ou verificação de permissões antes de serem entregues ao usuário._
