@@ -2,3 +2,53 @@
 title: 'TPageStep'
 description: 'O `TPageStep` é um componente que representa passos em uma página, útil para guiar o usuário através de uma sequência de etapas ou tarefas (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor do componente `TPageStep`.
+
+**Exemplo de código:**
+```php
+$passos = new TPageStep();
+```
+
+<br/>
+
+## addItem
+Adiciona um item ao componente. Cada item representa um passo.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do passo.</ResponseField>
+<ResponseField name="$action" type="TAction" default="null">(Opcional) Ação associada ao passo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$passos = new TPageStep();
+$passos->addItem('Introdução', new TAction(['NomeClasseDeControle', 'onSelect']));
+$passos->addItem('Conclusão', new TAction(['NomeClasseDeControle', 'onSelect']));
+```
+
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function):
+```php
+public static function onSelect($param = null)
+{
+    new TMessage('info', 'Ação chamada: ' . print_r($param, true));
+}
+```
+
+<br/>
+
+## select
+Seleciona um item como o atual, baseando-se no título. Todos os itens anteriores ao selecionado são marcados como completos.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do item a ser selecionado.</ResponseField>
+
+**Exemplo de código:**
+```php
+$passos = new TPageStep();
+$passos->addItem('Introdução');
+$passos->addItem('Desenvolvimento');
+$passos->addItem('Conclusão');
+
+$passos->select('Desenvolvimento');
+```
