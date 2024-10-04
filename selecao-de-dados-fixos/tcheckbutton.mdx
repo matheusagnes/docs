@@ -1,0 +1,106 @@
+---
+title: 'TCheckButton'
+description: 'O `TCheckButton` é um componente que representa um botão de marcação (checkbox) (derivado da classe `TField`), podendo ser exibido como um switch. Este componente é útil para capturar escolhas do usuário em formulários.'
+---
+
+## __construct
+Construtor da classe `TCheckButton`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+```
+
+<br/>
+
+## setUseSwitch
+Configura o `TCheckButton` para ser exibido como um switch.
+
+**Parâmetros:**
+<ResponseField name="$useSwitch" type="bool" default="TRUE">(Opcional) Booleano para ativar o modo switch.</ResponseField>
+<ResponseField name="$labelClass" type="string" default="blue">(Opcional) Classe CSS para o label do switch.</ResponseField>
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+$checkAtivo->setUseSwitch(true);
+```
+
+<br/>
+
+## setIndexValue
+Define o valor do índice quando o botão está ativo.
+
+**Parâmetros:**
+<ResponseField name="$index" type="mixed" required>Valor do índice ativo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+$checkAtivo->setIndexValue(1);
+```
+
+<br/>
+
+## setInactiveIndexValue
+Define o valor do índice quando o botão está inativo.
+
+**Parâmetros:**
+<ResponseField name="$inactiveIndexValue" type="mixed" required>Valor do índice inativo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+$checkAtivo->setInactiveIndexValue(0);
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário altera o estado do botão.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+$checkAtivo->setChangeAction(new TAction(['NomeClasseDeControle', 'onStatusChange']));
+```
+
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onStatusChange($param = null)
+{
+    new TMessage('info', 'O status do botão foi alterado com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define uma função JavaScript a ser executada quando o usuário altera o estado do botão.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+$checkAtivo->setChangeFunction('alert("O estado do botão foi alterado com sucesso!");');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$checkAtivo = new TCheckButton('status');
+$valorPostado = $checkAtivo->getPostData();
+```
