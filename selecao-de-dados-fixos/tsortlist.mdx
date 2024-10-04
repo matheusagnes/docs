@@ -1,0 +1,296 @@
+---
+title: 'TSortList'
+description: 'O `TSortList` é um componente que cria uma lista ordenável (derivado da classe `TField`). Ele permite ao usuário organizar os elementos dentro de uma lista, que pode ser horizontal ou vertical. Este componente é especialmente útil para interfaces onde a ordem dos elementos é importante, como prioridades ou etapas de um processo.'
+---
+
+## __construct
+Construtor da classe `TSortList`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+```
+
+<br/>
+
+## setSize
+Define o tamanho da lista.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura da lista.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura da lista.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->setSize(300, 150);
+```
+
+<br/>
+
+## addItems
+Adiciona itens à lista.
+
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array de itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+```
+
+<br/>
+
+## getItems
+Retorna os itens iniciais da lista.
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+$itens = $listaOrdenavel->getItems();
+```
+
+<br/>
+
+## setValue
+Define os valores da lista.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Array de valores.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['1' => 'Item 1', '2' => 'Item 2', '3' => 'Item 3']);
+$listaOrdenavel->setValue(['3', '2', '1']);
+```
+
+<br/>
+
+## setValueSeparator
+Define o separador de valores para a lista.
+
+**Parâmetros:**
+<ResponseField name="$sep" type="mixed" required>Separador de valores.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+$listaOrdenavel->setValueSeparator(';');
+```
+
+<br/>
+
+## setOrientation
+Define a orientação da lista ordenável.
+
+**Parâmetros:**
+<ResponseField name="$orientation" type="mixed" required>Orientação da lista ('horizontal' ou 'vertical').</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+$listaOrdenavel->setOrientation('horizontal');
+```
+
+<br/>
+
+## setLimit
+Define um limite para o número de itens na lista.
+
+**Parâmetros:**
+<ResponseField name="$limit" type="mixed" required>Limite de itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+$listaOrdenavel->setLimit(3);
+$listaOrdenavel->addItems(['Item Excedente 1', 'Item Excedente 2']);
+```
+
+<br/>
+
+## setItemIcon
+Define o ícone para os itens da lista.
+
+**Parâmetros:**
+<ResponseField name="$icon" type="TImage" required>Ícone para os itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Roberto', 'Miranda', 'Júlia', 'Daniel']);
+$listaOrdenavel->setItemIcon(new TImage('fas:user-circle'));
+```
+
+<br/>
+
+## connectTo
+Conecta esta lista a outra, permitindo interação entre ambas.
+
+**Parâmetros:**
+<ResponseField name="$list" type="TSortList" required>Outra `TSortList`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaPessoas = new TSortList('listaPessoas');
+$listaPessoas->addItems(['Roberto', 'Miranda', 'Júlia', 'Daniel']);
+
+$listaCargo = new TSortList('listaCargo');
+$listaCargo->addItems(['Desenvolvedor Front-End', 'Desenvolvedor Back-End', 'Desenvolvedor Full-Stack']);
+
+$listaPessoas->connectTo($listaCargo);
+$listaCargo->connectTo($listaPessoas);
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário altera a lista.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction` que define a ação.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+$listaOrdenavel->setChangeAction(['NomeClasseDeControle', 'onItemChange']);
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onItemChange($param = null)
+{
+    new TMessage('info', 'O item selecionado foi alterado com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define a função JavaScript a ser executada quando o usuário altera a lista.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+$listaOrdenavel->setChangeFunction('alert("O item selecionado foi alterado com sucesso!");');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados postados pelo formulário.
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaOrdenavel');
+$dadosPostados = $listaOrdenavel->getPostData();
+```
+
+<br/>
+
+## reload
+(Método estático) Recarrega os itens da lista dinamicamente.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$items" type="mixed" required>Itens para carregar.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TRadioGroup('listaReload');
+$listaOrdenavel->addItems(['Af azer', 'Em andamneto', 'Conclluído']);
+
+$btnRecarregar = new TButton('btnReload');
+$btnRecarregar->addStyleClass('btn-default');
+$btnRecarregar->setImage('far:circle #000000');
+$btnRecarregar->setAction(new TAction([$this, 'recarregarCampo']), 'Recarregar Opções');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function recarregarCampo($param = null)
+{
+    TSortList::reload('nomeForm', 'listaReload', ['A fazer', 'Em andamento', 'Concluído']);
+}
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita e desabilita um campo da lista no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaEnableDisableField');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Lista');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Lista');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TSortList::enableField('nomeForm', 'listaEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TSortList::disableField('nomeForm', 'listaEnableDisableField');
+}
+```
+
+<br/>
+
+## clearField
+(Método estático) Limpa um campo da lista no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$listaOrdenavel = new TSortList('listaClearField');
+$listaOrdenavel->addItems(['Item 1', 'Item 2', 'Item 3']);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Remover Itens da Lista');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TSortList::clearField('nomeForm', 'listaClearField');
+}
+```
