@@ -1,0 +1,115 @@
+---
+title: 'TMultiEntry'
+description: 'O `TMultiEntry` é um widget de entrada múltipla, permitindo seleções múltiplas em uma caixa combinada que pode ser configurada para limitar o número de itens selecionáveis.'
+---
+
+Derivado da classe `TSelect`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TMultiEntry`. Acesse a [documentação do componente/classe-pai](selecao-de-dados-fixos/tselect) para conhecê-los.
+
+## __construct
+Construtor da classe `TMultiEntry`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$multiEntrada = new TMultiEntry('nomesSelecionados');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do widget.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do widget.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$multiEntrada = new TMultiEntry('nomesSelecionados');
+$multiEntrada->setSize(250, 100);
+```
+
+<br/>
+
+## setMaxSize
+Define o número máximo de itens que podem ser selecionados.
+
+**Parâmetros:**
+<ResponseField name="$maxsize" type="mixed" required>Número máximo de seleções permitidas.</ResponseField>
+
+**Exemplo de código:**
+```php
+$entradaContinentes = new TMultiEntry('nomesSelecionados');
+$multiEntrada->setSize(250, 100);
+$entradaContinentes->setMaxSize(5);
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita e desabilita o campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$multiEntrada = new TMultiEntry('nomes');
+$multiEntrada->setSize(250, 100);
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Campo');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Campo');
+```
+
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TMultiEntry::enableField('nomeForm', 'nomes');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TMultiEntry::disableField('nomeForm', 'nomes');
+}
+```
+
+<br/>
+
+## clearField
+(Método estático) Limpa o campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$multiEntrada = new TMultiEntry('nomes');
+$multiEntrada->setSize(250, 100);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Campo');
+```
+
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TMultiEntry::clearField('nomeForm', 'nomes');
+}
+```
