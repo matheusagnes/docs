@@ -113,15 +113,15 @@
         "selecao-de-dados-banco-de-dados/tdbarrowstep",
         "selecao-de-dados-banco-de-dados/tdbchecklist",
         "selecao-de-dados-banco-de-dados/tdbcombo",
-        "selecao-de-dados-fixos/tdbselect",
-        "selecao-de-dados-fixos/tdbradiogroup",
-        "selecao-de-dados-fixos/tdbcheckgroup",
-        "selecao-de-dados-fixos/tdbseekbutton",
-        "selecao-de-dados-fixos/tseekbutton",
-        "selecao-de-dados-fixos/tdbentry",
-        "selecao-de-dados-fixos/tdbsortlist",
-        "selecao-de-dados-fixos/bdbtreeview",
-        "selecao-de-dados-fixos/bdbrecursivetreeview"
+        "selecao-de-dados-banco-de-dados/tdbselect",
+        "selecao-de-dados-banco-de-dados/tdbradiogroup",
+        "selecao-de-dados-banco-de-dados/tdbcheckgroup",
+        "selecao-de-dados-banco-de-dados/tdbseekbutton",
+        "selecao-de-dados-banco-de-dados/tseekbutton",
+        "selecao-de-dados-banco-de-dados/tdbentry",
+        "selecao-de-dados-banco-de-dados/tdbsortlist",
+        "selecao-de-dados-banco-de-dados/bdbtreeview",
+        "selecao-de-dados-banco-de-dados/bdbrecursivetreeview"
       ]
     },
     {
