@@ -110,7 +110,8 @@
       "group": "Seleção de dados (banco de dados)",
       "pages":
       [
-        "selecao-de-dados-banco-de-dados/tdbarrowstep"
+        "selecao-de-dados-banco-de-dados/tdbarrowstep",
+        "selecao-de-dados-banco-de-dados/tdbcombo"
       ]
     },
     {
