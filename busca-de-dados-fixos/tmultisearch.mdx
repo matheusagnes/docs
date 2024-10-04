@@ -178,7 +178,7 @@ $dadosPostados = $selecao->getPostData();
 
 **Exemplo de código:**
 ```php
-$selecao = new TMultiSearch('selecaoEnableDisableField');
+$selecao = new TMultiSearch('selecao');
 $selecao->setSize(220, 70);
 $selecao->addItems(['1'=>'Opção 1','2'=>'Opção 2','3'=>'Opção 3']);
 
@@ -197,12 +197,12 @@ Código de exemplo das funções a serem chamadas, lembrando que essas funções
 ```php
 public static function habilitarCampo($param = null)
 {
-    TMultiSearch::enableField('nomeForm', 'selecaoEnableDisableField');
+    TMultiSearch::enableField('nomeForm', 'selecao');
 }
 
 public static function desabilitarCampo($param = null)
 {
-    TMultiSearch::disableField('nomeForm', 'selecaoEnableDisableField');
+    TMultiSearch::disableField('nomeForm', 'selecao');
 }
 ```
 
@@ -217,7 +217,7 @@ public static function desabilitarCampo($param = null)
 
 **Exemplo de código:**
 ```php
-$selecao = new TMultiSearch('selecaoClearField');
+$selecao = new TMultiSearch('selecao');
 $selecao->setSize(220, 70);
 $selecao->addItems(['1'=>'Opção 1','2'=>'Opção 2','3'=>'Opção 3']);
 
@@ -231,6 +231,6 @@ Código de exemplo da função a ser chamada, lembrando que essa função precis
 ```php
 public static function limparCampo($param = null)
 {
-    TMultiSearch::clearField('nomeForm', 'selecaoClearField');
+    TMultiSearch::clearField('nomeForm', 'selecao');
 }
 ```
