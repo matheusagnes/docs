@@ -92,7 +92,10 @@
         "selecao-de-dados-fixos/tcombo",
         "selecao-de-dados-fixos/tcheckbutton",
         "selecao-de-dados-fixos/tcheckgroup",
-        "selecao-de-dados-fixos/tradiogroup"
+        "selecao-de-dados-fixos/tradiogroup",
+        "selecao-de-dados-fixos/tselect",
+        "selecao-de-dados-fixos/tsortlist",
+        "selecao-de-dados-fixos/multientry"
       ]
     },
     {
