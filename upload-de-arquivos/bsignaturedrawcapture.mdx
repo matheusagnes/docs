@@ -1,0 +1,195 @@
+---
+title: 'BSignatureDrawCapture'
+description: 'O `BSignatureDrawCapture` é um componente de captura de assinatura, também conhecido como Memo (derivado da classe `TField`). Esse widget permite aos usuários desenhar sua assinatura em uma área definida, que pode ser usada em formulários para coletar assinaturas digitais.'
+---
+
+## __construct
+Construtor da classe `BSignatureDrawCapture`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+```
+
+<br/>
+
+## setPenColor
+Define a cor da caneta usada para desenhar a assinatura.
+
+**Parâmetros:**
+<ResponseField name="$color" type="mixed" required>Cor da caneta.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setPenColor('#FF5733');
+```
+
+<br/>
+
+## getPenColor
+Obtém a cor da caneta atual.
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setPenColor('#1589D1');
+$corAtual = $assinatura->getPenColor();
+```
+
+<br/>
+
+## setSize
+Define o tamanho do widget de assinatura.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do widget.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setSize(300, 200);
+```
+
+<br/>
+
+## getSize
+Obtém o tamanho atual do widget de assinatura.
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setSize(200, 150);
+$tamanho = $assinatura->getSize(); // (200, 150)
+```
+
+<br/>
+
+## setValue
+Define o valor do campo de assinatura. Pode ser um caminho para uma imagem ou uma URL.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor ou caminho da imagem.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('caminhoImagem');
+$assinatura->setValue('caminho/para/imagem.png');
+```
+
+<br/>
+
+## setDrawSize
+Define o tamanho da área de desenho da assinatura.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura da área de desenho.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura da área de desenho.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setDrawSize(280, 150);
+```
+
+<br/>
+
+## setheightPreview
+Define a altura de visualização da imagem da assinatura.
+
+**Parâmetros:**
+<ResponseField name="$height" type="mixed" required>Altura para visualização.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setheightPreview(100);
+```
+
+<br/>
+
+## enableFileHandling
+Habilita o manuseio de arquivo para a assinatura.
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->enableFileHandling();
+```
+
+<br/>
+
+## disableFileHandling
+Desabilita o manuseio de arquivo para a assinatura.
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->enableFileHandling();
+$assinatura->disableFileHandling();
+```
+
+<br/>
+
+## setImagePlaceholder
+Define um ícone como placeholder.
+
+**Parâmetros:**
+<ResponseField name="$icon" type="mixed" required>Objeto `TImage` para o ícone.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setImagePlaceholder(new TImage('fas:user #000000'));
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando a assinatura é alterada.
+
+**Parâmetros:**
+<ResponseField name="$action" type="mixed" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setChangeAction(new TAction(['NomeClasseDeControle', 'onSignatureChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onSignatureChange($param = null)
+{
+    new TMessage('info', 'A assinatura foi alterada com sucesso!');
+}
+```
+
+<br/>
+
+## setService
+Define a classe de serviço para resposta.
+
+**Parâmetros:**
+<ResponseField name="$service" type="mixed" required>Nome da classe de serviço.</ResponseField>
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$assinatura->setService('AdiantiUploaderService');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$assinatura = new BSignatureDrawCapture('assinaturaUsuario');
+$dadosPostados = $assinatura->getPostData();
+```
