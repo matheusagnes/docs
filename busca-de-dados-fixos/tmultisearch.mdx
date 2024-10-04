@@ -5,13 +5,13 @@ description: 'O `TMultiSearch` é um componente de seleção múltipla que permi
 
 Derivado da classe `TSelect`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TMultiSearch`. Acesse a [documentação do componente/classe-pai](https://madbuilder.mintlify.app/selecao-de-dados-fixos/tselect) para conhecê-los.
 
-#### __construct($name)
+## __construct
 Construtor da classe `TMultiSearch`.
 
-- Parâmetros:
-  - `$name`: Nome do widget.
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -21,14 +21,14 @@ $selecaoEstado->addItems(['1'=>'Acre','2'=>'Alagoas','3'=>'Amapá','4'=>'Amazona
 
 <br/>
 
-#### setSize($width, $height)
+## setSize
 Define o tamanho do widget.
 
-- Parâmetros:
-  - `$width`: Largura do widget.
-  - `$height`: Altura do widget (opcional).
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do widget.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do widget.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecao = new TMultiSearch('selecao');
 $selecao->setSize(250, 150);
@@ -36,10 +36,10 @@ $selecao->setSize(250, 150);
 
 <br/>
 
-#### getSize()
+## getSize
 Retorna o tamanho atual do widget.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 125);
@@ -48,13 +48,13 @@ $tamanho = $selecaoEstado->getSize(); // (220, 125)
 
 <br/>
 
-#### setMinLength($length)
+## setMinLength
 Define o comprimento mínimo para a busca.
 
-- Parâmetros:
-  - `$length`: Comprimento mínimo.
+**Parâmetros:**
+<ResponseField name="$length" type="mixed" required>Comprimento mínimo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -65,13 +65,13 @@ $selecaoEstado->setMinLength(2);
 
 <br/>
 
-#### setMaxSize($maxsize)
+## setMaxSize
 Define o número máximo de itens que podem ser selecionados.
 
-- Parâmetros:
-  - `$maxsize`: Número máximo de itens.
+**Parâmetros:**
+<ResponseField name="$maxsize" type="mixed" required>Número máximo de itens.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -82,13 +82,13 @@ $selecaoEstado->setMaxSize(3);
 
 <br/>
 
-#### setValue($value)
+## setValue
 Define o valor do campo.
 
-- Parâmetros:
-  - `$value`: Valor do campo.
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -99,13 +99,13 @@ $selecaoEstado->setValue('3');
 
 <br/>
 
-#### setValueSeparator($sep)
+## setValueSeparator
 Define o separador dos valores no campo.
 
-- Parâmetros:
-  - `$sep`: Separador.
+**Parâmetros:**
+<ResponseField name="$sep" type="mixed" required>Separador.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -116,10 +116,10 @@ $selecaoEstado->setValueSeparator(';');
 
 <br/>
 
-#### disableMultiple()
+## disableMultiple
 Desativa a seleção múltipla do componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -130,10 +130,10 @@ $selecaoEstado->disableMultiple();
 
 <br/>
 
-#### disableClear()
+## disableClear
 Desativa a opção de limpar a seleção.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -144,10 +144,10 @@ $selecaoEstado->disableClear();
 
 <br/>
 
-#### disableSearch()
+## disableSearch
 Desativa a função de busca dentro do componente.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecaoEstado = new TMultiSearch('selecaoEstado');
 $selecaoEstado->setSize(220, 70);
@@ -158,10 +158,10 @@ $selecaoEstado->disableSearch();
 
 <br/>
 
-#### getPostData()
+## getPostData
 Obtém os dados enviados pelo formulário.
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecao = new TMultiSearch('selecao');
 $dadosPostados = $selecao->getPostData();
@@ -169,14 +169,14 @@ $dadosPostados = $selecao->getPostData();
 
 <br/>
 
-#### enableField($formName, $field) e disableField($formName, $field)
+## enableField e disableField
 (Método estático) Habilita e desabilita o campo no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecao = new TMultiSearch('selecaoEnableDisableField');
 $selecao->setSize(220, 70);
@@ -208,14 +208,14 @@ public static function desabilitarCampo($param = null)
 
 <br/>
 
-#### clearField($form_name, $field) (Método estático)
-Limpa o campo no formulário.
+## clearField
+(Método estático) Limpa o campo no formulário.
 
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$field`: Nome do campo.
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
 
-Exemplo de código:
+**Exemplo de código:**
 ```php
 $selecao = new TMultiSearch('selecaoClearField');
 $selecao->setSize(220, 70);
