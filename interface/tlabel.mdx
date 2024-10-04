@@ -2,3 +2,113 @@
 title: 'TLabel'
 description: 'O `TLabel` é um componente para exibição de texto, como por exemplo, um rótulo para outros campos em um formulário (derivado da classe `TField`).'
 ---
+
+## __construct
+Construtor da classe `TLabel`.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Texto do rótulo.</ResponseField>
+<ResponseField name="$color" type="mixed" default="null">(Opcional) Cor do texto.</ResponseField>
+<ResponseField name="$fontsize" type="mixed" default="null">(Opcional) Tamanho da fonte.</ResponseField>
+<ResponseField name="$decoration" type="mixed" default="null">(Opcional) Decoração do texto (negrito, itálico, sublinhado).</ResponseField>
+<ResponseField name="$size" type="mixed" default="null">(Opcional) Tamanho do rótulo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloProduto = new TLabel('Produto', '#000', '24px', 'b', '100%');
+```
+
+<br/>
+
+## setValue
+Define o texto do rótulo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Texto do rótulo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloProduto = new TLabel('Inicial');
+$rotuloProduto->setValue('Produto Atualizado');
+```
+
+<br/>
+
+## getValue
+Obtém o texto do rótulo.
+
+**Exemplo de código:**
+```php
+$rotuloProduto = new TLabel('Produto');
+$texto = $rotuloProduto->getValue();
+```
+
+<br/>
+
+## setFontSize
+Define o tamanho da fonte do rótulo.
+
+**Parâmetros:**
+<ResponseField name="$size" type="mixed" required>Tamanho da fonte em pixels ou pontos.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloPreco = new TLabel('Preço');
+$rotuloPreco->setFontSize('24px');
+```
+
+<br/>
+
+## setFontStyle
+Define o estilo da fonte do rótulo (negrito, itálico, sublinhado).
+
+**Parâmetros:**
+<ResponseField name="$decoration" type="mixed" required>Decorações de texto.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloNome = new TLabel('Nome');
+$rotuloNome->setFontStyle('bi');
+```
+
+<br/>
+
+## setFontFace
+Define a família da fonte do rótulo.
+
+**Parâmetros:**
+<ResponseField name="$font" type="mixed" required>Nome da família da fonte.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloEndereco = new TLabel('Endereço');
+$rotuloEndereco->setFontFace('Arial');
+```
+
+<br/>
+
+## setFontColor
+Define a cor da fonte do rótulo.
+
+**Parâmetros:**
+<ResponseField name="$color" type="mixed" required>Cor da fonte.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloEmail = new TLabel('Email');
+$rotuloEmail->setFontColor('#FF0000');
+```
+
+<br/>
+
+## enableToggleVisibility
+Ativa ou desativa a opção de alternar a visibilidade do texto do rótulo.
+
+**Parâmetros:**
+<ResponseField name="$toggleVisibility" type="bool" default="TRUE">(Opcional) Booleano indicando se a opção deve ser ativada.</ResponseField>
+
+**Exemplo de código:**
+```php
+$rotuloSenha = new TLabel('Senha');
+$rotuloSenha->enableToggleVisibility();
+```
