@@ -1,0 +1,302 @@
+---
+title: 'TSelect'
+description: 'O `TSelect` é um componente de seleção (derivado da classe `TField`), permitindo ao usuário escolher uma ou mais opções de uma lista. Este componente é útil para formulários onde uma seleção é necessária dentre um conjunto de opções pré-definidas.'
+---
+
+## __construct
+Construtor da classe `TSelect`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do campo.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do campo.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setSize(200, 200);
+```
+
+<br/>
+
+## getSize
+Retorna o tamanho do campo como um array com largura e altura.
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setSize(250);
+$tamanho = $selectCidades->getSize(); // (250, 70)
+```
+
+<br/>
+
+## addItems
+Adiciona itens ao select.
+
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array associativo de itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->addItems(['1' => 'São Paulo', '2' => 'Rio de Janeiro']);
+```
+
+<br/>
+
+## getItems
+Retorna os itens do select. Este método é útil para obter os itens que foram adicionados ao `TSelect`, permitindo manipulações ou verificações adicionais.
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$itens = $selectCidades->getItems();
+```
+
+<br/>
+
+## setDefaultOption
+Define uma opção padrão que é exibida no select.
+
+**Parâmetros:**
+<ResponseField name="$option" type="mixed" required>Opção padrão a ser exibida.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+```
+
+<br/>
+
+## setValue
+Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+$selectCidades->addItems(['1' => 'São Paulo', '2' => 'Rio de Janeiro']);
+$selectCidades->setValue('1');
+```
+
+<br/>
+
+## setValueSeparator
+Define um separador para os valores no campo, útil quando o campo permite múltiplas seleções.
+
+**Parâmetros:**
+<ResponseField name="$sep" type="mixed" required>Separador para os valores.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+$selectCidades->addItems(['1' => 'Brasília', '2' => 'São Paulo', '3' => 'Rio de Janeiro', '4' => 'Porto Alegre', '5' => 'Salvador', '6' => 'Fortaleza']);
+$selectCidades->setValueSeparator(',');
+```
+
+<br/>
+
+## enableSearch
+Habilita a pesquisa dentro do componente.
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+$selectCidades->addItems(['1' => 'Brasília', '2' => 'São Paulo', '3' => 'Rio de Janeiro', '4' => 'Porto Alegre', '5' => 'Salvador', '6' => 'Fortaleza']);
+$selectCidades->enableSearch();
+```
+
+<br/>
+
+## disableMultiple
+Desativa a seleção múltipla.
+
+**Exemplo de código:**
+```php
+$selectRegiao = new TSelect('regiao');
+$selectRegiao->setDefaultOption('Selecione uma região');
+$selectRegiao->addItems(['1' => 'Região Centro-Oeste', '2' => 'Região Nordeste', '3' => 'Região Norte', '4' => 'Região Sudeste', '5' => 'Região Sul']);
+$selectRegiao->disableMultiple();
+```
+
+<br/>
+
+## disableTitles
+Desativa os títulos das opções.
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+$selectCidades->addItems(['1' => 'Porto Alegre', '2' => 'Florianópolis', '3' => 'Curitiba']);
+$selectCidades->disableTitles();
+```
+
+<br/>
+
+## setChangeAction
+Define a ação a ser executada quando o usuário altera a seleção.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+$selectCidades->addItems(['1' => 'Belém', '2' => 'Boa Vista', '3' => 'Macapá', '4' => 'Manaus', '5' => 'Palmas', '6' => 'Porto Velho', '7' => 'Rio Branco']);
+$selectCidades->setChangeAction(new TAction(['NomeClasseDeControle', 'onStatusChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onStatusChange($param = null)
+{
+    new TMessage('info', 'A seleção foi alterada com sucesso!');
+}
+```
+
+<br/>
+
+## setChangeFunction
+Define uma função JavaScript para ser executada quando o usuário altera a seleção.
+
+**Parâmetros:**
+<ResponseField name="$function" type="mixed" required>Função JavaScript.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$selectCidades->setDefaultOption('Selecione uma cidade');
+$selectCidades->addItems(['1' => 'Brasília', '2' => 'Goiânia', '3' => 'Cuiabá', '4' => 'Campo Grande']);
+$selectCidades->setChangeFunction('alert("A seleção foi alterada com sucesso!")');
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$selectCidades = new TSelect('cidades');
+$dadosPostados = $selectCidades->getPostData();
+```
+
+<br/>
+
+## reload
+(Método estático) Recarrega os itens do select de forma dinâmica.
+
+**Parâmetros:**
+<ResponseField name="$formname" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$items" type="mixed" required>Array de itens.</ResponseField>
+<ResponseField name="$startEmpty" type="bool" default="FALSE">(Opcional) Inicia vazio.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TSelect('opcoesUsuario');
+$opcoesUsuario->setDefaultOption('Selecione uma opção');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnRecarregar = new TButton('btnReload');
+$btnRecarregar->addStyleClass('btn-default');
+$btnRecarregar->setImage('far:circle #000000');
+$btnRecarregar->setAction(new TAction([$this, 'recarregarCampo']]), 'Recarregar Opções');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function recarregarCampo($param = null)
+{
+    TSelect::reload('nomeForm', 'opcoesUsuario', ['1' => 'Opção 1', '2' => 'Opção 2', '3' => 'Opção 3']);
+}
+```
+
+<br/>
+
+## enableField e disableField
+(Método estático) Habilita ou desabilita um campo de seleção no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TSelect('opcoesUsuario');
+$opcoesUsuario->setDefaultOption('Selecione uma opção');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Seleção');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Seleção');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TSelect::enableField('nomeForm', 'opcoesUsuario');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TSelect::disableField('nomeForm', 'opcoesUsuario');
+}
+```
+
+<br/>
+
+## clearField
+(Método estático) Limpa o valor de um campo no formulário.
+
+**Parâmetros:**
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$opcoesUsuario = new TSelect('opcoesUsuario');
+$opcoesUsuario->setDefaultOption('Selecione uma opção');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction( [$this, 'limparCampo']), 'Limpar Seleção');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TSelect::clearField('nomeForm', 'opcoesUsuario');
+}
+```
