@@ -1,0 +1,273 @@
+---
+title: 'TImageCropper'
+description: 'O `TImageCropper` é um componente para carregar e cortar imagens (derivado da classe `TField`). Ele permite ajustes finos e manipulações, como zoom, rotação e escala.'
+---
+
+## __construct
+Construtor da classe `TImageCropper`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do campo de entrada para o carregador de imagens.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do campo.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setSize(320, 180);
+```
+
+<br/>
+
+## getSize
+Retorna as dimensões do campo de entrada.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setSize(256, 144);
+$tamanho = $cortadorImagem->getSize(); // (256, 144)
+```
+
+<br/>
+
+## setValue
+Define o valor inicial da imagem, podendo ser uma URL ou uma imagem em base64.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>URL da imagem ou dados em base64.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setValue('caminho/para/imagem.jpg');
+```
+
+<br/>
+
+## setImagePlaceholder
+Define uma imagem de placeholder.
+
+**Parâmetros:**
+<ResponseField name="$image" type="TImage" required>Objeto `TImage` que será usado como placeholder.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setImagePlaceholder(new TImage('caminho/para/placeholder.png'));
+```
+
+<br/>
+
+## setWindowTitle
+Define o título da janela do cortador de imagem.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título da janela.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setWindowTitle('Ajuste sua Imagem');
+```
+
+<br/>
+
+## setButtonLabel
+Define o texto do botão de corte.
+
+**Parâmetros:**
+<ResponseField name="$text" type="mixed" required>Texto do botão.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setButtonLabel('Cortar Imagem');
+```
+
+<br/>
+
+## setAspectRatio
+Define a proporção da área de corte.
+
+**Parâmetros:**
+<ResponseField name="$aspectRatio" type="mixed" required>Proporção da imagem.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setAspectRatio(9/16);
+```
+
+Ou utilizando uma das proporções pré-configuradas (16/9, 4/3, 1/1 e 2/3):
+
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setAspectRatio(TImageCropper::CROPPER_RATIO_16_9);
+```
+
+<br/>
+
+## enableBase64
+Ativa o suporte para imagens em formato base64.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->enableBase64();
+```
+
+<br/>
+
+## enableWebCam
+Ativa o suporte para captura de imagens diretamente da webcam.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->enableWebCam();
+```
+
+<br/>
+
+## setAllowedExtensions
+Define as extensões de arquivo permitidas para o upload.
+
+**Parâmetros:**
+<ResponseField name="$extensions" type="mixed" required>Array de extensões permitidas.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setAllowedExtensions(['jpg', 'png']);
+```
+
+<br/>
+
+## getAllowedExtensions
+Obtém as extensões de arquivo permitidas.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setAllowedExtensions(['jpg', 'jpeg', 'png']);
+$extensoesPermitidas = $cortadorImagem->getAllowedExtensions();
+```
+
+<br/>
+
+## enableFileHandling
+Ativa o manuseio de arquivos no componente.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->enableFileHandling();
+```
+
+<br/>
+
+## disableButtonsDrag
+Desativa os botões de arrastar no componente.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->disableButtonsDrag();
+```
+
+<br/>
+
+## disableButtonsZoom
+Desativa os botões de zoom no componente.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->disableButtonsZoom();
+```
+
+<br/>
+
+## disableButtonsScale
+Desativa os botões de escala no componente.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->disableButtonsScale();
+```
+
+<br/>
+
+## disableButtonReset
+Desativa o botão de reset no componente.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->disableButtonReset();
+```
+
+<br/>
+
+## disableButtonsRotate
+Desativa os botões de rotação no componente.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->disableButtonsRotate();
+```
+
+<br/>
+
+## setCropSize
+Define o tamanho da área de corte.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>largura da área de corte.</ResponseField>
+<ResponseField name="$height" type="mixed" required>Altura da área de corte.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setCropSize(300, 200);
+```
+
+<br/>
+
+## setService
+Define a classe de serviço para lidar com o upload de imagens.
+
+**Parâmetros:**
+<ResponseField name="$service" type="mixed" required>Nome da classe de serviço.</ResponseField>
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$cortadorImagem->setService('ImageUploadService');
+```
+
+<br/>
+
+## getOptions
+Retorna as opções específicas do componente em formato JSON.
+
+**Exemplo de código:**
+```php
+$cortadorImagem = new TImageCropper('imagemPerfil');
+$opcoes = $cortadorImagem->getOptions();
+```
