@@ -1,0 +1,95 @@
+---
+title: 'TDBSeekButton'
+description: 'O `TDBSeekButton` é um componente que cria um campo de busca para valores de entidades associadas, baseando-se em Active Records.'
+---
+
+Derivado da classe `TSeekButton`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TDBSeekButton`. Acesse a [documentação do componente/classe-pai](https://madbuilder.mintlify.app/selecao-de-dados-banco-de-dados/tseekbutton) para conhecê-los.
+
+## __construct
+Construtor da classe `TDBSeekButton`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo do formulário.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome da conexão com o banco de dados.</ResponseField>
+<ResponseField name="$form" type="mixed" required>Nome do formulário pai.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Nome do Active Record a ser pesquisado.</ResponseField>
+<ResponseField name="$display_field" type="mixed" required>Nome do campo a ser pesquisado e exibido.</ResponseField>
+<ResponseField name="$receive_key" type="mixed" default="null">(Opcional) Nome do campo do formulário para receber a chave primária.</ResponseField>
+<ResponseField name="$receive_display_field" type="mixed" default="null">(Opcional) Nome do campo do formulário para receber o campo de exibição.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="NULL">(Opcional) Critérios de busca.</ResponseField>
+<ResponseField name="$operator" type="string" default="like">(Opcional) Operador de comparação.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoBuscaCliente = new TDBSeekButton('idCliente', 'database', 'formCliente', 'Cliente', 'nome', 'idCliente', 'nomeCliente');
+```
+
+<br/>
+
+## setCriteria
+Define os critérios de busca para o componente.
+
+**Parâmetros:**
+<ResponseField name="$criteria" type="TCriteria" required>Critérios de busca.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoBuscaCliente = new TDBSeekButton('idCliente', 'database', 'formCliente', 'Cliente', 'nome');
+$botaoBuscaCliente->setCriteria($novoCritério);
+```
+
+<br/>
+
+## setOperator
+Define o operador de comparação para a busca.
+
+**Parâmetros:**
+<ResponseField name="$operator" type="mixed" required>Operador de comparação.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoBuscaCliente = new TDBSeekButton('idCliente', 'database', 'formCliente', 'Cliente', 'nome');
+$botaoBuscaCliente->setOperator('like');
+```
+
+<br/>
+
+## setDisplayMask
+Define a máscara de exibição dos dados no campo.
+
+**Parâmetros:**
+<ResponseField name="$mask" type="mixed" required>Máscara de exibição.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoBuscaCliente = new TDBSeekButton('idCliente', 'database', 'formCliente', 'Cliente', 'nome');
+$botaoBuscaCliente->setDisplayMask('{id} - {nome}');
+```
+
+<br/>
+
+## setDisplayLabel
+Define o rótulo de exibição dos dados no campo.
+
+**Parâmetros:**
+<ResponseField name="$label" type="mixed" required>Rótulo de exibição.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoBuscaCliente = new TDBSeekButton('idCliente', 'database', 'formCliente', 'Cliente', 'nome');
+$botaoBuscaCliente->setDisplayLabel('Cliente');
+```
+
+<br/>
+
+## setValue
+(Método estático) Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor atual.</ResponseField>
+
+**Exemplo de código:**
+```php
+$botaoBuscaCliente = new TDBSeekButton('idCliente', 'database', 'formCliente', 'Cliente', 'nome');
+$botaoBuscaCliente->setValue(1);
+```
