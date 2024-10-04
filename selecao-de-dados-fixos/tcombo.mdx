@@ -1,0 +1,265 @@
+---
+title: 'TCombo'
+description: 'O `TCombo` é um componente que cria uma caixa de seleção (derivado da classe `TField`), permitindo que o usuário escolha uma opção de uma lista suspensa.'
+---
+
+## __construct
+Construct da classe `TCombo`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoEstado = new TCombo('estado');
+```
+
+<br/>
+
+## setBooleanMode
+Ativa o modo booleano.
+
+**Exemplo de código:**
+```php
+$selecaoSimNao = new TCombo('confirmacao');
+$selecaoSimNao->setBooleanMode();
+```
+
+<br/>
+
+## setValue
+Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="string" required>Uma string contendo o valor do campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'Mato Grosso', '2' => 'Mato Grosso do Sul', '3' => 'Goiás']);
+$selecaoEstado->setValue('2');
+```
+
+<br/>
+
+## getValue
+Obtém o valor do campo.
+
+**Exemplo de código:**
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'Mato Grosso', '2' => 'Mato Grosso do Sul', '3' => 'Goiás']);
+$selecaoEstado->setValue('2');
+$valor = $selecaoEstado->getValue(); // Mato Grosso do Sul
+```
+
+<br/>
+
+## addItems
+Adiciona itens à combo-box.
+
+**Parâmetros:**
+<ResponseField name="$items" type="mixed" required>Array associativo de itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'Paraná', '2' => 'Santa Catarina', '3' => 'Rio Grande do Sul']);
+```
+
+<br/>
+
+## getItems
+Retorna os itens do combo.
+
+**Exemplo de código:**
+```php
+$selecao = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'Paraná', '2' => 'Santa Catarina', '3' => 'Rio Grande do Sul']);
+$itens = $selecaoEstado->getItems();
+```
+
+<br/>
+
+#### setDefaultOption($option)
+Define a opção padrão do combo.
+
+- Parâmetros:
+  - `$option`: Valor da opção padrão.
+
+Exemplo de código:
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->setDefaultOption('Selecione um Estado');
+```
+
+<br/>
+
+#### enableSearch()
+Habilita a busca dentro do combo.
+
+Exemplo de código:
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'São Paulo', '2' => 'Rio de Janeiro', '3' => 'Minas Gerais', '4' => 'Espírito Santo'])
+$selecaoEstado->enableSearch();
+```
+
+<br/>
+
+#### clear()
+Limpa os itens do combo.
+
+Exemplo de código:
+```php
+$selecaoNivelIngles = new TCombo('nivelIngles');
+$selecaoNivelIngles->addItems(['1' => 'Básico', '2' => 'Intermediário', '3' => 'Avançado']);
+$selecaoNivelIngles->clear();
+$selecaoNivelIngles->addItems(['1' => 'Básico', '2' => 'Intermediário', '3' => 'Avançado', '4' => 'Fluente/Nativo']);
+```
+
+<br/>
+
+#### setChangeAction(TAction $action)
+Define a ação a ser executada quando o usuário altera a seleção do combo.
+
+- Parâmetros:
+  - `$action`: Objeto TAction.
+
+Exemplo de código:
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'Bahia', '2' => 'Sergipe', '3' => 'Alagoas', '4' => 'Pernambuco', '5' => 'Piauí', '6' => 'Paraíba', '7' => 'Rio Grande do Norte', '8' => 'Ceará', '9' => 'Maranhão']);
+$selecaoEstado->setChangeAction(new TAction(['NomeClasseDeControle', 'onOptionChange']));
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onOptionChange($param = null)
+{
+    new TMessage('info', 'A opção foi alterada com sucesso!');
+}
+```
+
+<br/>
+
+#### setChangeFunction($function)
+Define a função JavaScript a ser executada quando o usuário altera a seleção do combo.
+
+- Parâmetros:
+  - `$function`: Função JavaScript.
+
+Exemplo de código:
+```php
+$selecaoEstado = new TCombo('estado');
+$selecaoEstado->addItems(['1' => 'Tocantins', '2' => 'Rondônia', '3' => 'Acre', '4' => 'Amazonas', '5' => 'Pará', '6' => 'Roraima', '7' => 'Amapá']);
+$selecaoEstado->setChangeFunction('alert("O estado foi alterado com sucesso!");');
+```
+
+<br/>
+
+#### getPostData()
+Obtém os dados enviados pelo formulário.
+
+Exemplo de código:
+```php
+$selecaoEstado = new TCombo('estado');
+$dadosPostados = $selecaoEstado->getPostData();
+```
+
+<br/>
+
+#### reload($formName, $name, $items, $startEmpty = FALSE, $fireEvents = TRUE)
+(Método estático) Recarrega os itens do combo.
+
+- Parâmetros:
+  - `$formname`: Nome do formulário.
+  - `$name`: Nome do campo.
+  - `$items`: Array com os itens.
+  - `$startEmpty` (opcional): Se o combo começará vazio.
+  - `$fire_events` (opcional): Se a ação de mudança será disparada.
+
+Exemplo de código:
+```php
+$combo = new TCombo('comboReload');
+$combo->addItems(['1' => 'Paraná', '2' => 'Santa Catarina']);
+
+$btnRecarregar = new TButton('btnReload');
+$btnRecarregar->addStyleClass('btn-default');
+$btnRecarregar->setImage('far:circle #000000');
+$btnRecarregar->setAction(new TAction([$this, 'recarregarCampo']]), 'Recarregar Opções');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function recarregarCampo($param = null)
+{
+    TCombo::reload('nomeForm', 'comboReload', ['1' => 'Paraná', '2' => 'Santa Catarina', '3' => 'Rio Grande do Sul'], true);
+}
+```
+
+<br/>
+
+#### enableField($formName, $field) e disableField($formName, $field)
+(Método estático) Habilita o campo no formulário.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+
+Exemplo de código:
+```php
+$selecao = new TCombo('selecaoEnableDisableField');
+
+$btnHabilitar = new TButton('btnEnableField');
+$btnHabilitar->addStyleClass('btn-default');
+$btnHabilitar->setImage('far:circle #000000');
+$btnHabilitar->setAction(new TAction([$this, 'habilitarCampo']), 'Habilitar Seleção de Opção');
+
+$btnDesabilitar = new TButton('btnDisableField');
+$btnDesabilitar->addStyleClass('btn-default');
+$btnDesabilitar->setImage('far:circle #000000');
+$btnDesabilitar->setAction(new TAction([$this, 'desabilitarCampo']), 'Desabilitar Seleção de Opção');
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function habilitarCampo($param = null)
+{
+    TCombo::enableField('nomeForm', 'selecaoEnableDisableField');
+}
+
+public static function desabilitarCampo($param = null)
+{
+    TCombo::disableField('nomeForm', 'selecaoEnableDisableField');
+}
+```
+
+<br/>
+
+#### clearField($formName, $field, $fireEvents = TRUE) (Método estático)
+Limpa o campo no formulário.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$field`: Nome do campo.
+  - `$fire_events` (opcional): Se a ação de mudança será disparada.
+
+Exemplo de código:
+```php
+$combo = new TCombo('comboClearField');
+$combo->addItems(['inicio' => 'Início', 'meio' => 'Meio', 'fim' => 'Fim']);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Opções');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TCombo::clearField('nomeForm', 'comboClearField');
+}
+```
