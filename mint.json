@@ -111,28 +111,53 @@
       "pages":
       [
         "selecao-de-dados-banco-de-dados/tdbarrowstep",
-        "selecao-de-dados-banco-de-dados/tdbcombo"
+        "selecao-de-dados-banco-de-dados/tdbchecklist",
+        "selecao-de-dados-banco-de-dados/tdbcombo",
+        "selecao-de-dados-fixos/tdbselect",
+        "selecao-de-dados-fixos/tdbradiogroup",
+        "selecao-de-dados-fixos/tdbcheckgroup",
+        "selecao-de-dados-fixos/tdbseekbutton",
+        "selecao-de-dados-fixos/tseekbutton",
+        "selecao-de-dados-fixos/tdbentry",
+        "selecao-de-dados-fixos/tdbsortlist",
+        "selecao-de-dados-fixos/bdbtreeview",
+        "selecao-de-dados-fixos/bdbrecursivetreeview"
       ]
     },
     {
       "group": "Busca de registros (banco de dados)",
       "pages":
       [
-        "busca-de-registros-banco-de-dados/tdbuniquesearch"
+        "busca-de-registros-banco-de-dados/tdbuniquesearch",
+        "busca-de-registros-banco-de-dados/tdbmultisearch"
       ]
     },
     {
       "group": "Upload de arquivos",
       "pages":
       [
-        "upload-de-arquivos/tfile"
+        "upload-de-arquivos/tfile",
+        "upload-de-arquivos/tmultifile",
+        "upload-de-arquivos/timagecropper",
+        "upload-de-arquivos/timagecapture",
+        "upload-de-arquivos/bsignaturedrawcapture"
       ]
     },
     {
       "group": "Interface",
       "pages":
       [
-        "interface/bpagecontainer"
+        "interface/bpagecontainer",
+        "interface/tlabel",
+        "interface/tbutton",
+        "interface/timage",
+        "interface/belement",
+        "interface/talert",
+        "interface/tpagestep",
+        "interface/bcontainer",
+        "interface/tformseparator",
+        "interface/bhelper",
+        "interface/tpillbar"
       ]
     }
   ],
