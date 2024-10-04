@@ -1,23 +1,15 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'TSeekButton'
+description: 'O `TSeekButton` é um widget que cria um campo de busca com um botão auxiliar para procurar valores de entidades associadas.'
 ---
-
-## TSeekButton
-
-O `TSeekButton` é um widget que cria um campo de busca com um botão auxiliar para procurar valores de entidades associadas.
 
 Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TSeekButton`. Acesse a documentação do componente/classe-pai para conhecê-los.
 
-* Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco.
+_Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco._
 
-* Obs. 2: para utilizar este componente de busca, faz-se necessário criar uma nova página "Janela de Busca" a partir da base de dados e tabela desejados. Nesta documentação, utilizaremos a janela de busca "ProdutoSeekWindow".
+_Obs. 2: para utilizar este componente de busca, faz-se necessário criar uma nova página "Janela de Busca" a partir da base de dados e tabela desejados. Nesta documentação, utilizaremos a janela de busca "ProdutoSeekWindow"._
 
-* Obs. 3: todos os exemplos de código presentes nesta documentação seguirão como base o conteúdo de `__construct()`, acrescentando apenas seus respectivos métodos.
-
-<br/>
-
-
+_Obs. 3: todos os exemplos de código presentes nesta documentação seguirão como base o conteúdo de `__construct()`, acrescentando apenas seus respectivos métodos._
 
 #### __construct($name, $icon = NULL)
 Construtor da classe TSeekButton.
@@ -43,13 +35,7 @@ $campoPrecoConstruct->placeholder = "Preço";
 // Definição da ação do TSeekButton abstraída pelo builder a partir dos valores para preenchimento de campos fornecidos.
 ```
 
-<div style="width: 300px">
-{$code_tseekbutton_construct}
-</div>
-
 <br/>
-
-
 
 #### setSize($width, $height = NULL)
 Define a largura do campo.
@@ -65,13 +51,7 @@ Exemplo de código:
 $botaoBusca->setSize(150);
 ```
 
-<div style="width: 300px">
-{$code_tseekbutton_setSize}
-</div>
-
 <br/>
-
-
 
 #### setUseOutEvent($bool)
 Define se o evento de saída será disparado.
@@ -86,13 +66,7 @@ Exemplo de código:
 $botaoBusca->setUseOutEvent(true);
 ```
 
-<div style="width: 300px">
-{$code_tseekbutton_setUseOutEvent}
-</div>
-
 <br/>
-
-
 
 #### setAction(TAction $action)
 Define a ação para o botão de busca.
@@ -107,13 +81,7 @@ Exemplo de código:
 $botaoBusca->setAction($acao);
 ```
 
-<div style="width: 300px">
-{$code_tseekbutton_setAction}
-</div>
-
 <br/>
-
-
 
 #### getAction()
 Retorna a ação definida para o botão de busca.
@@ -126,8 +94,6 @@ $acao = $botaoBusca->getAction();
 ```
 
 <br/>
-
-
 
 #### setAuxiliar($object)
 Define um campo auxiliar.
@@ -143,13 +109,7 @@ $campoAuxiliar = new TEntry('campoAuxiliar');
 $botaoBusca->setAuxiliar($campoAuxiliar);
 ```
 
-<div style="width: 300px">
-{$code_tseekbutton_setAuxiliar}
-</div>
-
 <br/>
-
-
 
 #### hasAuxiliar()
 Verifica se existe um campo auxiliar definido.
@@ -162,8 +122,6 @@ $temAuxiliar = $botaoBusca->hasAuxiliar();
 ```
 
 <br/>
-
-
 
 #### enableField($formName, $field) e disableField($formName, $field)
 (Método estático) Habilita e desabilita um botão.
