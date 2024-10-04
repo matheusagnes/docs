@@ -1,0 +1,146 @@
+---
+title: 'TDBMultiSearch'
+description: 'O `TDBMultiSearch` é um componente de busca de múltipla seleção vinculado a uma fonte de dados de banco de dados. Este componente permite que o usuário realize uma busca e selecione múltiplos itens de uma lista que é dinamicamente carregada do banco de dados.'
+---
+
+Derivado da classe `TMultiSearch`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TDBUMultiSearch`. Acesse a [documentação do componente/classe-pai](https://madbuilder.mintlify.app/busca-de-dados-fixos/tmultisearch) para conhecê-los.
+
+_Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco._
+
+## __construct
+Construtor da classe `TDBMultiSearch`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome do banco de dados.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Classe do modelo que representa a tabela no banco.</ResponseField>
+<ResponseField name="$key" type="mixed" required>Campo chave na tabela.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Campo que será exibido na lista.</ResponseField>
+<ResponseField name="$orderColumn" type="mixed" default="NULL">(Opcional) Coluna pela qual a lista será ordenada.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="NULL">(Opcional) Critério para filtrar a lista.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize(180, 70);
+```
+
+**Exemplo de código (com parâmetros opcionais):**
+```php
+$criterio = new TCriteria();
+$criterio->add(new TFilter('preco', '<', 5)); // Filtrar por itens da tabela cujo preço seja menor que 5
+
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome', 'preco asc', $criterio);
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize('180px');
+$selecaoProduto->setMask('{nome}, R$ {preco}');
+```
+
+<br/>
+
+## disableIdSearch
+Desativa a busca por ID.
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize(180, 70);
+
+$selecaoProduto->disableIdSearch();
+```
+
+<br/>
+
+## enableIdTextualSearch
+Ativa a busca textual por ID.
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize(180, 70);
+
+$selecaoProduto->enableIdTextualSearch(); // configuração padrão do componente
+```
+
+<br/>
+
+## setOperator
+Define o operador de busca.
+
+**Parâmetros:**
+<ResponseField name="$operator" type="mixed" required>Operador para a busca.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize(180, 70);
+        
+$selecaoProduto->setOperator('LIKE');
+```
+
+<br/>
+
+## setMask
+Define a máscara de exibição dos itens.
+
+**Parâmetros:**
+<ResponseField name="$mask" type="mixed" required>Máscara para os itens.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize(180, 70);
+
+$selecaoProduto->setMask('{id} - {nome}');
+```
+
+<br/>
+
+## setFilterColumns
+Define as colunas de filtro.
+
+**Parâmetros:**
+<ResponseField name="$columns" type="mixed" required>Colunas usadas para o filtro.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setMask('{nome}, R$ {preco}');
+$selecaoProduto->setSize(180, 70);
+
+$selecaoProduto->setFilterColumns(['nome', 'preco']); // torna-se possível pesquisar itens através de seu nome ou preço
+```
+
+<br/>
+
+## setValue
+Define os valores do campo.
+
+**Parâmetros:**
+<ResponseField name="$values" type="mixed" required>Array com os valores.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize(180, 70);
+
+$selecaoProduto->setValue([1, 3, 6]);
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBMultiSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$dadosPostados = $selecaoProduto->getPostData();
+```
