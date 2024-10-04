@@ -2,3 +2,105 @@
 title: 'BPageContainer'
 description: 'O `BPageContainer` é um componente que encapsula outros elementos HTML, permitindo manipular sua visibilidade, tamanho e ações associadas (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor do `BPageContainer`.
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+```
+
+<br/>
+
+## setAction
+Define uma ação a ser executada pelo container.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Ação a ser definida.</ResponseField>
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->setAction(new TAction(['NomeClasseDeControle', 'onTestAction']));
+```
+
+<br/>
+
+## setParameter
+Define um parâmetro para a ação do container.
+
+**Parâmetros:**
+<ResponseField name="$key" type="mixed" required>Chave do parâmetro.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Valor do parâmetro.</ResponseField>
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->setAction(new TAction(['NomeClasseDeControle', 'onTestAction']));
+$container->setParameter('chave', 'valor');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do widget.
+
+**Parâmetros:**
+<ResponseField name="$width" type="mixed" required>Largura do widget.</ResponseField>
+<ResponseField name="$height" type="mixed" default="NULL">(Opcional) Altura do widget.</ResponseField>
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->setSize(250, 150);
+```
+
+<br/>
+
+## setId
+Define o ID do container.
+
+**Parâmetros:**
+<ResponseField name="$id" type="mixed" required>ID do container.</ResponseField>
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->setId('meuContainer');
+```
+
+<br/>
+
+## getSize
+Retorna o tamanho atual do container (largura e altura).
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->setSize(200, 100);
+$tamanho = $container->getSize(); // (200, 100)
+```
+
+<br/>
+
+## hide
+Oculta o container.
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->hide();
+```
+
+<br/>
+
+## unhide
+Desfaz a ocultação do container.
+
+**Exemplo de código:**
+```php
+$container = new BPageContainer();
+$container->hide();
+$container->unhide();
+```
