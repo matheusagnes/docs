@@ -2,3 +2,59 @@
 title: 'TFormSeparator'
 description: 'O `TFormSeparator` é um componente utilizado para inserir um separador visual em formulários, geralmente utilizado para dividir seções de um formulário (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor da classe `TFormSeparator`.
+
+**Parâmetros:**
+<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
+<ResponseField name="$fontColor" type="string" default="'#333333'">(Opcional) Cor da fonte do título.</ResponseField>
+<ResponseField name="$fontSize" type="string" default="'16'">(Opcional) Tamanho da fonte do título.</ResponseField>
+<ResponseField name="$separatorColor" type="string" default="'#eeeeee'">(Opcional) Cor do separador.</ResponseField>
+
+**Exemplo de código:**
+```php
+$tituloSeparador = new TFormSeparator('Seção Principal', '#000', 13, '#cccccc');
+```
+
+<br/>
+
+## setFontSize
+Define o tamanho da fonte do título do separador.
+
+**Parâmetros:**
+<ResponseField name="$size" type="mixed" required>Tamanho da fonte.</ResponseField>
+
+**Exemplo de código:**
+```php
+$tituloSeparador = new TFormSeparator('Seção Principal');
+$tituloSeparador->setFontSize(18);
+```
+
+<br/>
+
+## setFontColor
+Define a cor da fonte do título do separador.
+
+**Parâmetros:**
+<ResponseField name="$color" type="mixed" required>Cor da fonte.</ResponseField>
+
+**Exemplo de código:**
+```php
+$tituloSeparador = new TFormSeparator('Seção Principal');
+$tituloSeparador->setFontColor('#ff0000');
+```
+
+<br/>
+
+## setSeparatorColor
+Define a cor do separador.
+
+**Parâmetros:**
+<ResponseField name="$color" type="mixed" required>Cor do separador.</ResponseField>
+
+**Exemplo de código:**
+```php
+$tituloSeparador = new TFormSeparator('Seção Principal');
+$tituloSeparador->setSeparatorColor('#ff0000');
+```
