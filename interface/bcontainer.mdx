@@ -4,3 +4,116 @@ description: 'O `BContainer` é um componente que serve para encapsular outros c
 ---
 
 _Obs.: todos os exemplos de código presentes nesta documentação seguirão como base o conteúdo de `__construct()`, acrescentando apenas seus respectivos métodos._
+
+## __construct
+Construtor da classe `BContainer`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do container que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$campoEmail = new TEntry('campoEmail');
+$campoSenha = new TPassword('campoSenha');
+
+$campoEmail->setSize('100%');
+$campoSenha->setSize('100%');
+
+$container = new BContainer('container');
+$container->setTitle("title", '#333', '18px', '', '#fff');
+$container->setBorderColor('#c0c0c0');
+
+$linha1 = $container->addFields([new TLabel("Email:", null, '14px', null)], [$campoEmail]);
+$linha2 = $container->addFields([new TLabel("Senha:", null, '14px', null)], [$campoSenha]);
+```
+
+<br/>
+
+## setTitle
+Define o título do container e opções de estilo como cor, tamanho da fonte, decoração (negrito, itálico, sublinhado) e cor de fundo.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do container.</ResponseField>
+<ResponseField name="$titleFontColor" type="mixed" default="null">(Opcional) Cor da fonte do título.</ResponseField>
+<ResponseField name="$titleFontSize" type="mixed" default="null">(Opcional) Tamanho da fonte do título.</ResponseField>
+<ResponseField name="$titelDecoration" type="mixed" default="null">(Opcional) Decoração do título (b para negrito, i para itálico, u para sublinhado).</ResponseField>
+<ResponseField name="$titleBackgroundColor" type="mixed" default="null">(Opcional) Cor de fundo do título.</ResponseField>
+
+**Exemplo de código:**
+```php
+// Instância inicial presente na seção '__construct()'
+
+$container->setTitle('Título', '#000', '20px', 'b', '#fff');
+```
+
+<br/>
+
+## setBorderColor
+Define a cor da borda do container.
+
+**Parâmetros:**
+<ResponseField name="$borderColor" type="mixed" required>Cor da borda.</ResponseField>
+
+**Exemplo de código:**
+```php
+// Instância inicial presente na seção '__construct()'
+
+$container->setTitle('Login', '#000', '18px', 'b', '#fff');
+$container->setBorderColor('#ff0000');
+```
+
+<br/>
+
+## setId
+Define o ID do container para referência no CSS ou JavaScript.
+
+**Parâmetros:**
+<ResponseField name="$id" type="mixed" required>ID do container.</ResponseField>
+
+**Exemplo de código:**
+```php
+// Instância inicial presente na seção '__construct()'
+
+$containerQuarto->setId('meuContainer');
+```
+
+<br/>
+
+## enableExpander
+Ativa a capacidade de expansão do container.
+
+**Exemplo de código:**
+```php
+// Instância inicial presente na seção '__construct()'
+
+$container->setTitle('Login', '#000', '18px', 'b', '#fff');
+$container->enableExpander();
+```
+
+<br/>
+
+## disableExpander
+Desativa a capacidade de expansão do container.
+
+**Exemplo de código:**
+```php
+// Instância inicial presente na seção '__construct()'
+
+$container->setTitle('Login', '#000', '18px', 'b', '#fff');
+$container->enableExpander();
+$container->disableExpander();
+```
+
+<br/>
+
+## enableStartExpanderOpened
+Configura o container para iniciar já expandido.
+
+**Exemplo de código:**
+```php
+// Instância inicial presente na seção '__construct()'
+
+$container->setTitle('Login', '#000', '18px', 'b', '#fff');
+$container->enableExpander();
+$containerAberto->enableStartExpanderOpened();
+```
