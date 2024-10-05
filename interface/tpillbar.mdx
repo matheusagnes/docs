@@ -2,3 +2,74 @@
 title: 'TPillBar'
 description: 'O `TPillBar` é um componente que gera uma barra de navegação em forma de pílulas, permitindo que os usuários interajam com diferentes seções de uma aplicação (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor da classe `TPillBar`.
+
+**Exemplo de código:**
+```php
+$barraOpcoes = new TPillBar();
+```
+
+<br/>
+
+## addItem
+Adiciona um item à barra de pílulas.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do item.</ResponseField>
+<ResponseField name="$action" type="TAction" default="null">(Opcional) Ação associada ao item, representada por um objeto `TAction`.</ResponseField>
+
+**Exemplo de código:**
+```php
+$barraOpcoes = new TPillBar();
+$barraOpcoes->addItem('Inicio', new TAction(['NomeClasseDeControle', 'onSelectStart']));
+$barraOpcoes->addItem('Fim', new TAction(['NomeClasseDeControle', 'onSelectEnd']));
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function onSelectStart($param = null)
+{
+    new TMessage('info', 'Item selecionado: Início');
+}
+    
+public static function onSelectEnd($param = null)
+{
+    new TMessage('info', 'Item selecionado: Fim');
+}
+```
+
+<br/>
+
+## selectIndex
+Seleciona um item baseado em seu índice.
+
+**Parâmetros:**
+<ResponseField name="$index" type="mixed" required>Índice do item na barra de pílulas.</ResponseField>
+
+**Exemplo de código:**
+```php
+$barraOpcoes = new TPillBar();
+$barraOpcoes->addItem('Início');
+$barraOpcoes->addItem('Fim');
+
+$barraOpcoes->selectIndex(0);
+```
+
+<br/>
+
+## select
+Seleciona um item baseado em seu título.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título do item.</ResponseField>
+
+**Exemplo de código:**
+```php
+$barraOpcoes = new TPillBar();
+$barraOpcoes->addItem('Início');
+$barraOpcoes->addItem('Fim');
+
+$barraOpcoes->select('Fim');
+```
