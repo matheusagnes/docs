@@ -2,3 +2,151 @@
 title: 'BHelper'
 description: 'O `BHelper` é um componente utilizado para exibir informações adicionais ou ações em um ícone, geralmente na forma de um popover. (derivado da classe `TElement`).'
 ---
+
+## __construct
+Construtor da classe `BHelper`.
+
+**Parâmetros:**
+<ResponseField name="$icon" type="mixed" default="null">(Opcional) Ícone do widget (padrão: ícone de interrogação).</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+```
+
+<br/>
+
+## setTitle
+Define o título do componente.
+
+**Parâmetros:**
+<ResponseField name="$title" type="mixed" required>Título exibido no hover do componente.</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->setTitle('Mais informações');
+```
+
+<br/>
+
+## setIcon
+Define o ícone do componente.
+
+**Parâmetros:**
+<ResponseField name="$icon" type="mixed" required>Ícone a ser exibido no componente.</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->setIcon(new TImage('far:info-circle'));
+```
+
+<br/>
+
+## setContent
+Define o conteúdo do popover.
+
+**Parâmetros:**
+<ResponseField name="$content" type="mixed" required>Conteúdo do popover.</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Este produto é fabricado com materiais sustentáveis.');
+```
+
+<br/>
+
+## getContent
+Obtém o conteúdo do popover.
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Esta é uma compra internacional e pode estar sujeita a tributação alfandegária.');
+$conteudo = $ajudaProduto->getContent();
+```
+
+<br/>
+
+## setSide
+Define o lado do popover.
+
+**Parâmetros:**
+<ResponseField name="$side" type="mixed" required>Lado do popover ['auto', 'top', 'right', 'bottom', 'left'].</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->setSide('bottom');
+```
+
+<br/>
+
+## setSize
+Define o tamanho do ícone.
+
+**Parâmetros:**
+<ResponseField name="$size" type="mixed" required>Tamanho do ícone em pixels.</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->setSize(24);
+```
+
+<br/>
+
+## setAction
+Define a ação de clique.
+
+**Parâmetros:**
+<ResponseField name="$action" type="TAction" required>Ação executada ao clicar no ícone.</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->setAction(new TAction(['NomeClasseDeControle', 'onClick']));
+```
+Código de exemplo das funções a serem chamadas, lembrando que essas funções precisam ser estáticas (static function).
+
+```php
+public static function onClick($param = null)
+{
+    new TMessage('info', 'Click detectado com sucesso!');
+}
+```
+
+<br/>
+
+## getAction
+Obtém a ação do componente.
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->setAction(new TAction(['NomeClasseDeControle', 'onClick']));
+$acao = $ajudaProduto->getAction();
+```
+
+<br/>
+
+## enableHover
+Ativa ou desativa a ativação do popover por hover.
+
+**Parâmetros:**
+<ResponseField name="$hover" type="bool" default="true">(Opcional) Booleano para ativar o hover.</ResponseField>
+
+**Exemplo de código:**
+```php
+$ajudaProduto = new BHelper();
+$ajudaProduto->setContent('Teste.');
+$ajudaProduto->enableHover();
+```
