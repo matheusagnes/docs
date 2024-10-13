@@ -3,7 +3,7 @@
   "name": "Mad.Builder",
   "logo":
   {
-    "dark": "/logo/dark.svg",
+    "dark": "https://manager.madbuilder.com.br/app/images/logo_full.svg",
     "light": "https://manager.madbuilder.com.br/app/images/logo_full.svg"
   },
   "favicon": "https://app.madbuilder.com.br/app/images/icon-mad-builder.svg",
