@@ -9,12 +9,12 @@
   "favicon": "https://app.madbuilder.com.br/app/images/icon-mad-builder.svg",
   "colors":
   {
-    "primary": "#0D9373",
+    "primary": "#fa931f",
     "light": "#07C983",
-    "dark": "#0D9373",
+    "dark": "#fa931f",
     "anchors":
     {
-      "from": "#0D9373",
+      "from": "#fa931f",
       "to": "#07C983"
     }
   },
