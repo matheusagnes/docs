@@ -4,9 +4,9 @@
   "logo":
   {
     "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "light": "https://manager.madbuilder.com.br/app/images/logo_full.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "https://app.madbuilder.com.br/app/images/icon-mad-builder.svg",
   "colors":
   {
     "primary": "#0D9373",
@@ -23,7 +23,7 @@
   ],
   "topbarCtaButton":
   {
-    "name": "Mad.Builder",
+    "name": "Mad Builder",
     "url": "https://www.madbuilder.com.br"
   },
   "tabs":
