@@ -33,20 +33,12 @@
       "url": "entrada-de-dados"
     },
     {
-      "name": "Seleção de dados (fixos)",
-      "url": "selecao-de-dados-fixos"
+      "name": "Seleção de dados",
+      "url": "selecao-de-dados"
     },
     {
-      "name": "Busca de dados (fixos)",
-      "url": "busca-de-dados-fixos"
-    },
-    {
-      "name": "Seleção de dados (banco de dados)",
-      "url": "selecao-de-dados-banco-de-dados"
-    },
-    {
-      "name": "Busca de registros (banco de dados)",
-      "url": "busca-de-registros-banco-de-dados"
+      "name": "Busca de dados",
+      "url": "busca-de-dados"
     },
     {
       "name": "Upload de arquivos",
@@ -88,48 +80,48 @@
       "group": "Seleção de dados (fixos)",
       "pages":
       [
-        "selecao-de-dados-fixos/tarrowstep",
-        "selecao-de-dados-fixos/tcombo",
-        "selecao-de-dados-fixos/tcheckbutton",
-        "selecao-de-dados-fixos/tcheckgroup",
-        "selecao-de-dados-fixos/tradiogroup",
-        "selecao-de-dados-fixos/tselect",
-        "selecao-de-dados-fixos/tsortlist",
-        "selecao-de-dados-fixos/tmultientry"
-      ]
-    },
-    {
-      "group": "Busca de dados (fixos)",
-      "pages":
-      [
-        "busca-de-dados-fixos/tuniquesearch",
-        "busca-de-dados-fixos/tmultisearch"
+        "selecao-de-dados/tarrowstep",
+        "selecao-de-dados/tcombo",
+        "selecao-de-dados/tcheckbutton",
+        "selecao-de-dados/tcheckgroup",
+        "selecao-de-dados/tradiogroup",
+        "selecao-de-dados/tselect",
+        "selecao-de-dados/tsortlist",
+        "selecao-de-dados/tmultientry"
       ]
     },
     {
       "group": "Seleção de dados (banco de dados)",
       "pages":
       [
-        "selecao-de-dados-banco-de-dados/tdbarrowstep",
-        "selecao-de-dados-banco-de-dados/tdbchecklist",
-        "selecao-de-dados-banco-de-dados/tdbcombo",
-        "selecao-de-dados-banco-de-dados/tdbselect",
-        "selecao-de-dados-banco-de-dados/tdbradiogroup",
-        "selecao-de-dados-banco-de-dados/tdbcheckgroup",
-        "selecao-de-dados-banco-de-dados/tdbseekbutton",
-        "selecao-de-dados-banco-de-dados/tseekbutton",
-        "selecao-de-dados-banco-de-dados/tdbentry",
-        "selecao-de-dados-banco-de-dados/tdbsortlist",
-        "selecao-de-dados-banco-de-dados/bdbtreeview",
-        "selecao-de-dados-banco-de-dados/bdbrecursivetreeview"
+        "selecao-de-dados/tdbarrowstep",
+        "selecao-de-dados/tdbchecklist",
+        "selecao-de-dados/tdbcombo",
+        "selecao-de-dados/tdbselect",
+        "selecao-de-dados/tdbradiogroup",
+        "selecao-de-dados/tdbcheckgroup",
+        "selecao-de-dados/tdbseekbutton",
+        "selecao-de-dados/tseekbutton",
+        "selecao-de-dados/tdbentry",
+        "selecao-de-dados/tdbsortlist",
+        "selecao-de-dados/bdbtreeview",
+        "selecao-de-dados/bdbrecursivetreeview"
+      ]
+    },
+    {
+      "group": "Busca de dados (fixos)",
+      "pages":
+      [
+        "busca-de-dados/tuniquesearch",
+        "busca-de-dados/tmultisearch"
       ]
     },
     {
       "group": "Busca de registros (banco de dados)",
       "pages":
       [
-        "busca-de-registros-banco-de-dados/tdbuniquesearch",
-        "busca-de-registros-banco-de-dados/tdbmultisearch"
+        "busca-de-registros/tdbuniquesearch",
+        "busca-de-registros/tdbmultisearch"
       ]
     },
     {
