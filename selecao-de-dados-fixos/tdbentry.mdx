@@ -1,4 +1,71 @@
 ---
-title: 'New file'
-description: 'Description of your new file.'
+title: 'TDBEntry'
+description: 'O `TDBEntry` é um componente de entrada de dados que interage com bases de dados, permitindo a entrada de dados com autocompletar baseado em valores de uma tabela específica.'
 ---
+
+Derivado da classe `TEntry`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TDBEntry`. Acesse a [documentação do componente/classe-pai](https://madbuilder.mintlify.app/entrada-de-dados/tentry) para conhecê-los.
+
+_Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco._
+
+_* Itens presentes no banco de dados (para teste): "Leite", "Pão", "Maçã", "Ovos", "Arroz", "Sabonete"._
+
+## __construct
+Construtor da classe `TDBEntry`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo no formulário.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome da base de dados.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Classe do modelo dos dados.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Campo da tabela a ser listado.</ResponseField>
+<ResponseField name="$orderColumn" type="mixed" default="null">(Opcional) Coluna para ordenação dos campos.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="null">(Opcional) Critérios para filtragem dos dados.</ResponseField>
+
+**Exemplo de código:**
+```php
+$criterio = new TCriteria();
+$criterio->add(new TFilter('preco', '<', 5)); // Filtrar por itens da tabela cujo preço seja menor que 5
+
+$entradaProduto = new TDBEntry('entradaProduto', 'docs', 'Produto', 'nome', 'preco asc', $criterio);
+```
+
+<br/>
+
+## setDisplayMask
+Define a máscara de exibição dos dados.
+
+**Parâmetros:**
+<ResponseField name="$mask" type="mixed" required>Máscara de exibição.</ResponseField>
+
+**Exemplo de código:**
+```php
+$entradaProduto = new TDBEntry('entradaProduto', 'docs', 'Produto', 'nome');
+$entradaProduto->setDisplayMask('{nome}, R$ {preco}');
+```
+
+<br/>
+
+## setMinLength
+Define o comprimento mínimo para a pesquisa.
+
+**Parâmetros:**
+<ResponseField name="$length" type="mixed" required>Comprimento mínimo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$entradaProduto = new TDBEntry('entradaProduto', 'docs', 'Produto', 'nome');
+$entradaProduto->setMinLength(2);
+```
+
+<br/>
+
+## setOperator
+Define o operador de busca.
+
+**Parâmetros:**
+<ResponseField name="$operator" type="mixed" required>Operador para a busca.</ResponseField>
+
+**Exemplo de código:**
+```php
+$entradaProduto = new TDBEntry('entradaProduto', 'docs', 'Produto', 'nome');
+$entradaProduto->setOperator('LIKE');
+```
