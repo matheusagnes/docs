@@ -47,6 +47,10 @@
     {
       "name": "Interface",
       "url": "interface"
+    },
+    {
+      "name": "API banco de dados",
+      "url": "api-banco-de-dados"
     }
   ],
   "anchors":
@@ -150,6 +154,26 @@
         "interface/tformseparator",
         "interface/bhelper",
         "interface/tpillbar"
+      ]
+    },
+    {
+      "group": "API banco de dados",
+      "pages":
+      [
+        "api-banco-de-dados/c1-transacoes-em-banco-de-dados",
+        "api-banco-de-dados/c2-carregamento-de-objetos",
+        "api-banco-de-dados/c3-gravacao-e-atualizacao-de-objetos",
+        "api-banco-de-dados/c4-exclusao-de-objetos",
+        "api-banco-de-dados/c5-manipulacao-de-colecoes",
+        "api-banco-de-dados/c6-carregamento-de-colecoes",
+        "api-banco-de-dados/c7-carregamento-estatico-de-colecoes",
+        "api-banco-de-dados/c8-carregamento-de-colecoes-com-api-de-criterios",
+        "api-banco-de-dados/c9-atualizacao-de-colecoes-em-lote",
+        "api-banco-de-dados/c10-atualizacao-de-colecoes-individuais",
+        "api-banco-de-dados/c11-como-depurar-filtros",
+        "api-banco-de-dados/c12-exclusao-de-colecoes",
+        "api-banco-de-dados/c13-como-contar-os-registros-de-uma-colecao",
+        "api-banco-de-dados/c14-como-carregar-um-vetor-indexado-por-atributos-de-uma-tabela"
       ]
     }
   ],
