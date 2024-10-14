@@ -1,0 +1,80 @@
+---
+title: 'TDBUniqueSearch'
+description: 'O `TDBUniqueSearch` é um componente que permite a busca única em uma base de dados.'
+---
+
+Derivado da classe `TDBMultiSearch`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TDBUniqueSearch`. Acesse a [documentação do componente/classe-pai](https://madbuilder.mintlify.app/busca-de-registros-banco-de-dados/tdbmultisearch) para conhecê-los.
+
+_Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "produto". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, preco._
+
+## __construct
+Construtor da classe `TDBUniqueSearch`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo no formulário.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome do banco de dados.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Modelo dos dados a serem buscados.</ResponseField>
+<ResponseField name="$key" type="mixed" required>Chave primária ou alternativa.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Valor padrão.</ResponseField>
+<ResponseField name="$orderColumn" type="mixed" default="NULL">(Opcional) Coluna pela qual os resultados são ordenados.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="NULL">(Opcional) Critérios adicionais de busca.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBUniqueSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize('180px');
+$selecaoProduto->setMask('{nome}');
+```
+
+**Exemplo de código (com parâmetros opcionais):**
+```php
+$criterio = new TCriteria();
+$criterio->add(new TFilter('preco', '<', 5)); // Filtrar por itens da tabela cujo preço seja menor que 5
+
+$selecaoProduto = new TDBUniqueSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome', 'preco asc', $criterio);
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize('180px');
+$selecaoProduto->setMask('{nome}, R$ {preco}');
+```
+
+<br/>
+
+## setValue
+Define o valor do campo.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor a ser definido.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBUniqueSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setMinLength(0);
+$selecaoProduto->setSize('180px');
+$selecaoProduto->setMask('{nome}');
+
+$selecaoProduto->setValue('3'); // ID 3 = Maçã
+```
+
+<br/>
+
+## getSize
+Retorna o tamanho do campo.
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBUniqueSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$selecaoProduto->setSize(200, 70);
+$tamanho = $selecaoProduto->getSize(); // (200, 70)
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$selecaoProduto = new TDBUniqueSearch('selecaoProduto', 'docs', 'Produto', 'id', 'nome');
+$dadosPostados = $selecaoProduto->getPostData();
+```
