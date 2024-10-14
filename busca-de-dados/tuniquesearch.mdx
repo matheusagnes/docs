@@ -1,0 +1,60 @@
+---
+title: 'TUniqueSearch'
+description: 'O `TUniqueSearch` é um componente de busca única, ideal para situações onde uma única seleção é permitida a partir de uma lista de opções.'
+---
+
+Derivado da classe `TMultiSearch`, métodos herdados não sobrescritos podem também ser utililzados por objetos `TUniqueSearch`. Acesse a [documentação do componente/classe-pai](https://madbuilder.mintlify.app/busca-de-dados-fixos/tmultisearch) para conhecê-los.
+
+## __construct
+Construtor da classe `TUniqueSearch`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo que será utilizado no formulário.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoGenero = new TUniqueSearch('selecaoGenero');
+$selecaoGenero->setSize(180);
+$selecaoGenero->placeholder = 'Gênero';
+$selecaoGenero->addItems(['1'=>'Masculino','2'=>'Feminino','3'=>'Outro']);
+```
+
+<br/>
+
+## setValue
+Define o valor do componente.
+
+**Parâmetros:**
+<ResponseField name="$value" type="mixed" required>Valor a ser definido para o campo.</ResponseField>
+
+**Exemplo de código:**
+```php
+$selecaoGenero = new TUniqueSearch('selecaoGenero');
+$selecaoGenero->setSize(180);
+$selecaoGenero->placeholder = 'Gênero';
+$selecaoGenero->addItems(['1'=>'Masculino','2'=>'Feminino','3'=>'Outro']);
+$selecaoGenero->setValue('1');
+```
+
+<br/>
+
+## getSize
+Retorna o tamanho do campo.
+
+**Exemplo de código:**
+```php
+$selecaoGenero = new TUniqueSearch('selecaoGenero');
+$selecaoGenero->setSize(250, 75);
+$tamanho = $selecaoGenero->getSize(); // (250, 75)
+```
+
+<br/>
+
+## getPostData
+Obtém os dados enviados pelo formulário.
+
+**Exemplo de código:**
+```php
+$selecao = new TUniqueSearch('selecao');
+$dadosPostados = $selecao->getPostData();
+```
