@@ -1,0 +1,119 @@
+---
+title: '03. Gravação e atualização de objetos'
+---
+
+Dentro do Adianti Framework, a gravação e atualização de objetos é realizada pela mesma função: `store()`. A diferença entre a inserção e atualização de um registro é a presença da chave primária do objeto.
+
+Abaixo um código-fonte de inserção de registro.
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        // Cria o registro
+        $funcionario                = new Funcionario;
+        $funcionario->nome          = 'Artur';
+        $funcionario->sobrenome     = 'Comunello';
+        $funcionario->dt_nascimento = '01-01-2001';
+        $funcionario->endereco      = 'Rua São Sepé 123';
+        $funcionario->cep           = '95900-000';
+
+        //Salva o registro
+        $funcionario->store();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+        return false;       
+    }
+```
+
+O código-fonte acima gerou a seguinte query SQL:
+
+```sql
+    INSERT INTO funcionario (nome, sobrenome, dt_nascimento, endereco, cep) values ('Artur', 'Comunello', '01-01-2001', 'Rua São Sepé 123', '95900-000')
+```
+
+A classe `Funcionario` tem uma diretiva que diz que a chave primária da tabela é a coluna `id`. Como no código-fonte esse atributo não foi definido, o Adianti Framework interpreta essas instruções como uma inserção.
+
+**Atenção:** após a chamada da função `store()`, o objeto em questão (no nosso caso, `$funcionario`) passará a ter a coluna `id` preenchida. Normalmente, a chave primária é uma sequência e o Adianti Framework automaticamente usará o próximo valor válido.
+
+Com apenas uma linha de código, podemos transformar a inserção em alteração (caso o ID fornecido exista na tabela, caso contrário, será feita a inserção de um registro novo):
+
+```php
+    $funcionario->id = 1;
+```
+
+O código-fonte completo de alteração fica assim:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        // Cria o registro
+        $funcionario                = new Funcionario;
+        $funcionario->id            = 1;
+        $funcionario->nome          = 'Artur';
+        $funcionario->sobrenome     = 'Comunello';
+        $funcionario->dt_nascimento = '01-01-2001';
+        $funcionario->endereco      = 'Rua São Sepé 123';
+        $funcionario->cep           = '95900-000';
+
+        // Altera o registro
+        $funcionario->store();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+        return false;       
+    }   
+```
+
+O comando SQL gerado pela alteração ficou assim:
+
+```sql
+    UPDATE 
+        funcionario 
+    SET 
+        nome = 'Artur', 
+        sobrenome = 'Comunello', 
+        dt_nascimento = '01-01-2001', 
+        endereco = 'Rua São Sepé 123', 
+        cep = '95900-000' 
+    WHERE 
+        (id = 1)
+```
+
+Uma forma mais curta de fazer uma alteração seria carregar um registro através do ID e definir apenas os campos a serem alterados. Eis abaixo um exemplo:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        // Cria o registro
+        $funcionario           = new Funcionario(1);
+        $funcionario->endereco = 'Rua São Sepé 123';
+
+        // Altera o registro
+        $funcionario->store();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+        return false;       
+    }   
+```
+
+O comando SQL gerado é o mesmo que o do exemplo anterior.
