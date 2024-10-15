@@ -173,7 +173,7 @@
         "api-banco-de-dados/c11-como-depurar-filtros",
         "api-banco-de-dados/c12-exclusao-de-colecoes",
         "api-banco-de-dados/c13-como-contar-os-registros-de-uma-colecao",
-        "api-banco-de-dados/c14-como-carregar-um-vetor-indexado-por-atributos-de-uma-tabela"
+        "api-banco-de-dados/c14-como-carregar-um-vetor-indexado-pelos-atributos-de-uma-tabela"
       ]
     }
   ],
