@@ -1,0 +1,46 @@
+---
+title: '11. Como depurar filtros'
+---
+
+**Como obter a string de filtros do critério?**
+
+Em alguns casos, os critérios começam a ficar complexos, e é importante sabermos exatamente qual filtro será utilizado no banco de dados. Por isso, a classe `TCriteria` oferece uma função que exibe ao desenvolvedor exatamente os filtros que foram adicionados.
+
+Por exemplo, se eu quisesse saber quais os filtros dos critérios usados no exemplo anterior. Basta executar a função:
+
+```php
+    $criteria->dump();
+```
+
+Uma maneira de saber os filtros sem executá-los seria:
+
+```php
+    $criteria1 = new TCriteria;
+    $criteria1->add(new TFilter('sexo',  '= ', 'F')); 
+    $criteria1->add(new TFilter('idade', '<', '20')); 
+    echo $criteria1->dump();
+
+    $criteria2 = new TCriteria; 
+    $criteria2->add(new TFilter('sexo', '= ', 'M')); 
+    $criteria2->add(new TFilter('idade', '<', '18')); 
+    echo $criteria2->dump();
+
+
+    $criteria = new TCriteria;     
+    $criteria->add($criteria1, TExpression::OR_OPERATOR); 
+    $criteria->add($criteria2, TExpression::OR_OPERATOR); 
+    echo $criteria->dump();
+```
+
+Esse código-fonte escreveria em tela respectivamente:
+
+```sql
+    --$criteria1
+    (sexo = 'F' AND idade < '20')  
+
+    --$criteria2
+    (sexo = 'M' AND idade < '18')  
+
+    --$criteria
+    ((sexo = 'F' AND idade < '20') OR (sexo = 'M' AND idade < '18'))
+```
