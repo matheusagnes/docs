@@ -1,0 +1,385 @@
+---
+title: '08. Carregamento de coleções com API de critérios'
+---
+
+A classe `TCriteria` é um contêiner de filtros recursivo, ou seja, objetos dessa classe se comportarão como contêineres para a composição de filtros recursivos.
+
+Um objeto de critério pode receber filtros ou outros objetos de critérios. Ao carregar coleções com a API de critérios, é possível fazer todos os carregamentos estáticos e mais. Veremos em alguns exemplos mais à frente.
+
+O carregamento de coleções por API de critérios não permite a seleção de colunas, todos os atributos definidos no modelo serão carregados.
+
+**Como é feita a montagem dos filtros?**
+
+O primeiro passo para usar a API de critérios e criar um objeto da classe `TCriteria`, é ele que vai receber todos os filtros desejados:
+
+```php
+    $criteria = new TCriteria;
+```
+
+Para adicionar filtros, devemos adicionar objetos da classe `TFilter` no `$criteria`. Nos filtros devemos informar:
+
+1.	Variável (normalmente uma coluna);
+2.	Operador;
+3.	Valor.
+
+Veja um exemplo onde o filtro procura apenas registros do sexo masculino:
+
+```php
+    $criteria->add(new TFilter('sexo', '=', 'M'));
+```
+
+À primeira vista, pode parecer complicado, no entanto, o uso de filtros é bastante simples e direto. E para adicionar outros 'N' filtros, basta que eles sejam adicionados:
+
+```php
+    $criteria->add(new TFilter('idade', '>', 18)); // Maiores de 18 anos
+    $criteria->add(new TFilter('sexo', '=', 'M')); // Do sexo masculino
+    $criteria->add(new TFilter('nome', 'like', '%ARTUR%')); // Cujo nome contém “ARTUR”
+```
+
+**Como carregar uma coleção?**
+
+O desenvolvedor pode adicionar quantos filtros forem necessários e usar o critério para carregar múltiplas vezes. Para usar o contêiner de filtros, basta usar a função `getObjects($criteria)` de forma estática em um modelo.
+
+Veja um exemplo completo abaixo, filtrando por idade, sexo e nome:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('sexo', '=', 'M'));
+        $criteria->add(new TFilter('idade', '>', 18));
+        $criteria->add(new TFilter('nome', 'like', '%ARTUR%'));
+
+        $funcionarios = Funcionario::getObjects($criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        funcao_id,
+        cidade_id,
+        endereco,
+        cep,
+        id,
+        sexo,
+        idade
+    FROM 
+        funcionario
+    WHERE 
+        (sexo = 'M'
+        AND  idade > 18
+        AND  nome like '%ARTUR%')
+```
+
+**Como ordenar um carregamento?**
+
+É possível adicionar algumas propriedades no carregamento de objetos usando a API de critérios, elas são adicionadas com a função `setProperty()`. Veja um exemplo abaixo, onde são selecionados 10 funcionários ordenando pelo código ID pulando os 10 primeiros:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+
+        $criteria = new TCriteria;
+        $criteria->setProperty('limit' , 10);
+        $criteria->setProperty('offset', 20);
+        $criteria->setProperty('order' , 'id ASC');
+
+        $funcionarios = Funcionario::getObjects($criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        funcao_id,
+        cidade_id,
+        endereco,
+        cep,
+        id,
+        sexo,
+        idade
+    FROM 
+        funcionario
+    ORDER BY id ASC
+    LIMIT 10
+    OFFSET 20
+```
+
+**Posso usar filtros e propriedades ao mesmo tempo?**
+
+Sim, é possível usar os dois ao mesmo tempo sem o menor problema.
+
+**Como usar o operador OU?**
+
+Como pode ser visto nos exemplos anteriores, ao adicionar mais de um filtro, o Adianti Framework usa o operador `E` para uni-los. É possível criar um critério usando o operador `OU`, para isso, precisamos adicionar uma cláusula com o operador desejado após o filtro dentro da função `add()`.
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('sexo', '=', 'M'), TExpression::OR_OPERATOR);
+        $criteria->add(new TFilter('idade', '<', 18), TExpression::OR_OPERATOR);
+
+        $numero_funcionarios = Funcionario::countObjects($criteria); // Conta os registros
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQl gerado foi:
+
+```sql
+    SELECT 
+        count(*)
+    FROM 
+        funcionario
+    WHERE 
+        (sexo = 'M' OR idade < 18)
+```
+
+**Como usar: BETWEEN, IN e NOT IN**
+
+Quando utilizamos uma API de critérios, é possível de maneira facilitada trabalhar com outros tipos filtros como o `BETWEEN`.
+
+**Between**
+
+Procurar funcionários que tenham idade entre 16 e 60 anos:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('idade', 'BETWEEN', 16, 60));
+
+        $funcionarios = Funcionario::getObjects($criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        funcao_id,
+        cidade_id,
+        endereco,
+        cep,
+        sexo,
+        idade,
+        id 
+    FROM 
+        funcionario 
+    WHERE 
+        (idade BETWEEN 16 AND 60)
+```
+
+**IN e NOT IN**
+
+Dentro de um critério, ao usar um operador `IN` ou `NOT IN`, é possível passar um vetor de valores para que sejam comparados. Veja esta situação:
+
+Carregar todos os funcionários que tenham 22, 24 e 26 anos e não os que tenham 25:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('idade','IN', array(22,24,26))); 
+        $criteria->add(new TFilter('idade','NOT IN', array(25))); 
+
+        $funcionarios = Funcionario::getObjects($criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        funcao_id,
+        cidade_id,
+        endereco,
+        cep,
+        sexo,
+        idade,
+        id 
+    FROM 
+        funcionario
+    WHERE 
+        (idade IN (24,25,26) AND idade NOT IN (25))
+```
+
+**Subslects**
+
+Em carregamentos mais complexos, às vezes se faz necessário usar uma subconsulta, e isto pode ser adicionado em um critério.
+
+A subconsulta deve ser colocada na terceira coluna do filtro, um exemplo seria carregar todos os clientes cadastrados que já tenham realizado uma compra:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('id', 'IN', '(SELECT cliente_id FROM vendas)'));
+
+        $clientes = Cliente::getObjects($criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        id
+    FROM 
+        cliente
+    WHERE 
+        (id IN (SELECT customer_id FROM purchases))
+```
+
+**Como usar operadores E e OU ao mesmo tempo?**
+
+Para utilizar os operadores `E` e `OU´ ao mesmo tempo, é necessário criar um critério composto, ou seja, um critério que irá receber outros dois critérios.
+
+Neste exemplo, queremos carregar os funcionários que forem do sexo feminino E tenham menos de 20 anos OU funcionários que forem do sexo masculino e tenham menos de 17 anos.
+
+Para realizar esse carregamento, primeiro criaremos dois critérios (um para cada metade dos nossos critérios), depois criaremos um terceiro que unirá os dois primeiros.
+
+1.	Primeiro critério: sexo feminino e menos de 20 anos;
+2.	Segundo critério: sexo masculino e menos de 17 anos.
+
+Os critérios ficaram assim:
+
+```php
+   $criteria1 = new TCriteria;
+   $criteria1->add(new TFilter('sexo', '= ', 'F')); 
+   $criteria1->add(new TFilter('idade', '<', '20')); 
+
+   $criteria2 = new TCriteria; 
+   $criteria2->add(new TFilter('sexo', '= ', 'M')); 
+   $criteria2->add(new TFilter('idade', '<', '18'));
+```
+
+Com os dois primeiros critérios criados, precisamos apenas unir eles com o operador `OR`, e para isso, criaremos mais um critério, só que ao invés de adicionarmos filtros, adicionaremos o `$criteria1` e o `$criteria2` a ele. Além de adicionar os critérios, iremos informar sob qual operador os mesmos devem ser comparados:
+
+```php
+    $criteria = new TCriteria;  
+    $criteria->add($criteria1, TExpression::OR_OPERATOR);  
+    $criteria->add($criteria2, TExpression::OR_OPERATOR);
+```
+
+O código PHP completo ficou assim:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria1 = new TCriteria;
+        $criteria1->add(new TFilter('sexo', '= ', 'F')); 
+        $criteria1->add(new TFilter('idade', '<', '20')); 
+
+        $criteria2 = new TCriteria; 
+        $criteria2->add(new TFilter('sexo', '= ', 'M')); 
+        $criteria2->add(new TFilter('idade', '<', '18')); 
+
+        $criteria = new TCriteria;     
+        $criteria->add($criteria1, TExpression::OR_OPERATOR); 
+        $criteria->add($criteria2, TExpression::OR_OPERATOR); 
+
+        $funcionarios = Funcionario::getObjects($criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        funcao_id,
+        cidade_id,
+        endereco,
+        cep,
+        sexo,
+        idade,
+        id 
+    FROM 
+        funcionario
+    WHERE 
+        ((sexo = 'F' AND idade < '20') OR (sexo = 'M' AND idade < '18'))
+```
