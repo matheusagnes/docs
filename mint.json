@@ -124,8 +124,8 @@
       "group": "Busca de registros (banco de dados)",
       "pages":
       [
-        "busca-de-registros/tdbuniquesearch",
-        "busca-de-registros/tdbmultisearch"
+        "busca-de-dados/tdbuniquesearch",
+        "busca-de-dados/tdbmultisearch"
       ]
     },
     {
