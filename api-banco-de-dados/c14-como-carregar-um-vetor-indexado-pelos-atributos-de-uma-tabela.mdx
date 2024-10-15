@@ -1,0 +1,64 @@
+---
+title: '14. Como carregar um vetor indexado pelos atributos de uma tabela'
+---
+
+Ao carregar uma coleção, o desenvolvedor obtém acesso a um vetor de objetos sem indexação. Isso significa que a chave do vetor é sequencial sem ligação com as propriedades dos objetos.
+
+A função `getIndexedArray()` retorna um vetor cujas chaves e valores são atributos do objeto definidos pelo desenvolvedor. O uso mais comum dessa função é o preenchimento de um campo do `select`.
+
+A função `getIndexedArray()` recebe primariamente dois parâmetros: o primeiro é o atributo que será a chave do vetor e o segundo, o atributo que será o parâmetro:
+
+```php
+    getIndexedArray($indexColumn, $valueColumn);
+```
+
+O exemplo abaixo demostra a criação de um vetor indexado por ID e descrição onde são carregados todos os registros de categorias:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $categorias Categorias::getIndexedArray('id', 'descricao');
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        new TMessage('error', $e->getMessage()); 
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    SELECT descricao,id FROM categorias
+```
+
+O vetor resultado terá o ID dos registros como chave e a descrição como valor.
+
+```php
+    $vetor['ID'] = 'DESCRICAO';
+```
+
+**Como filtrar os registros carregados pela função `getIndexedArray()` ?**
+
+A função `getIndexedArray()` aceita uma API de critérios como terceiro parâmetro, facilitando os filtros na hora de carregar uma coleção indexada. Um exemplo seria carregar todos os códigos e nomes dos clientes do sexo masculino:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('sexo', '=', 'M'));
+
+        $categorias = Cliente::getIndexedArray('id', 'nome', $criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        new TMessage('error', $e->getMessage()); 
+    }
+```
