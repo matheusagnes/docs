@@ -1,0 +1,52 @@
+---
+title: '04. Exclusão de objetos'
+---
+
+Podemos realizar a exclusão de objetos diretamente de duas maneiras:
+
+1.	Instanciar o objeto a partir do ID e usar a função `delete()`
+2.	Instanciar a classe e executar a função `delete(ID)`
+
+As duas maneiras irão gerar a mesma instrução SQL. A diferença é que a primeira é executada em cima de um objeto e a segunda em uma classe, por isso ela precisa de um parâmetro, neste caso a chave primária do registro (ID). Vamos ver alguns exemplos:
+
+Este é o primeiro caso, quando usamos a função `delete()` em um objeto.
+
+```php
+    TTransaction::open('exemplos');
+
+    $funcionario = new Funcionario(1);
+    $funcionario->delete();
+
+    TTransaction::close();
+```
+
+O SQL gerado é:
+
+```sql
+    SELECT * FROM funcionario WHERE (id = 1)  
+    DELETE FROM funcionario WHERE (id = '1')
+```
+
+Agora vamos ver o segundo caso.
+
+```php
+    TTransaction::open('exemplos');
+
+    $funcionario = new Funcionario;
+    $funcionario->delete(1);
+
+    TTransaction::close();
+```
+
+O SQL gerado é:
+
+```sql
+    DELETE FROM funcionario WHERE (id = 1)
+```
+
+## Qual dos métodos de exclusão devo usar?
+
+A resposta direta é: depende. Cada caso é um caso, e podemos ver que o primeiro caso realizou uma consulta a mais no BD. Se o objetivo é apenas deletar um objeto, a segunda maneira é mais eficiente, mas existem casos em que será necessário testar algo do objeto para realmente excluir. Portanto, o desenvolvedor deve analisar a melhor maneira de implementar a exclusão de objetos.
+
+Aqui falamos apenas da exclusão individual de objetos, mas também existe a exclusão de coleções, que será abordada mais à frente.
+
