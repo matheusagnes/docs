@@ -1,0 +1,71 @@
+---
+title: '12. Exclusão de coleções'
+---
+
+Além de carregar e atualizar coleções, é possível deletar todos os registros que obedecerem a um filtro. Para deletar registros em lote é muito simples: o primeiro passo é criar um critério com os filtros desejados e depois usar a função `delete($criteria)`, passando a API de critérios como filtro em uma classe de repositório.
+
+Um exemplo seria deletar todos os clientes que:
+
+1.	Sejam do sexo masculino;
+2.	Tenham menos de 15 anos.
+
+O código-fonte completo que atende a esses critérios seria:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        // Cria o filtro
+        $criteria = new TCriteria; 
+        $criteria->add(new TFilter('idade', '<', '15')); 
+        $criteria->add(new TFilter('sexo', '=', 'M')); 
+
+        // Cria o repositório e faz a exclusão
+        $repository = new TRepository('Cliente'); 
+        $repository->delete($criteria); 
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    DELETE FROM cliente WHERE (idade < '15' AND sexo = 'M')
+```
+
+**Deletar uma coleção de forma estática**
+
+Assim como podemos deletar uma coleção usando a API de critérios, podemos deletar uma coleção usando o método estático `delete()`. Ele é usado da mesma maneira que o carregamento estático: primeiro é necessário estabelecer os filtros com a função `where()` e depois a função `delete()`.
+
+O exemplo abaixo é o mesmo que o anterior, obedecendo às mesmas regras.
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        Cliente::where('sexo', '=', 'M')
+               ->where('idade', '<', 15)
+               ->delete();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    DELETE FROM cliente WHERE (sexo = 'M' AND idade < '15')
+```
