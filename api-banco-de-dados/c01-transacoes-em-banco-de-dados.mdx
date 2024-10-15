@@ -1,0 +1,281 @@
+---
+title: '01. Transações em banco de dados'
+---
+
+Para abrir e fechar uma transação, basta escrever os seguintes comandos:
+
+```php
+    TTransaction::open('erp');
+
+    // code
+    // code
+
+    TTransaction::close();
+```
+
+Todos os comandos executados entre o `open` e `close` terão uma transação à disposição, portanto, será possível trabalhar com as informações do BD.
+
+Para abrir a transação, é necessário informar o nome do arquivo de configuração que contém as informações de conexão do BD. No exemplo acima, foi informado ao Adianti Framework que se deseja abrir uma conexão com o banco `erp`. Por sua vez, o Adianti Framework irá no diretório `app/config/` e procurará o arquivo `erp.ini`. É nesse arquivo que estão as informações necessárias para abrir uma transação.
+
+Um exemplo de arquivo de conexão com o BD seria:
+
+    host   = localhost
+    port   = 
+    name   = erp
+    user   = erp_consulta
+    pass   = erp_consulta#1337
+    type   = pgsql
+
+## 1.1. Aconteceu um problema, como abortar a transação?
+
+Ao trabalhar com transação, não existem regras de trabalho, a lógica pode mudar conforme a demanda. Vão existir situações em que é tudo ou nada e outras em que cada operação deve ser controlada individualmente. O que essas situações têm em comum é que quando um problema ocorre aquelas instruções não devem ser executadas pela metade.
+
+Para evitar que uma transação seja finalizada (`commit`), temos a função `rollback()`.
+
+```php
+    try
+    {
+        TTransaction::open('erp');
+
+        // code
+        // code
+
+        TTransaction::close();
+
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('erro', $e->getMessage());
+        return false;       
+    }
+```
+
+Para abortar a transação quando acontece um erro, deve-se usar a função `rollback()`. Quando trabalhado com o BD, é uma boa prática colocar os comandos dentro de um `try`, pois a funções do Adianti Framework que trabalham com informações do BD lançam exceções e estas podem ser capturadas e tratadas.
+
+## 1.2. Empilhar transações
+
+É possível abrir mais de uma transação com o Adianti Framework, ele consegue empilhar as transações que forem abertas.
+
+```php
+    TTransaction::open('erp');
+
+    // Estou conectado no banco erp
+
+    TTransaction::open('estoque');
+
+    // Estou conectado no banco estoque
+
+    TTransaction::close();
+
+    // Estou conectado no banco erp
+
+    TTransaction::close();
+```
+
+É importante ressaltar que as duas conexões não ficaram abertas simultaneamente, entretanto, o Adianti Framework as empilhou de modo que não foi necessário abrir novamente a transação com o banco `erp` após fechar o banco `estoque`.
+
+## 1.3. Como posso executar um comando SQL manual?
+
+Após abrir uma conexão com o BD, além de manipular as informações com as classes do framework, podemos executar comandos manuais usando SQL.
+
+Para isso, precisaremos obter a transação aberta, veja o exemplo abaixo:
+
+```php
+    try
+    {
+        TTransaction::open('erp'); // Abre uma transação 
+        $conn = TTransaction::get(); // Obtém a conexão 
+
+        $sth = $conn->prepare('SELECT * FROM funcionario WHERE id = ?'); 
+
+        $funcionario = 1;
+        $sth->execute(array($funcionario));
+        $result = $sth->fetchAll();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('erro', $e->getMessage());
+        return false;       
+    }
+```
+
+É possível notar que no exemplo acima não colocamos diretamente a variável `$funcionario` dentro da query para evitar que sejam exploradas vulnerabilidades no sistema (SQL injection). Ao invés disso, usamos a função `prepare()`. Essa função interpreta os parâmetros recebidos como informações que fazem parte de uma query e, portanto, não podem fazer parte de uma nova instrução.
+
+Para mais informações sobre Prepared Statements, acesse o link: [php.net/prepared-statements](http://php.net/manual/pt_BR/mysqli.quickstart.prepared-statements.php#mysqli.quickstart.prepared-statements)
+
+Embora não recomendado, podemos usar os valores diretamente dentro da query a ser executada.
+
+```php
+    try
+    {
+        TTransaction::open('erp'); // Abre uma transação 
+        $conn = TTransaction::get(); // Obtém a conexão 
+
+        $sth = $conn->query('SELECT * FROM funcionario WHERE id = 1'); 
+        $sth->execute();
+        $result = $sth->fetchAll();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('erro', $e->getMessage());
+        return false;
+    }
+```
+
+As duas maneiras exibidas de como executar um comando SQL manual terão o mesmo resultado, no entanto, ressaltamos que o primeiro exemplo é mais indicado por ser mais seguro.
+
+## 1.4. Como abrir conexão manual com um banco de dados
+
+Nos exemplos anteriores vimos como abrir conexões com o BD sempre utilizando o arquivo de configuração, sempre passando como parâmetro o nome, um exemplo seria:
+
+```php
+TTransaction::open('exemplos'); // Abre uma transação 
+TTransaction::close(); // Fecha uma transação
+```
+
+Existe uma maneira de abrir uma transação manual com o BD. Abaixo um exemplo de conexão manual e uma query manual:
+
+```php
+    try
+    {
+        // Informações da conexão
+        $db = array();
+        $db['host'] = 'localhost'; // IP, DNS
+        $db['port'] = '5432';
+        $db['name'] = 'meu_banco';
+        $db['user'] = 'meu_banco_user';
+        $db['pass'] = 'minha_senha';
+        $db['type'] = 'pgsql';
+
+        TTransaction::open(NULL, $db); // Abre uma transação
+        $conn = TTransaction::get(); // Obtém a conexão PDO
+
+        // Monta a query
+        $result = $conn->query('SELECT * from funcionario order by id'); 
+
+        foreach ($result as $row) 
+        { 
+            print $row['id'] . '-'; 
+            print $row['nome'] . "<br>\n"; 
+        } 
+        TTransaction::close(); // Fecha a transação
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+## 1.5. Registros de log da transação
+
+O Adianti Framework oferece duas maneiras de registrar logs de transação que podem facilitar o desenvolvimento.
+
+1.	`setLoggerFunction()`
+2.	`setLogger()`
+
+**setLoggerFunction**
+Com a função `setLoggerFunction()`, o desenvolvedor pode definir uma função que será executada sempre que um comando SQL for executado pela transação em questão. Essa função aceita código PHP, portanto, fica livre para o desenvolvedor criar seu próprio método de depuração.
+
+Abaixo um exemplo em que todos os comandos são exibidos em tela:
+
+```php
+    try
+    {
+        TTransaction::open('erp');
+
+        // Define a função de log
+        TTransaction::setLoggerFunction(
+            function($message)
+            {
+                echo $message . '<br>';
+            }
+        );
+
+        TTransaction::log("Buscando funcionario");
+
+        $funcionario = new Funcionario(1);
+
+        TTransaction::log("Atualizando funcionario");
+        $funcionario->nome = 'Artur Comunello';
+        $funcionario->store();
+
+        TTransaction::close(); // Fecha a transação
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O registro de log escreverá na tela as seguintes informações:
+
+```sql
+    -- Buscando funcionario
+    SELECT * FROM funcionario WHERE (id = 1)
+    -- Atualizando funcionario
+    UPDATE funcionario SET nome = 'Artur Comunello' WHERE (id = '1')
+```
+
+Como pode ser visto no exemplo, para escrever marcadores, basta chamar a função:
+
+```php
+    TTransaction::log("mensagem");
+```
+
+Assim será possível identificar mais facilmente o registro desejado. Em alguns casos, a lista pode ser extensa e escrever marcadores pode facilitar a leitura dos logs.
+
+Os logs dos comandos SQL são escritos da mesma maneira, mas a função `log()` é chamada dentro da transação automaticamente.
+
+**setLogger**
+
+De uma maneira semelhante, podemos escrever as informações em arquivos. Para isso, usamos a função `setLogger(AdiantiLoggerInterface $class)`, que por sua vez, recebe como parâmetro um tipo específico de classe que irá escrever o arquivo de log. O Adianti Framework oferece 4 classes que escrevem em diferentes formatos:
+
+1.	TLoggerHTML → HTML;
+2.	TLoggerSTD → Standard Output;
+3.	TLoggerTXT → Texto;
+4.	TLoggerXML → XML.
+
+No exemplo abaixo, o código-fonte usa a classe `TLoggerTXT`, que é a mais usada para registrar logs em arquivo.
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        // Define a função de log
+        TTransaction::setLogger(new TLoggerTXT('tmp/log.txt')); 
+
+        TTransaction::log("Buscando funcionario");
+
+        $funcionario = new Funcionario(1);
+
+        TTransaction::log("Atualizando funcionario");
+        $funcionario->nome = 'Artur Comunello';
+        $funcionario->store();
+
+        TTransaction::close(); // close transaction
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O código-fonte acima escreverá o seguinte conteúdo no arquivo `tmp/log.txt`:
+
+```sql
+    -- Debug: 2018-07-31 13:50:26 - Buscando funcionario
+    Debug: 2018-07-31 13:50:26 - SELECT * FROM funcionario WHERE (id = 1)
+    -- Debug: 2018-07-31 13:50:26 - Atualizando funcionario
+    Debug: 2018-07-31 13:50:26 - UPDATE funcionario SET nome = 'Artur Comunello' WHERE (id = '1')
+```
