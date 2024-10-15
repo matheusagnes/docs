@@ -1,0 +1,66 @@
+---
+title: '10. Atualização de coleções individuais'
+---
+
+**Como gravar individualmente os registros de uma coleção?**
+
+É comum que, ao carregar uma coleção, o desenvolvedor deseje alterar um ou mais atributos dos registros carregados em uma coleção. Essa alteração pode ou não depender de valores individuais dos registros.
+
+Veja um exemplo de como alterar individualmente registros de uma coleção. No exemplo abaixo, será acrescentado um código de área no número de telefone dos clientes para os que ainda não possuem.
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        $criteria = new TCriteria; 
+        $criteria->add(new TFilter('cidade_id', '=', '4')); 
+
+        $clientes = Cliente::getObjects($criteria); 
+
+        foreach ($clientes as $cliente) 
+        {
+            if (strlen($cliente->telefone) < 11)
+            {
+                $cliente->telefone = '84 '.substr($cliente->telefone, 3); 
+                $cliente->store(); 
+            }
+        } 
+
+        new TMessage('info', 'Clientes atualizados'); 
+        TTransaction::close(); 
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+Os comandos SQL gerados foram:
+
+```sql
+    -- primeiro é feito um select 
+    SELECT 
+        nome,
+        sobrenome,
+        dt_nascimento,
+        funcao_id,
+        cidade_id,
+        endereco,
+        cep,
+        id
+    FROM 
+        cliente
+    WHERE 
+        (cidade_id = '4');
+
+    -- depois updates para trocar o telefone
+    UPDATE cliente SET nome = 'Lucas', sobrenome = 'Tomasi', telefone = '84999178852'  WHERE (id = '2')
+    UPDATE cliente SET nome = 'Marta', sobrenome = 'Medeiros', telefone = '84998562141' WHERE (id = '3')
+    UPDATE cliente SET nome = 'Júlia', sobrenome = 'Silva', telefone = '84996659112' WHERE (id = '4')
+    .
+    .
+    .
+    UPDATE cliente SET nome = 'Matheus', sobrenome = 'II', telefone = '84984561814' WHERE (id = '6123')
+```
