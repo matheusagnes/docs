@@ -1,0 +1,80 @@
+---
+title: '09. Atualização de coleções em lote'
+---
+
+O Adianti Framework possibilita que o desenvolvedor atualize dados em uma coleção, ao invés de atualizar registro a registro. Há duas maneiras de fazê-lo:
+
+1.	Atualização estática;
+2.	Atualização com repositório e critério.
+
+**Atualização estática**
+
+Para atualizar uma coleção de forma estática, o desenvolvedor deve estabelecer os critérios da mesma maneira que o carregamento estático, através das funções `where()`.
+
+Além da definição do critério de quais registros devem ser atualizados, é necessário definir qual será a atualização, para isto existe a função `set($column, $value)`. Para utilizar essa função, devem ser definidos a coluna e o valor de atualização.
+
+Por fim, a função para executar o comando é a função `update()`. No exemplo abaixo, vamos atualizar o cadastro de clientes em lote, definindo o sexo como “feminino” para clientes que:
+
+1.	Tenham o código (ID) menor que 172;
+2.	Não tenham sexo definido.
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        Cliente::where('id', '<', 172)
+                   ->where('sexo', 'is', NULL)
+                   ->set('sexo', 'F')
+                   ->update();
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi:
+
+```sql
+    UPDATE cliente SET sexo = 'F' WHERE (id < 172 AND sexo is NULL)
+```
+
+**Atualização com repositório e critério**
+
+Agora, a mesma atualização será realizada com uma classe de repositório e um critério de filtros:
+
+```php
+    try
+    {
+        TTransaction::open('exemplos');
+
+        // Cria o repositório
+        $repos = new TRepository('Cliente');
+
+        // Cria os critérios de filtro
+        $criteria = new TCriteria;
+        $criteria->add(new TFilter('id', '<', 172));
+        $criteria->add(new TFilter('sexo', 'is', null));
+
+        // Define os valores de atualização
+        $values = array('sexo' => 'F');
+        $repos->update($values, $criteria);
+
+        TTransaction::close();
+    }
+    catch (Exception $e)
+    {
+        TTransaction::rollback();
+        new TMessage('error', $e->getMessage());
+    }
+```
+
+O comando SQL gerado foi (idêntico ao gerado anteriormente):
+
+```sql
+    UPDATE cliente SET sexo = 'F' WHERE (id < 172 AND sexo is NULL)
+```
