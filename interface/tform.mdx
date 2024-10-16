@@ -1,0 +1,133 @@
+---
+title: 'TForm'
+description: '`TForm` é uma classe wrapper para lidar com formulários (derivado da classe `TField`). Ela permite criar e gerenciar formulários de forma dinâmica e interativa dentro de aplicações web.'
+---
+
+#### __construct($name)
+Construtor da classe TForm.
+
+- Parâmetros:
+  - `$name`: Nome do formulário.
+
+```php
+$formulario = new TForm('formularioExemplo');
+```
+
+<br/>
+
+#### setName($name)
+Define o nome do formulário.
+
+- Parâmetros:
+  - `$name`: Nome do formulário.
+
+```php
+$formulario = new TForm();
+$formulario->setName('formularioExemplo');
+```
+
+<br/>
+
+#### getName()
+Retorna o nome do formulário.
+
+```php
+$formulario = new TForm('formularioExemplo');
+echo $formulario->getName();
+```
+
+<br/>
+
+#### setEditable($bool)
+Define se o formulário será editável.
+
+- Parâmetros:
+  - `$bool`: Booleano indicando se o formulário é editável.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$formulario->setEditable(true);
+```
+
+<br/>
+
+#### addField($field)
+Adiciona um campo ao formulário.
+
+- Parâmetros:
+  - `$field`: Objeto do campo a ser adicionado.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$campo = new TEntry('nomeCampo');
+$formulario->addField($campo);
+```
+
+<br/>
+
+#### delField($field)
+Remove um campo do formulário.
+
+- Parâmetros:
+  - `$field`: Objeto do campo a ser removido.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$campo = new TEntry('nomeCampo');
+$formulario->delField($campo);
+```
+
+<br/>
+
+#### setFields($fields)
+Define os campos do formulário.
+
+- Parâmetros:
+  - `$fields`: Array de objetos dos campos.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$campos = [new TEntry('nomeCampo1'), new TEntry('nomeCampo2')];
+$formulario->setFields($campos);
+```
+
+<br/>
+
+#### getField($name)
+Obtém um campo do formulário pelo nome.
+
+- Parâmetros:
+  - `$name`: Nome do campo.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$campo = $formulario->getField('nomeCampo');
+```
+
+<br/>
+
+#### getFields()
+Retorna um array com todos os campos do formulário.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$campos = $formulario->getFields();
+```
+
+<br/>
+
+#### sendData($form_name, $object, $aggregate = FALSE, $fireEvents = TRUE, $timeout = 0) (Método estático)
+Envia dados para um formulário localizado na janela pai.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$object`: Objeto contendo os dados do formulário.
+  - `$aggregate`: Agrega os dados se verdadeiro.
+  - `$fireEvents`: Dispara eventos se verdadeiro.
+  - `$timeout`: Tempo de espera antes de enviar os dados.
+
+```php
+$botao = new TButton('btnEnviarDados');
+$botao->setAction(new TAction(['TForm', 'sendData'], ['formularioExemplo', $objetoDados]), 'Enviar Dados');
+$botao->show();
+```
