@@ -3,24 +3,26 @@ title: 'TForm'
 description: '`TForm` é uma classe wrapper para lidar com formulários (derivado da classe `TField`). Ela permite criar e gerenciar formulários de forma dinâmica e interativa dentro de aplicações web.'
 ---
 
-#### __construct($name)
-Construtor da classe TForm.
+## __construct($name)
+Construtor da classe `TForm`.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 ```
 
 <br/>
 
-#### setName($name)
+## setName($name)
 Define o nome do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm();
 $formulario->setName('formularioExemplo');
@@ -28,9 +30,10 @@ $formulario->setName('formularioExemplo');
 
 <br/>
 
-#### getName()
+## getName()
 Retorna o nome do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $nome = $formulario->getName();
@@ -38,12 +41,13 @@ $nome = $formulario->getName();
 
 <br/>
 
-#### setEditable($bool)
+## setEditable($bool)
 Define se o formulário será editável.
 
-- Parâmetros:
+**Parâmetros:**
   - `$bool`: Booleano indicando se o formulário é editável.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->setEditable(true);
@@ -51,12 +55,13 @@ $formulario->setEditable(true);
 
 <br/>
 
-#### setTagName($name)
+## setTagName($name)
 Define o nome da tag do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome da tag.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->setTagName('div');
@@ -64,12 +69,13 @@ $formulario->setTagName('div');
 
 <br/>
 
-#### addField(AdiantiWidgetInterface $field)
+## addField(AdiantiWidgetInterface $field)
 Adiciona um campo ao formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$field`: Objeto do campo a ser adicionado.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $campo = new TEntry('nomeCampo');
@@ -78,12 +84,13 @@ $formulario->addField($campo);
 
 <br/>
 
-#### delField(AdiantiWidgetInterface $field)
+## delField(AdiantiWidgetInterface $field)
 Remove um campo do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$field`: Objeto do campo a ser removido.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $campo = new TEntry('nomeCampo');
@@ -93,9 +100,10 @@ $formulario->delField($campo);
 
 <br/>
 
-#### delFields()
+## delFields()
 Remove todos os campos do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->delFields();
@@ -103,12 +111,13 @@ $formulario->delFields();
 
 <br/>
 
-#### setFields($fields)
+## setFields($fields)
 Define os campos do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$fields`: Array de objetos dos campos.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $campos = [new TEntry('nomeCampo1'), new TEntry('nomeCampo2')];
@@ -117,12 +126,13 @@ $formulario->setFields($campos);
 
 <br/>
 
-#### getField($name)
+## getField($name)
 Obtém um campo do formulário pelo nome.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome do campo.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $campo = $formulario->getField('nomeCampo');
@@ -130,9 +140,10 @@ $campo = $formulario->getField('nomeCampo');
 
 <br/>
 
-#### getFields()
+## getFields()
 Retorna um array com todos os campos do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $campos = $formulario->getFields();
@@ -140,25 +151,27 @@ $campos = $formulario->getFields();
 
 <br/>
 
-#### silentField($name)
+## silentField($name)
 Marca um campo como silencioso, para não ser processado automaticamente.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome do campo.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->silentField('campoSilencioso');
 ```
 
-#### setProperty($name, $value, $replace = TRUE)
+## setProperty($name, $value, $replace = TRUE)
 Define uma propriedade do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome da propriedade.
   - `$value`: Valor da propriedade.
   - `$replace`: Substitui o valor se verdadeiro.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->setProperty('action', 'process.php');
@@ -166,12 +179,13 @@ $formulario->setProperty('action', 'process.php');
 
 <br/>
 
-#### unsetProperty($name)
+## unsetProperty($name)
 Remove uma propriedade do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome da propriedade.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->unsetProperty('action');
@@ -179,12 +193,13 @@ $formulario->unsetProperty('action');
 
 <br/>
 
-#### setData($object)
+## setData($object)
 Define os dados do formulário a partir de um objeto.
 
-- Parâmetros:
+**Parâmetros:**
   - `$object`: Objeto contendo os dados.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $dados = new StdClass();
@@ -194,12 +209,13 @@ $formulario->setData($dados);
 
 <br/>
 
-#### getData($class = 'StdClass')
+## getData($class = 'StdClass')
 Retorna os dados do formulário como um objeto da classe especificada.
 
-- Parâmetros:
+**Parâmetros:**
   - `$class`: Classe do objeto retornado.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $dados = $formulario->getData();
@@ -207,13 +223,14 @@ $dados = $formulario->getData();
 
 <br/>
 
-#### getValues($class = 'StdClass', $withOptions = false)
+## getValues($class = 'StdClass', $withOptions = false)
 Retorna os valores iniciais do formulário como um objeto da classe especificada.
 
-- Parâmetros:
+**Parâmetros:**
   - `$class`: Classe do objeto retornado.
   - `$withOptions`: Inclui opções se verdadeiro.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $valores = $formulario->getValues();
@@ -221,9 +238,10 @@ $valores = $formulario->getValues();
 
 <br/>
 
-#### validate()
+## validate()
 Valida os dados do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->validate();
@@ -231,12 +249,13 @@ $formulario->validate();
 
 <br/>
 
-#### clear($keepDefaults = FALSE)
+## clear($keepDefaults = FALSE)
 Limpa os dados do formulário.
 
-- Parâmetros:
+**Parâmetros:**
   - `$keepDefaults`: Mantém os valores padrão se verdadeiro.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->clear();
@@ -244,12 +263,13 @@ $formulario->clear();
 
 <br/>
 
-#### add($object)
+## add($object)
 Adiciona um objeto ao formulário, como um container.
 
-- Parâmetros:
+**Parâmetros:**
   - `$object`: Objeto a ser adicionado.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $container = new TPanel();
@@ -258,9 +278,10 @@ $formulario->add($container);
 
 <br/>
 
-#### pack()
+## pack()
 Empacota vários objetos no formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $container1 = new TPanel();
@@ -270,9 +291,10 @@ $formulario->pack($container1, $container2);
 
 <br/>
 
-#### getChild()
+## getChild()
 Retorna o primeiro objeto filho do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = new TForm('formularioExemplo');
 $child = $formulario->getChild();
@@ -280,28 +302,30 @@ $child = $formulario->getChild();
 
 <br/>
 
-#### getFormByName($name)
+## getFormByName($name)
 (Método estático) Retorna o objeto formulário pelo seu nome.
 
-- Parâmetros:
+**Parâmetros:**
   - `$name`: Nome do formulário.
 
+**Exemplo de código:**
 ```php
 $formulario = TForm::getFormByName('formularioExemplo');
 ```
 
 <br/>
 
-#### sendData($form_name, $object, $aggregate = FALSE, $fireEvents = TRUE, $timeout = 0)
+## sendData($form_name, $object, $aggregate = FALSE, $fireEvents = TRUE, $timeout = 0)
 (Método estático) Envia dados para um formulário localizado na janela pai.
 
-- Parâmetros:
+**Parâmetros:**
   - `$form_name`: Nome do formulário.
   - `$object`: Objeto contendo os dados do formulário.
   - `$aggregate`: Agrega os dados se verdadeiro.
   - `$fireEvents`: Dispara eventos se verdadeiro.
   - `$timeout`: Tempo de espera antes de enviar os dados.
 
+**Exemplo de código:**
 ```php
 $botao = new TButton('btnEnviarDados');
 $botao->setAction(new TAction(['TForm', 'sendData'], ['formularioExemplo', $objetoDados]), 'Enviar Dados');
