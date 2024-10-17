@@ -3,8 +3,8 @@ title: 'TScript'
 description: 'O `TScript` é uma classe base para scripts, permitindo a inserção e manipulação de scripts JavaScript em uma aplicação (derivado da classe `TElement`).'
 ---
 
-## __construct
-Construtor da classe `TScript`.
+## create
+(Método estático) Cria um script JavaScript para ser executado na página.
 
 **Parâmetros:**
 <ResponseField name="$code" type="mixed" required>Código-fonte JavaScript a ser inserido.</ResponseField>
@@ -13,7 +13,7 @@ Construtor da classe `TScript`.
 
 **Exemplo de código:**
 ```php
-$codigoJavaScript = new TScript('alert("Olá, mundo!");', true, 3000);
+$scriptCriado = TScript::create('alert("Olá, mundo!");', true, 3000);
 ```
 
 <br/>
@@ -31,5 +31,13 @@ $codigoJavaScript = new TScript('alert("Olá, mundo!");', true, 3000);
 $btnImportarScript = new TButton('btnImportarScript');
 $btnImportarScript->addStyleClass('btn-default');
 $btnImportarScript->setImage('far:circle #000000');
-$btnImportarScript->setAction(new TAction(['TScriptViewController', 'importarScript'], ['script.js']), 'Importar Script');
+$btnImportarScript->setAction(new TAction(['NomeClasseDeControle', 'importarScript'], ['script.js']), 'Importar Script');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function onStatusChange($param = null)
+{
+    new TMessage('info', 'O status do botão foi alterado com sucesso!');
+}
 ```
