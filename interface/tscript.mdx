@@ -3,13 +3,13 @@ title: 'TScript'
 description: 'O `TScript` é uma classe base para scripts, permitindo a inserção e manipulação de scripts JavaScript em uma aplicação (derivado da classe `TElement`).'
 ---
 
-## __construct($code, $show = TRUE, $timeout = null)
-Construtor da classe TScript.
+## __construct
+Construtor da classe `TScript`.
 
 **Parâmetros:**
-  - `$code`: Código fonte JavaScript a ser inserido.
-  - `$show`: Booleano que define se o script será mostrado imediatamente (padrão: `TRUE`).
-  - `$timeout`: Tempo em milissegundos após o qual o script será executado (opcional).
+<ResponseField name="$code" type="mixed" required>Código-fonte JavaScript a ser inserido.</ResponseField>
+<ResponseField name="$show" type="bool" default="TRUE">(Opcional) Booleano que define se o script será mostrado imediatamente.</ResponseField>
+<ResponseField name="$timeout" type="mixed" default="null">(Opcional) Tempo em milissegundos após o qual o script será executado.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -18,13 +18,13 @@ $codigoJavaScript = new TScript('alert("Olá, mundo!");', true, 3000);
 
 <br/>
 
-## importFromFile($script, $show = TRUE, $timeout = null) (Método estático)
-Importa um arquivo de script.
+## importFromFile
+(Método estático) Importa um arquivo de script.
 
 **Parâmetros:**
-  - `$script`: Nome do arquivo de script a ser importado.
-  - `$show`: Booleano que define se o script será mostrado imediatamente (padrão: `TRUE`).
-  - `$timeout`: Tempo em milissegundos após o qual o script será executado (opcional).
+<ResponseField name="$script" type="mixed" required>Nome do arquivo de script a ser importado.</ResponseField>
+<ResponseField name="$show" type="bool" required>(Opcional) Booleano que define se o script será mostrado imediatamente.</ResponseField>
+<ResponseField name="$timeout" type="mixed" required>(Opcional) Tempo em milissegundos após o qual o script será executado.</ResponseField>
 
 **Exemplo de código:**
 ```php
