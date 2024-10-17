@@ -93,7 +93,13 @@ $formulario->delField($campo);
 
 <br/>
 
-delFields()
+#### delFields()
+Remove todos os campos do formulário.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$formulario->delFields();
+```
 
 <br/>
 
@@ -134,45 +140,6 @@ $campos = $formulario->getFields();
 
 <br/>
 
-clear()
-
-<br/>
-
-#### sendData($form_name, $object, $aggregate = FALSE, $fireEvents = TRUE, $timeout = 0)
-(Método estático) Envia dados para um formulário localizado na janela pai.
-
-- Parâmetros:
-  - `$form_name`: Nome do formulário.
-  - `$object`: Objeto contendo os dados do formulário.
-  - `$aggregate`: Agrega os dados se verdadeiro.
-  - `$fireEvents`: Dispara eventos se verdadeiro.
-  - `$timeout`: Tempo de espera antes de enviar os dados.
-
-```php
-$botao = new TButton('btnEnviarDados');
-$botao->setAction(new TAction(['TForm', 'sendData'], ['formularioExemplo', $objetoDados]), 'Enviar Dados');
-$botao->show();
-```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<br/>
-
 #### silentField($name)
 Marca um campo como silencioso, para não ser processado automaticamente.
 
@@ -183,8 +150,6 @@ Marca um campo como silencioso, para não ser processado automaticamente.
 $formulario = new TForm('formularioExemplo');
 $formulario->silentField('campoSilencioso');
 ```
-
-<br/>
 
 #### setProperty($name, $value, $replace = TRUE)
 Define uma propriedade do formulário.
@@ -210,41 +175,6 @@ Remove uma propriedade do formulário.
 ```php
 $formulario = new TForm('formularioExemplo');
 $formulario->unsetProperty('action');
-```
-
-<br/>
-
-#### getFormByName($name)
-(Método estático) Retorna o objeto formulário pelo seu nome.
-
-- Parâmetros:
-  - `$name`: Nome do formulário.
-
-```php
-$formulario = TForm::getFormByName('formularioExemplo');
-```
-
-<br/>
-
-#### delFields()
-Remove todos os campos do formulário.
-
-```php
-$formulario = new TForm('formularioExemplo');
-$formulario->delFields();
-```
-
-<br/>
-
-#### clear($keepDefaults = FALSE)
-Limpa os dados do formulário.
-
-- Parâmetros:
-  - `$keepDefaults`: Mantém os valores padrão se verdadeiro.
-
-```php
-$formulario = new TForm('formularioExemplo');
-$formulario->clear();
 ```
 
 <br/>
@@ -301,6 +231,19 @@ $formulario->validate();
 
 <br/>
 
+#### clear($keepDefaults = FALSE)
+Limpa os dados do formulário.
+
+- Parâmetros:
+  - `$keepDefaults`: Mantém os valores padrão se verdadeiro.
+
+```php
+$formulario = new TForm('formularioExemplo');
+$formulario->clear();
+```
+
+<br/>
+
 #### add($object)
 Adiciona um objeto ao formulário, como um container.
 
@@ -333,4 +276,34 @@ Retorna o primeiro objeto filho do formulário.
 ```php
 $formulario = new TForm('formularioExemplo');
 $child = $formulario->getChild();
+```
+
+<br/>
+
+#### getFormByName($name)
+(Método estático) Retorna o objeto formulário pelo seu nome.
+
+- Parâmetros:
+  - `$name`: Nome do formulário.
+
+```php
+$formulario = TForm::getFormByName('formularioExemplo');
+```
+
+<br/>
+
+#### sendData($form_name, $object, $aggregate = FALSE, $fireEvents = TRUE, $timeout = 0)
+(Método estático) Envia dados para um formulário localizado na janela pai.
+
+- Parâmetros:
+  - `$form_name`: Nome do formulário.
+  - `$object`: Objeto contendo os dados do formulário.
+  - `$aggregate`: Agrega os dados se verdadeiro.
+  - `$fireEvents`: Dispara eventos se verdadeiro.
+  - `$timeout`: Tempo de espera antes de enviar os dados.
+
+```php
+$botao = new TButton('btnEnviarDados');
+$botao->setAction(new TAction(['TForm', 'sendData'], ['formularioExemplo', $objetoDados]), 'Enviar Dados');
+$botao->show();
 ```
