@@ -16,26 +16,6 @@ description: 'O `TScript` é uma classe base para scripts, permitindo a inserç�
 TScript::create('alert("Olá, mundo!");', true, 3000);
 ```
 
-<br/>
-
-## importFromFile
-(Método estático) Importa um arquivo de script.
-
-**Parâmetros:**
-<ResponseField name="$script" type="mixed" required>Nome do arquivo de script a ser importado.</ResponseField>
-<ResponseField name="$show" type="bool" required>(Opcional) Booleano que define se o script será mostrado imediatamente.</ResponseField>
-<ResponseField name="$timeout" type="mixed" required>(Opcional) Tempo em milissegundos após o qual o script será executado.</ResponseField>
-
-**Exemplo de código:**
-```php
-TScript::importFromFile('caminho/para/o/arquivo.js');
-TScript::create('helloWorld();');
-```
-Código de exemplo do arquivo JS em questão. Perceba que a função `helloWorld()` chamada anteriormente foi declarada aqui:
-
-```js
-function helloWorld()
-{
-    alert("Hello World!");
-}
-```
+// Explicar um pouco melhor essa parte e adicionar mais exemplos.
+// 1. Mostrar qual código JS essa linha criará.
+// 2. Ter um outro exemplo em que o segundo parâmetro é 'false', tornando viável salvar o script em uma variável para depois dar 'echo' ou algo do tipo.
