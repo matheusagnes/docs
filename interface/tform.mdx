@@ -323,7 +323,7 @@ $formulario = TForm::getFormByName('formularioExemplo');
 <ResponseField name="$object" type="mixed" required>Objeto contendo os dados do formulário.</ResponseField>
 <ResponseField name="$aggregate" type="bool" default="FALSE">(Opcional) Agrega os dados se verdadeiro.</ResponseField>
 <ResponseField name="$fireEvents" type="bool" default="TRUE">(Opcional) Dispara os eventos se verdadeiro.</ResponseField>
-<ResponseField name="$timeout" type="int" default="0">(Opcional) Tempo de espera antes de enviar os dados.</ResponseField>
+<ResponseField name="$timeout" type="int" default="0">(Opcional) Tempo de espera em milissegundos (ms) antes de enviar os dados.</ResponseField>
 
 **Exemplo de código:**
 ```php
