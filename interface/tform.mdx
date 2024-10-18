@@ -30,7 +30,7 @@ $formulario->setName('formularioExemplo');
 
 <br/>
 
-## getName()
+## getName
 Retorna o nome do formulário.
 
 **Exemplo de código:**
@@ -41,12 +41,11 @@ $nome = $formulario->getName();
 
 <br/>
 
-## setEditable($bool)
+## setEditable
 Define se o formulário será editável.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$bool`: Booleano indicando se o formulário é editável.
+<ResponseField name="$bool" type="mixed" required>Booleano indicando se o formulário é editável.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -56,12 +55,11 @@ $formulario->setEditable(true);
 
 <br/>
 
-## setTagName($name)
+## setTagName
 Define o nome da tag do formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$name`: Nome da tag.
+<ResponseField name="$name" type="mixed" required>Nome da tag.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -71,12 +69,11 @@ $formulario->setTagName('div');
 
 <br/>
 
-## addField(AdiantiWidgetInterface $field)
+## addField
 Adiciona um campo ao formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$field`: Objeto do campo a ser adicionado.
+<ResponseField name="$field" type="AdiantiWidgetInterface" required>Objeto do campo a ser adicionado.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -87,12 +84,11 @@ $formulario->addField($campo);
 
 <br/>
 
-## delField(AdiantiWidgetInterface $field)
+## delField
 Remove um campo do formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$field`: Objeto do campo a ser removido.
+<ResponseField name="$field" type="AdiantiWidgetInterface" required>Objeto do campo a ser removido.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -104,7 +100,7 @@ $formulario->delField($campo);
 
 <br/>
 
-## delFields()
+## delFields
 Remove todos os campos do formulário.
 
 **Exemplo de código:**
@@ -115,12 +111,11 @@ $formulario->delFields();
 
 <br/>
 
-## setFields($fields)
+## setFields
 Define os campos do formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$fields`: Array de objetos dos campos.
+<ResponseField name="$fields" type="mixed" required>Array de objetos dos campos.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -131,12 +126,11 @@ $formulario->setFields($campos);
 
 <br/>
 
-## getField($name)
+## getField
 Obtém um campo do formulário pelo nome.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$name`: Nome do campo.
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -146,7 +140,7 @@ $campo = $formulario->getField('nomeCampo');
 
 <br/>
 
-## getFields()
+## getFields
 Retorna um array com todos os campos do formulário.
 
 **Exemplo de código:**
@@ -157,12 +151,11 @@ $campos = $formulario->getFields();
 
 <br/>
 
-## silentField($name)
+## silentField
 Marca um campo como silencioso, para não ser processado automaticamente.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$name`: Nome do campo.
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -170,16 +163,13 @@ $formulario = new TForm('formularioExemplo');
 $formulario->silentField('campoSilencioso');
 ```
 
-## setProperty($name, $value, $replace = TRUE)
+## setProperty
 Define uma propriedade do formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$name`: Nome da propriedade.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$value`: Valor da propriedade.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$replace`: Substitui o valor se verdadeiro.
+<ResponseField name="$name" type="mixed" required>Nome da propriedade.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Valor da propriedade.</ResponseField>
+<ResponseField name="$replace" type="bool" default="TRUE">(Opcional) Substitui o valor se verdadeiro.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -189,12 +179,11 @@ $formulario->setProperty('action', 'process.php');
 
 <br/>
 
-## unsetProperty($name)
+## unsetProperty
 Remove uma propriedade do formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$name`: Nome da propriedade.
+<ResponseField name="$name" type="mixed" required>Nome da propriedade.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -204,12 +193,11 @@ $formulario->unsetProperty('action');
 
 <br/>
 
-## setData($object)
+## setData
 Define os dados do formulário a partir de um objeto.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$object`: Objeto contendo os dados.
+<ResponseField name="$object" type="mixed" required>Objeto contendo os dados.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -221,12 +209,11 @@ $formulario->setData($dados);
 
 <br/>
 
-## getData($class = 'StdClass')
+## getData
 Retorna os dados do formulário como um objeto da classe especificada.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$class`: Classe do objeto retornado.
+<ResponseField name="$class" type="string" default="StdClass">(Opcional) Classe do objeto retornado.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -236,14 +223,12 @@ $dados = $formulario->getData();
 
 <br/>
 
-## getValues($class = 'StdClass', $withOptions = false)
+## getValues
 Retorna os valores iniciais do formulário como um objeto da classe especificada.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$class`: Classe do objeto retornado.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$withOptions`: Inclui opções se verdadeiro.
+<ResponseField name="$class" type="string" default="StdClass">(Opcional) Classe do objeto retornado.</ResponseField>
+<ResponseField name="$withOptions" type="bool" default="false">(Opcional) Inclui opções se verdadeiro.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -253,7 +238,7 @@ $valores = $formulario->getValues();
 
 <br/>
 
-## validate()
+## validate
 Valida os dados do formulário.
 
 **Exemplo de código:**
@@ -264,12 +249,11 @@ $formulario->validate();
 
 <br/>
 
-## clear($keepDefaults = FALSE)
+## clear
 Limpa os dados do formulário.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$keepDefaults`: Mantém os valores padrão se verdadeiro.
+<ResponseField name="$keepDefaults" type="bool" default="FALSE">(Opcional) Mantém os valores padrão se verdadeiro.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -279,12 +263,11 @@ $formulario->clear();
 
 <br/>
 
-## add($object)
+## add
 Adiciona um objeto ao formulário, como um container.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$object`: Objeto a ser adicionado.
+<ResponseField name="$object" type="mixed" required>Objeto a ser adicionado.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -295,7 +278,7 @@ $formulario->add($container);
 
 <br/>
 
-## pack()
+## pack
 Empacota vários objetos no formulário.
 
 **Exemplo de código:**
@@ -308,7 +291,7 @@ $formulario->pack($container1, $container2);
 
 <br/>
 
-## getChild()
+## getChild
 Retorna o primeiro objeto filho do formulário.
 
 **Exemplo de código:**
@@ -319,12 +302,11 @@ $child = $formulario->getChild();
 
 <br/>
 
-## getFormByName($name)
+## getFormByName
 (Método estático) Retorna o objeto formulário pelo seu nome.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$name`: Nome do formulário.
+<ResponseField name="$name" type="mixed" required>Nome do formulário.</ResponseField>
 
 **Exemplo de código:**
 ```php
@@ -333,20 +315,15 @@ $formulario = TForm::getFormByName('formularioExemplo');
 
 <br/>
 
-## sendData($form_name, $object, $aggregate = FALSE, $fireEvents = TRUE, $timeout = 0)
+## sendData
 (Método estático) Envia dados para um formulário localizado na janela pai.
 
 **Parâmetros:**
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$form_name`: Nome do formulário.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$object`: Objeto contendo os dados do formulário.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$aggregate`: Agrega os dados se verdadeiro.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$fireEvents`: Dispara eventos se verdadeiro.
-<ResponseField name="$text" type="mixed" required>Texto do título do separador.</ResponseField>
-  - `$timeout`: Tempo de espera antes de enviar os dados.
+<ResponseField name="$form_name" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$object" type="mixed" required>Objeto contendo os dados do formulário.</ResponseField>
+<ResponseField name="$aggregate" type="bool" default="FALSE">(Opcional) Agrega os dados se verdadeiro.</ResponseField>
+<ResponseField name="$fireEvents" type="bool" default="TRUE">(Opcional) Dispara os eventos se verdadeiro.</ResponseField>
+<ResponseField name="$timeout" type="int" default="0">(Opcional) Tempo de espera antes de enviar os dados.</ResponseField>
 
 **Exemplo de código:**
 ```php
