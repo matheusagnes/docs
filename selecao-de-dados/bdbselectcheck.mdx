@@ -3,6 +3,8 @@ title: 'BDBSelectCheck'
 description: 'O `BDBSelectCheck` é um componente (derivado da classe `BSelectCheck`) para seleção de múltiplas opções baseado em um modelo de dados.'
 ---
 
+_Obs.: todos os métodos presentes nesta documentação utilizarão como base uma tabela chamada "estado". Esta tabela foi criada em um modelo de dados chamado "docs" e possui três colunas: id, nome, ._
+
 ## __construct
 Construtor da classe `BDBSelectCheck`.
 
@@ -17,21 +19,24 @@ Construtor da classe `BDBSelectCheck`.
 <ResponseField name="$cachekey" type="mixed" default="NULL">(Opcional) Chave para cache dos itens.</ResponseField>
 
 **Exemplo de código:**
-'''php
-$selecaoProdutos = new BDBSelectCheck('selecaoProdutos', 'database', 'Produto', 'id', 'nome');
-'''
+```php
+$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome');
+$selecaoEstados->setSize('100%');
+```
+
+**Exemplo de código (com parâmetros opcionais):**
+```php
+$criteria = new TCriteria;
+$criteria->add(new TFilter('nome', '=', 'Rio de Janeiro'));
+
+$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome', 'nome asc', $criteria);
+$selecaoProduto->setSize('100%');
+```
 
 <br/>
 
 ## reloadFromModel
 (Método estático) Recarrega o combo a partir de dados de modelo.
-
-- Parâmetros:
-  - `$ordercolumn` (opcional): Coluna para ordenar os campos.
-  - `$criteria` (opcional): Critérios para filtrar o modelo.
-  - `$startEmpty` (opcional): Se o combo terá um primeiro item vazio.
-  - `$fire_events` (opcional): Se a ação de mudança será disparada.
-  - `$cachekey` (opcional): Chave para cache dos itens.
 
 **Parâmetros:**
 <ResponseField name="$formname" type="mixed" required>Nome do formulário.</ResponseField>
@@ -47,9 +52,44 @@ $selecaoProdutos = new BDBSelectCheck('selecaoProdutos', 'database', 'Produto', 
 <ResponseField name="$cachekey" type="mixed" default="NULL">(Opcional) Chave para cache dos itens.</ResponseField>
 
 **Exemplo de código:**
-'''php
+```php
 $btnRecarregar = new TButton('btnRecarregar');
 $btnRecarregar->addStyleClass('btn-default');
 $btnRecarregar->setAction(new TAction(['TEntryViewController', 'recarregarDados'], ['formularioProdutos', 'selecaoProdutos', 'database', 'Produto', 'id', 'nome']), 'Recarregar');
 $btnRecarregar->show();
-'''
+```
+
+**Exemplo de código:**
+```php
+$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome');
+```
+
+**Exemplo de código (com parâmetros opcionais):**
+```php
+$criteria = new TCriteria;
+$criteria->add(new TFilter('nome', '=', 'Rio de Janeiro'));
+
+$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome', 'nome asc', $criteria);
+$selecaoProduto->setSize('100%');
+```
+
+
+
+
+
+$opcoesUsuario = new TCheckGroup('opcoesUsuario');
+$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
+
+$btnLimpar = new TButton('btnClearField');
+$btnLimpar->addStyleClass('btn-default');
+$btnLimpar->setImage('far:circle #000000');
+$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Seleção');
+```
+Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
+
+```php
+public static function limparCampo($param = null)
+{
+    TCheckGroup::clearField('nomeForm', 'opcoesUsuario');
+}
+```
