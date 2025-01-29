@@ -1,0 +1,55 @@
+---
+title: 'BDBSelectCheck'
+description: 'O `BDBSelectCheck` é um componente (derivado da classe `BSelectCheck`) para seleção de múltiplas opções baseado em um modelo de dados.'
+---
+
+## __construct
+Construtor da classe `BDBSelectCheck`.
+
+**Parâmetros:**
+<ResponseField name="$name" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome do banco de dados.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Nome da classe do modelo.</ResponseField>
+<ResponseField name="$key" type="mixed" required>Campo da tabela a ser usado como chave.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Campo da tabela a ser listado.</ResponseField>
+<ResponseField name="$ordercolumn" type="mixed" default="NULL">(Opcional) Coluna para ordenação dos dados.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="NULL">(Opcional) Critérios para filtrar o modelo.</ResponseField>
+<ResponseField name="$cachekey" type="mixed" default="NULL">(Opcional) Chave para cache dos itens.</ResponseField>
+
+**Exemplo de código:**
+'''php
+$selecaoProdutos = new BDBSelectCheck('selecaoProdutos', 'database', 'Produto', 'id', 'nome');
+'''
+
+<br/>
+
+## reloadFromModel
+(Método estático) Recarrega o combo a partir de dados de modelo.
+
+- Parâmetros:
+  - `$ordercolumn` (opcional): Coluna para ordenar os campos.
+  - `$criteria` (opcional): Critérios para filtrar o modelo.
+  - `$startEmpty` (opcional): Se o combo terá um primeiro item vazio.
+  - `$fire_events` (opcional): Se a ação de mudança será disparada.
+  - `$cachekey` (opcional): Chave para cache dos itens.
+
+**Parâmetros:**
+<ResponseField name="$formname" type="mixed" required>Nome do formulário.</ResponseField>
+<ResponseField name="$field" type="mixed" required>Nome do campo.</ResponseField>
+<ResponseField name="$database" type="mixed" required>Nome do banco de dados.</ResponseField>
+<ResponseField name="$model" type="mixed" required>Nome da classe do modelo.</ResponseField>
+<ResponseField name="$key" type="mixed" required>Campo da tabela a ser usado como chave.</ResponseField>
+<ResponseField name="$value" type="mixed" required>Campo da tabela a ser listado.</ResponseField>
+<ResponseField name="$ordercolumn" type="mixed" default="NULL">(Opcional) Coluna para ordenação dos dados.</ResponseField>
+<ResponseField name="$criteria" type="TCriteria" default="NULL">(Opcional) Critérios para filtrar o modelo.</ResponseField>
+<ResponseField name="$startEmpty" type="bool" default="FALSE">(Opcional) Determina se o combo terá um primeiro item vazio.</ResponseField>
+<ResponseField name="$fire_events" type="bool" default="TRUE">(Opcional) Determina se a ação de mudança será disparada.</ResponseField>
+<ResponseField name="$cachekey" type="mixed" default="NULL">(Opcional) Chave para cache dos itens.</ResponseField>
+
+**Exemplo de código:**
+'''php
+$btnRecarregar = new TButton('btnRecarregar');
+$btnRecarregar->addStyleClass('btn-default');
+$btnRecarregar->setAction(new TAction(['TEntryViewController', 'recarregarDados'], ['formularioProdutos', 'selecaoProdutos', 'database', 'Produto', 'id', 'nome']), 'Recarregar');
+$btnRecarregar->show();
+'''
