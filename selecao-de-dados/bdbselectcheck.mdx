@@ -53,43 +53,21 @@ $selecaoProduto->setSize('100%');
 
 **Exemplo de código:**
 ```php
+$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome');
+
 $btnRecarregar = new TButton('btnRecarregar');
 $btnRecarregar->addStyleClass('btn-default');
-$btnRecarregar->setAction(new TAction(['TEntryViewController', 'recarregarDados'], ['formularioProdutos', 'selecaoProdutos', 'database', 'Produto', 'id', 'nome']), 'Recarregar');
-$btnRecarregar->show();
-```
-
-**Exemplo de código:**
-```php
-$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome');
-```
-
-**Exemplo de código (com parâmetros opcionais):**
-```php
-$criteria = new TCriteria;
-$criteria->add(new TFilter('nome', '=', 'Rio de Janeiro'));
-
-$selecaoEstados = new BDBSelectCheck('selecaoEstados', 'docs', 'Estado', 'id', 'nome', 'nome asc', $criteria);
-$selecaoProduto->setSize('100%');
-```
-
-
-
-
-
-$opcoesUsuario = new TCheckGroup('opcoesUsuario');
-$opcoesUsuario->addItems(['1' => 'Opção 1', '2' => 'Opção 2']);
-
-$btnLimpar = new TButton('btnClearField');
-$btnLimpar->addStyleClass('btn-default');
-$btnLimpar->setImage('far:circle #000000');
-$btnLimpar->setAction(new TAction([$this, 'limparCampo']), 'Limpar Seleção');
+$btnRecarregar->setImage('far:circle #000000');
+$btnRecarregar->setAction(new TAction([$this, 'recarregarDoModelo']), 'Recarregar do Modelo');
 ```
 Código de exemplo da função a ser chamada, lembrando que essa função precisa ser estática (static function).
 
 ```php
-public static function limparCampo($param = null)
+public static function recarregarDoModelo($param = null)
 {
-    TCheckGroup::clearField('nomeForm', 'opcoesUsuario');
+    $criteria = new TCriteria;
+    $criteria->add(new TFilter('nome', '=', 'Rio de Janeiro'));
+
+    BDBSelectCheck::reloadFromModel('selecaoEstados', 'docs', 'Estado', 'id', 'nome', 'nome asc', $criteria, true, false);
 }
 ```
