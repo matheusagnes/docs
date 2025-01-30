@@ -102,6 +102,7 @@
         "selecao-de-dados/tdbchecklist",
         "selecao-de-dados/tdbcombo",
         "selecao-de-dados/tdbselect",
+        "selecao-de-dados/bdbselectcheck",
         "selecao-de-dados/tdbradiogroup",
         "selecao-de-dados/tdbcheckgroup",
         "selecao-de-dados/tdbseekbutton",
