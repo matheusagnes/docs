@@ -1,5 +1,5 @@
 ---
-title: '01. Transações em banco de dados'
+title: "01. Transações em banco de dados"
 ---
 
 Para abrir e fechar uma transação, basta escrever os seguintes comandos:
@@ -17,14 +17,132 @@ Todos os comandos executados entre o `open` e `close` terão uma transação à 
 
 Para abrir a transação, é necessário informar o nome do arquivo de configuração que contém as informações de conexão do BD. No exemplo acima, foi informado ao Adianti Framework que se deseja abrir uma conexão com o banco `erp`. Por sua vez, o Adianti Framework irá no diretório `app/config/` e procurará o arquivo `erp.ini`. É nesse arquivo que estão as informações necessárias para abrir uma transação.
 
-Um exemplo de arquivo de conexão com o BD seria:
+A seguir um exemplo de um conector para SQLite:
 
-    host   = localhost
-    port   = 
-    name   = erp
-    user   = erp_consulta
-    pass   = erp_consulta#1337
-    type   = pgsql
+```php
+<?php
+return [
+    'host'  =>  "",
+    'port'  =>  "",
+    'name'  =>  "app/database/samples.db",
+    'user'  =>  "",
+    'pass'  =>  "",
+    'type'  =>  "sqlite",
+    'prep'  =>  "1" // se utilizará prepared statements
+];
+```
+
+A seguir um exemplo de um conector para PostgreSQL:
+
+```php
+<?php
+return [
+    'host'  =>  "192.168.1.102",
+    'port'  =>  "", // vazio usa a porta padrão (5432)
+    'name'  =>  "samples",
+    'user'  =>  "postgres",
+    'pass'  =>  "postgres",
+    'type'  =>  "pgsql",
+    'prep'  =>  "1" // se utilizará prepared statements
+];
+```
+
+A seguir um exemplo de um conector para MySQL:
+
+```php
+<?php
+return [
+    'host'  =>  "127.0.0.1",
+    'port'  =>  "", // vazio usa a porta padrão (3306)
+    'name'  =>  "tutor",
+    'user'  =>  "root",
+    'pass'  =>  "mysql",
+    'type'  =>  "mysql",
+    'prep'  =>  "1",
+    'char'  =>  "utf8mb4", // Ex. ISO (ISO-8859-1), utf8mb4
+    'zone'  =>  "America/Sao_Paulo"     // define a timezone
+];
+```
+
+Obs: Para usar com encoding iso, adicionar "char = ISO"
+
+A seguir um exemplo de um conector para SQLServer:
+
+```php
+<?php
+return [
+    'host'  =>  "192.168.1.103",
+    'port'  =>  "",
+    'name'  =>  "tutor",
+    'user'  =>  "sa",
+    'pass'  =>  "12345678",
+    'type'  =>  "mssql",
+    'prep'  =>  "1",
+    'ntyp'  =>  "1", // retorna dados numéricos como tipos int, float na aplicação
+    'opts'  => ";ENCRYPT=yes;trustServerCertificate=true" // Ao usar driver da MS
+];
+```
+
+Obs: O type mssql utiliza driver dblib (FreeTDS) para Linux e sqlsrv (Fornecido pela MS) para windows. Use também type=dblib ou type=sqlsrv para indicar o driver específico. "ntyp" é válido apenas para o driver "sqlsrv", habilita retorno de campos numéricos como tipos numéricos do PHP. A opção "opts" é necessária a partir do PHP8 em uso com o driver fornecido pela MS.
+
+A seguir um exemplo de um conector para Oracle:
+
+```php
+<?php
+return [
+    'host'  =>  "192.168.1.103",
+    'port'  =>  "1521",
+    'name'  =>  "tutor",
+    'user'  =>  "system",
+    'pass'  =>  "12345678",
+    'type'  =>  "oracle",
+    'prep'  =>  "1",
+    'char'  =>  "AL32UTF8",               // alterar charset de conexão
+    'flow'  =>  "1",                      // garante atributos em lowercase
+    'date'  =>  "YYYY-MM-DD",             // NLS_DATE_FORMAT
+    'time'  =>  "YYYY-MM-DD HH:MI:SS.FF", // NLS_TIMESTAMP_FORMAT
+    'nsep'  =>  ",."                      // NLS_NUMERIC_CHARACTERS
+];
+```
+
+A seguir um exemplo de um conector para Oracle com TNS:
+
+```php
+<?php
+return [
+    'user'  =>  "system",
+    'pass'  =>  "12345678",
+    'type'  =>  "oracle",
+    'tns'   =>  "(DESCRIPTION =
+                 (ADDRESS_LIST =
+                   (ADDRESS = (PROTOCOL = TCP)(HOST = 192.168.0.13)(PORT = 1521))
+                 )
+                 (CONNECT_DATA =
+                   (SERVICE_NAME = exemplos)
+                )
+               )",
+    'prep'  =>  "1",
+    'char'  =>  "AL32UTF8",               // alterar charset de conexão
+    'flow'  =>  "1",                      // garante atributos em lowercase
+    'date'  =>  "YYYY-MM-DD",             // NLS_DATE_FORMAT
+    'time'  =>  "YYYY-MM-DD HH:MI:SS.FF", // NLS_TIMESTAMP_FORMAT
+    'nsep'  =>  ",."                      // NLS_NUMERIC_CHARACTERS
+];
+```
+
+A seguir um exemplo de um conector para Firebird:
+
+```php
+<?php
+return [
+    'host'  =>  "192.168.1.103",
+    'port'  =>  "",
+    'name'  =>  "c:\teste2.fdb",
+    'user'  =>  "sysdba",
+    'pass'  =>  "masterkey",
+    'type'  =>  "fbird"
+];
+```
 
 ## 1.1. Aconteceu um problema, como abortar a transação?
 
@@ -178,8 +296,8 @@ Existe uma maneira de abrir uma transação manual com o BD. Abaixo um exemplo d
 
 O Adianti Framework oferece duas maneiras de registrar logs de transação que podem facilitar o desenvolvimento.
 
-1.	`setLoggerFunction()`
-2.	`setLogger()`
+1. `setLoggerFunction()`
+2. `setLogger()`
 
 **setLoggerFunction**
 Com a função `setLoggerFunction()`, o desenvolvedor pode definir uma função que será executada sempre que um comando SQL for executado pela transação em questão. Essa função aceita código PHP, portanto, fica livre para o desenvolvedor criar seu próprio método de depuração.
@@ -239,10 +357,10 @@ Os logs dos comandos SQL são escritos da mesma maneira, mas a função `log()` 
 
 De uma maneira semelhante, podemos escrever as informações em arquivos. Para isso, usamos a função `setLogger(AdiantiLoggerInterface $class)`, que por sua vez, recebe como parâmetro um tipo específico de classe que irá escrever o arquivo de log. O Adianti Framework oferece 4 classes que escrevem em diferentes formatos:
 
-1.	TLoggerHTML → HTML;
-2.	TLoggerSTD → Standard Output;
-3.	TLoggerTXT → Texto;
-4.	TLoggerXML → XML.
+1. TLoggerHTML → HTML;
+2. TLoggerSTD → Standard Output;
+3. TLoggerTXT → Texto;
+4. TLoggerXML → XML.
 
 No exemplo abaixo, o código-fonte usa a classe `TLoggerTXT`, que é a mais usada para registrar logs em arquivo.
 
