@@ -1,10 +1,10 @@
 ---
-title: '08. Carregamento estático de coleções'
+title: "08. Carregamento estático de coleções"
 ---
 
 O carregamento estático de coleções é uma ferramenta poderosa oferecida pelo Adianti Framework. Com ela é possível definir as colunas selecionadas, filtrar o carregamento de objetos e ainda paginar os resultados.
 
-**Como definir as colunas de uma consulta no banco de dados?**
+## 8.1. Como definir as colunas de uma consulta no banco de dados?
 
 É possível chamar uma função estática chamada `select()` em uma Active Record para definir as colunas que serão carregadas no comando SQL gerado pelo framework. A função `select()` recebe como parâmetro uma ou mais “strings” que serão usadas para selecionar as colunas.
 
@@ -47,7 +47,7 @@ O segundo comando SQL gerado foi:
     FROM funcionario
 ```
 
-**Como adicionar filtros no carregamento estático?**
+## 8.2. Como adicionar filtros no carregamento estático?
 
 Da mesma maneira que a função `select()` existe para definir as colunas a serem selecionadas, existe a função `where()`, para criar filtros de carregamento de coleções. O uso mais simples da função `where()` usa três parâmetros:
 
@@ -86,13 +86,13 @@ O comando SQL gerado foi:
         (idade > 18)
 ```
 
-**Como adicionar mais de um filtro?**
+## 8.3. Como adicionar mais de um filtro?
 
 Ao usar o carregamento estático de coleções, é possível adicionar N filtros. Para isso, basta chamar mais vezes a função `where()`. Veja o exemplo a seguir, em que serão carregados todos os funcionários que:
 
-1.	 Tenham mais de 18 anos;
-2.	 O nome comece com a letra A;
-3.	 Tenham o CEP igual a 95900-000.
+1. Tenham mais de 18 anos;
+2. O nome comece com a letra A;
+3. Tenham o CEP igual a 95900-000.
 
 O código-fonte:
 
@@ -138,7 +138,7 @@ O comando SQL gerado foi:
 
 > Atenção: sempre que mais de um filtro `where` for usado, somente o primeiro deve ser chamado com os caracteres `::`. Os seguintes devem ser chamados com os caracteres `->`.
 
-**Como definir colunas e filtros em um carregamento?**
+## 8.4. Como definir colunas e filtros em um carregamento?
 
 É possível combinar as funções `select()` e `where()` para carregar apenas as informações desejadas seguindo as regras da aplicação. Para isso, basta empilhar as funções da mesma maneira que quando é usado mais que um filtro.
 
@@ -175,7 +175,7 @@ O comando SQL gerado foi:
         (nome like 'A%' AND idade < 18)
 ```
 
-**Como carregar os registros paginados?**
+## 8.5. Como carregar os registros paginados?
 
 Ainda no carregamento estático, é possível definir algumas propriedades, como ordenação, quantidade e paginação dos registros.
 
@@ -216,7 +216,7 @@ O comando SQL gerado foi:
     OFFSET 20
 ```
 
-**Como usar o operador OU em carregamentos estáticos?**
+## 8.6. Como usar o operador OU em carregamentos estáticos?
 
 Nos exemplos anteriores, todos os critérios de filtros eram adicionados com o operador `E (and)`, pois esse é o comportamento padrão do carregamento estático.
 
