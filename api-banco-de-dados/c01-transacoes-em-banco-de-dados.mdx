@@ -17,6 +17,8 @@ Todos os comandos executados entre o `open` e `close` terão uma transação à 
 
 Para abrir a transação, é necessário informar o nome do arquivo de configuração que contém as informações de conexão do BD. No exemplo acima, foi informado ao Adianti Framework que se deseja abrir uma conexão com o banco `erp`. Por sua vez, o Adianti Framework irá no diretório `app/config/` e procurará o arquivo `erp.ini`. É nesse arquivo que estão as informações necessárias para abrir uma transação.
 
+## 1.1. Exemplos de conectores
+
 A seguir um exemplo de um conector para SQLite:
 
 ```php
@@ -144,7 +146,7 @@ return [
 ];
 ```
 
-## 1.1. Aconteceu um problema, como abortar a transação?
+## 1.2. Aconteceu um problema, como abortar a transação?
 
 Ao trabalhar com transação, não existem regras de trabalho, a lógica pode mudar conforme a demanda. Vão existir situações em que é tudo ou nada e outras em que cada operação deve ser controlada individualmente. O que essas situações têm em comum é que quando um problema ocorre aquelas instruções não devem ser executadas pela metade.
 
@@ -171,7 +173,7 @@ Para evitar que uma transação seja finalizada (`commit`), temos a função `ro
 
 Para abortar a transação quando acontece um erro, deve-se usar a função `rollback()`. Quando trabalhado com o BD, é uma boa prática colocar os comandos dentro de um `try`, pois a funções do Adianti Framework que trabalham com informações do BD lançam exceções e estas podem ser capturadas e tratadas.
 
-## 1.2. Empilhar transações
+## 1.3. Empilhar transações
 
 É possível abrir mais de uma transação com o Adianti Framework, ele consegue empilhar as transações que forem abertas.
 
@@ -193,7 +195,7 @@ Para abortar a transação quando acontece um erro, deve-se usar a função `rol
 
 É importante ressaltar que as duas conexões não ficaram abertas simultaneamente, entretanto, o Adianti Framework as empilhou de modo que não foi necessário abrir novamente a transação com o banco `erp` após fechar o banco `estoque`.
 
-## 1.3. Como posso executar um comando SQL manual?
+## 1.4. Como posso executar um comando SQL manual?
 
 Após abrir uma conexão com o BD, além de manipular as informações com as classes do framework, podemos executar comandos manuais usando SQL.
 
@@ -249,7 +251,7 @@ Embora não recomendado, podemos usar os valores diretamente dentro da query a s
 
 As duas maneiras exibidas de como executar um comando SQL manual terão o mesmo resultado, no entanto, ressaltamos que o primeiro exemplo é mais indicado por ser mais seguro.
 
-## 1.4. Como abrir conexão manual com um banco de dados
+## 1.5. Como abrir conexão manual com um banco de dados
 
 Nos exemplos anteriores vimos como abrir conexões com o BD sempre utilizando o arquivo de configuração, sempre passando como parâmetro o nome, um exemplo seria:
 
@@ -292,7 +294,7 @@ Existe uma maneira de abrir uma transação manual com o BD. Abaixo um exemplo d
     }
 ```
 
-## 1.5. Registros de log da transação
+## 1.6. Registros de log da transação
 
 O Adianti Framework oferece duas maneiras de registrar logs de transação que podem facilitar o desenvolvimento.
 
