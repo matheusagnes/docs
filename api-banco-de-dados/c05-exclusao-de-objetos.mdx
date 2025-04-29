@@ -44,7 +44,7 @@ O SQL gerado é:
     DELETE FROM funcionario WHERE (id = 1)
 ```
 
-## Qual dos métodos de exclusão devo usar?
+## 5.1. Qual dos métodos de exclusão devo usar?
 
 A resposta direta é: depende. Cada caso é um caso, e podemos ver que o primeiro caso realizou uma consulta a mais no BD. Se o objetivo é apenas deletar um objeto, a segunda maneira é mais eficiente, mas existem casos em que será necessário testar algo do objeto para realmente excluir. Portanto, o desenvolvedor deve analisar a melhor maneira de implementar a exclusão de objetos.
 
