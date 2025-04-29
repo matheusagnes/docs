@@ -8,7 +8,7 @@ Para que o desenvolvedor conte o número de registros de uma tabela (sabendo ape
 
 A contagem de registros pode ser usada da forma estática ou com API de critérios. Primeiro veremos a forma estática.
 
-**Contagem estática**
+## 14.1. Contagem estática
 
 Um exemplo seria saber quantos funcionários começam com a letra A e tem 18 anos:
 
@@ -44,7 +44,7 @@ O comando SQL gerado foi:
 
 Ao utilizar a função `count()`, o desenvolvedor não terá o retorno em forma de vetor de objetos, mas sim o valor numérico resultante da contagem.
 
-**Contagem com API de critérios**
+## 14.2. Contagem com API de critérios
 
 Quando o critério de carregamento estiver montado, basta que o desenvolvedor use a função countObjects($criteria). Ela contará o número de registros ao invés de carregá-los, veja o exemplo:
 
