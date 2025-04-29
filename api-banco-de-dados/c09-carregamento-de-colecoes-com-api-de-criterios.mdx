@@ -132,11 +132,11 @@ O comando SQL gerado foi:
     OFFSET 20
 ```
 
-## 9.4. Posso usar filtros e propriedades ao mesmo tempo?
+**Posso usar filtros e propriedades ao mesmo tempo?**
 
 Sim, é possível usar os dois ao mesmo tempo sem o menor problema.
 
-**Como usar o operador OU?**
+## 9.4. Como usar o operador OU?
 
 Como pode ser visto nos exemplos anteriores, ao adicionar mais de um filtro, o Adianti Framework usa o operador `E` para uni-los. É possível criar um critério usando o operador `OU`, para isso, precisamos adicionar uma cláusula com o operador desejado após o filtro dentro da função `add()`.
 
@@ -171,7 +171,7 @@ O comando SQl gerado foi:
         (sexo = 'M' OR idade < 18)
 ```
 
-**Como usar: BETWEEN, IN e NOT IN**
+## 9.5. Como usar: BETWEEN, IN e NOT IN
 
 Quando utilizamos uma API de critérios, é possível de maneira facilitada trabalhar com outros tipos filtros como o `BETWEEN`.
 
