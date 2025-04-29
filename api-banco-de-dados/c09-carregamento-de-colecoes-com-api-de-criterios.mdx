@@ -8,7 +8,7 @@ Um objeto de critério pode receber filtros ou outros objetos de critérios. Ao 
 
 O carregamento de coleções por API de critérios não permite a seleção de colunas, todos os atributos definidos no modelo serão carregados.
 
-**Como é feita a montagem dos filtros?**
+## 9.1. Como é feita a montagem dos filtros?
 
 O primeiro passo para usar a API de critérios e criar um objeto da classe `TCriteria`, é ele que vai receber todos os filtros desejados:
 
@@ -36,7 +36,7 @@ Veja um exemplo onde o filtro procura apenas registros do sexo masculino:
     $criteria->add(new TFilter('nome', 'like', '%ARTUR%')); // Cujo nome contém “ARTUR”
 ```
 
-**Como carregar uma coleção?**
+## 9.2. Como carregar uma coleção?
 
 O desenvolvedor pode adicionar quantos filtros forem necessários e usar o critério para carregar múltiplas vezes. Para usar o contêiner de filtros, basta usar a função `getObjects($criteria)` de forma estática em um modelo.
 
@@ -85,7 +85,7 @@ O comando SQL gerado foi:
         AND  nome like '%ARTUR%')
 ```
 
-**Como ordenar um carregamento?**
+## 9.3. Como ordenar um carregamento?
 
 É possível adicionar algumas propriedades no carregamento de objetos usando a API de critérios, elas são adicionadas com a função `setProperty()`. Veja um exemplo abaixo, onde são selecionados 10 funcionários ordenando pelo código ID pulando os 10 primeiros:
 
@@ -132,7 +132,7 @@ O comando SQL gerado foi:
     OFFSET 20
 ```
 
-**Posso usar filtros e propriedades ao mesmo tempo?**
+## 9.4. Posso usar filtros e propriedades ao mesmo tempo?
 
 Sim, é possível usar os dois ao mesmo tempo sem o menor problema.
 
@@ -303,7 +303,7 @@ O comando SQL gerado foi:
         (id IN (SELECT customer_id FROM purchases))
 ```
 
-**Como usar operadores E e OU ao mesmo tempo?**
+## 9.5. Como usar operadores E e OU ao mesmo tempo?
 
 Para utilizar os operadores `E` e `OU´ ao mesmo tempo, é necessário criar um critério composto, ou seja, um critério que irá receber outros dois critérios.
 
