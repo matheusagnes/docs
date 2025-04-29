@@ -1,0 +1,97 @@
+---
+title: "04. Métodos gancho de objetos"
+---
+
+No Adianti Framework, **métodos gancho** (ou _hooks_) são funções especiais que você pode definir em sua classe `TRecord`. Esses métodos são automaticamente chamados pelo framework em momentos estratégicos — como antes ou depois de carregar, salvar ou excluir um registro.
+
+Isso permite, por exemplo:
+
+- Validar dados antes de salvar;
+- Auditar alterações;
+- Prevenir exclusões indevidas;
+- Criar logs de atividades.
+
+## 4.1. Métodos disponíveis
+
+| Método                 | Quando é executado?                     |
+| ---------------------- | --------------------------------------- |
+| `onBeforeLoad($id)`    | Antes de carregar um objeto do banco    |
+| `onAfterLoad($obj)`    | Depois de carregar um objeto do banco   |
+| `onBeforeStore($obj)`  | Antes de inserir ou atualizar no banco  |
+| `onAfterStore($obj)`   | Depois de inserir ou atualizar no banco |
+| `onBeforeDelete($obj)` | Antes de excluir um registro            |
+| `onAfterDelete($obj)`  | Depois de excluir um registro           |
+
+Você pode registrar essas ações de forma simples. Veja um exemplo de `onAfterStore` que salva o conteúdo no arquivo `/tmp/log.txt`:
+
+```php
+public function onAfterStore($object)
+{
+    file_put_contents('/tmp/log.txt', 'onAfterStore: ' . json_encode($object) . "\n", FILE_APPEND);
+}
+```
+
+## 4.2. Exemplos de uso
+
+**Exemplo 1 – Gancho ao gravar dados**
+
+Ao chamar o método `store()`, os seguintes ganchos podem ser executados:
+
+- `onBeforeStore($obj)`
+- `onAfterStore($obj)`
+
+```php
+TTransaction::open('exemplos');
+
+$cliente = new Cliente;
+$cliente->nome = 'Ana';
+$cliente->store();
+
+TTransaction::close();
+```
+
+O framework detecta que esses métodos estão definidos e os executa automaticamente. O log final seria algo como:
+
+```
+onBeforeStore: {"nome":"Ana"}
+onAfterStore: {"id":"5","nome":"Ana"}
+```
+
+**Exemplo 2 – Gancho ao excluir dados**
+
+Ganchos como `onBeforeDelete` e `onAfterDelete` são executados automaticamente quando você chama `delete()`:
+
+```php
+TTransaction::open('exemplos');
+
+$cliente = new Cliente(5);
+$cliente->delete();
+
+TTransaction::close();
+```
+
+Exemplo de conteúdo do log:
+
+```
+onBeforeDelete: {"id":"5","nome":"Ana"}
+onAfterDelete: {"id":"5","nome":"Ana"}
+```
+
+**Exemplo 3 – Gancho ao carregar objetos**
+
+Se um método `onAfterLoad($obj)` estiver definido, ele será executado automaticamente após a carga de um objeto pelo ID:
+
+```php
+TTransaction::open('exemplos');
+
+$cliente = new Cliente(5);
+
+TTransaction::close();
+```
+
+Log gerado:
+
+```
+onBeforeLoad: 5
+onAfterLoad: {"id":"5","nome":"Ana"}
+```
