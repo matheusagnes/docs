@@ -51,6 +51,10 @@
     {
       "name": "API banco de dados",
       "url": "api-banco-de-dados"
+    },
+    {
+      "name": "Services",
+      "url": "services"
     }
   ],
   "anchors":
@@ -176,6 +180,13 @@
         "api-banco-de-dados/c13-exclusao-de-colecoes",
         "api-banco-de-dados/c14-como-contar-os-registros-de-uma-colecao",
         "api-banco-de-dados/c15-como-carregar-um-vetor-indexado-pelos-atributos-de-uma-tabela"
+      ]
+    },
+    {
+      "group": "Services",
+      "pages":
+      [
+        "services/builderhttpclientservice"
       ]
     }
   ],
