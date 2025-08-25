@@ -1,0 +1,210 @@
+---
+title: '4. Configurando o Comportamento do Controller pt. 1'
+description: 'É importante conhecer algumas propriedades fundamentais do `ApiResourceController` que você pode ajustar para controlar o comportamento básico do seu endpoint.
+
+A primeira parte desse guia irá abordar propriedades fundamentais e outras relacionadas à visualização de dados — em outras palavras, requisições GET.'
+---
+
+
+### Chave Primária (`$primaryKey`)
+
+Por padrão, o `ApiResourceController` assume que a chave primária da sua tabela se chama `id`. Se a sua tabela utiliza um nome diferente (por exemplo, `codigo`, `id_cliente`, etc.), você deve sobrescrever a propriedade `$primaryKey` no seu controller.
+
+**Exemplo:**
+
+```php
+// Em: app/controller/MinhaController.php
+
+class MinhaController extends ApiResourceController
+{
+    ...
+
+    // Informando que a chave primária é 'codigo'
+    protected $primaryKey = 'codigo'; 
+}
+```
+
+Isso garante que operações como `show`, `update` e `destroy`, que dependem de um identificador único, funcionem corretamente.
+
+---
+
+## Personalizando a Resposta JSON
+
+Depois de criar seu endpoint, o próximo passo é definir o comportamento da classe controladora e quais dados sua API retorna. O `ApiResourceController` oferece várias propriedades para selecionar, renomear e até mesmo formatar os campos da resposta.
+
+### Paginação (`$perPage`)
+
+A resposta do endpoint `index` (listagem) é paginada automaticamente. Por padrão, são retornados **15 registros por página**. Você pode alterar esse valor padrão sobrescrevendo a propriedade `$perPage`.
+
+> **Observação:** como já foi mencionado anteriormente, para exibir uma página específica, basta enviar o parâmetro `page` na URL. Ex.: `http://localhost/api/exibir-registros?page=3`.
+
+**Exemplo:**
+
+```php
+// Em: app/controller/MinhaController.php
+
+protected $perPage = 50; // Agora, a listagem retornará 50 itens por página
+```
+
+> **Nota:** Internamente, o método `addPagination()` é chamado durante a listagem para ler o parâmetro `page` da URL e aplicar os limites (`LIMIT`, `OFFSET`) à consulta, utilizando o valor de `$perPage`.
+
+### Selecionando e Renomeando Campos
+
+Você pode definir listas de campos diferentes para a listagem de múltiplos recursos (`index`) e para a visualização de um único recurso (`show`). Funciona como um filtro.
+
+-   `$indexFields`: Campos que aparecerão na rota de listagem.
+-   `$showFields`: Campos que aparecerão na rota de detalhe de um item.
+
+O formato é `['novo_nome_do_campo' => '{propriedade_do_modelo}']`. Você pode acessar dados de relacionamentos usando a sintaxe `{relacionamento->propriedade}`.
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    // Campos para a rota de listagem (GET /api/pedido-venda)
+    protected $indexFields = [
+        'cliente_nome' => 'Cliente: {cliente->nome}',
+        'valor_total' => 'Valor Total: {valor_total}'
+    ];
+
+    // Campos para a rota de detalhe (GET /api/pedido-venda/{id})
+    protected $showFields = [
+        'cliente_nome' => 'Cliente: {cliente->nome}',
+        'valor_total' => 'Valor Total: {valor_total}'
+    ];
+}
+```
+
+Obs.: mesmo que o filtro não o inclua, o campo de chave primária sempre será retornado.
+
+### Ocultando Campos (`$hiddenFields`)
+
+Se você não definir `$indexFields` ou `$showFields`, a API retornará todos os campos do modelo por padrão. Para ocultar campos específicos (como senhas ou chaves internas), use a propriedade `$hiddenFields`.
+
+```php
+// Oculta os campos de timestamp da resposta
+
+protected $hiddenFields = ['created_at', 'updated_at', 'deleted_at'];
+```
+
+### Habilitando Ordenação e Filtros
+
+Você pode permitir que os usuários ordenem e filtrem os resultados das listagens através das propriedades `$sortable` e `$filterable`.
+
+**1. Defina os campos no seu Controller:**
+
+```php
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    protected $sortable = ['valor_total'];
+    protected $filterable = ['valor_total', 'dt_pedido'];
+}
+```
+
+**2. Use os parâmetros na URL:**
+
+-   **Para Ordenar (`sort`):**
+    -   `GET /api/pedido-venda?sort=valor_total` (ordem ascendente - padrão)
+    -   `GET /api/pedido-venda?sort=valor_total&direction=desc` (ordem decrescente)
+
+-   **Para Filtrar (`filter`):**
+    -   `GET /api/pedido-venda?filters[valor_total][gte]=50000`
+    
+**3. Use os parâmetros no Body:**
+
+Outra forma de enviar os parâmetros é no corpo da requisição, sendo possível enviar ambos na mesma requisição.
+
+No exemplo abaixo, é aplicado um filtro e uma ordenação, para trazer apenas compras menores (entre R$ 100,00 e R$ 15.000,00) que foram realizadas no mês de janeiro de 2022, ordenados pelo valor total em ordem decrescente.
+
+![Requisição GET filtering e sorting](https://monosnap.com/image/Jb6PtpMwGNszsHVdWeWQzYQcl0LHij)
+
+E o resultado:
+
+![Resposta GET filtering e sorting](https://monosnap.com/image/BJFdfjHJmjiKRoLmGOyoOAVrfGXxSl)
+
+> **Observação:** caso o valor inserido não tenha sido definido como `filterable`, ele será ignorado.
+
+**Operadores disponíveis:**
+
+| Operador    | Exemplo                                               | Resultado SQL           |
+|-------------|-------------------------------------------------------|-------------------------|
+| =, eq       | `{"id": {"=": 1}}`                                    | id = 1                  |
+| like        | `{"nome": {"like": "João"}}`                          | nome LIKE '%João%'      |
+| like_start  | `{"nome": {"like_start": "A"}}`                       | nome LIKE 'A%'          |
+| like_end    | `{"nome": {"like_end": "Silva"}}`                     | nome LIKE '%Silva'      |
+| ilike       | `{"nome": {"ilike": "joão"}}`                         | Case-insensitive like   |
+| in          | `{"id": {"in": [1,2,3]}}`                             | id IN (1,2,3)           |
+| not in      | `{"status": {"not in": ["ativo"]}}`                   | status NOT IN ('ativo') |
+| `>`, gt     | `{"valor": {">": 100}}`                               | valor `>` 100             |
+| `>=`, gte   | `{"valor": {">=": 100}}`                              | valor `>=` 100            |
+| `<`, lt     | `{"valor": {"<": 100}}`                               | valor `<` 100             |
+| `<=`, lte   | `{"valor": {"<=": 100}}`                              | valor `<=` 100            |
+| `!=`, not   | `{"status": {"!=": "inativo"}}`                       | status `!=` 'inativo'     |
+| between     | `{"data": {"between": ["2024-01-01", "2024-12-31"]}}` | data BETWEEN ...        |
+| is_null     | `{"campo": {"is_null": true}}`                        | campo IS NULL           |
+| is_not_null | `{"campo": {"is_not_null": true}}`                    | campo IS NOT NULL       |
+
+### Nota: Entendendo `buildCriteria`
+
+Por baixo dos panos, o `ApiResourceController` usa um método central para gerenciar a listagem de dados: `buildCriteria()`.
+
+O papel dele é criar o objeto de consulta (`TCriteria`) e aplicar a ele as regras que vêm da URL, como filtros e ordenação. Ele, por sua vez, utiliza métodos auxiliares como o `processFilters` para traduzir os parâmetros da requisição em regras de banco de dados.
+
+Para cenários avançados, saber disso é útil, pois você pode **sobrescrever o método `buildCriteria`** no seu controller para adicionar filtros fixos (utilizando `TFilter`) ou regras de negócio que devem ser aplicadas a **todas** as listagens, garantindo consistência e segurança.
+
+### Formatando Dados com Transformers
+
+Os `Transformers` são funções que permitem modificar um valor antes que ele seja incluído na resposta JSON. Isso é extremamente útil para formatar datas, valores monetários, ou aplicar qualquer outra regra de negócio.
+
+- `$transformers`: Array de `[campo => função]` para formatar os dados do modelo principal.
+
+Você define os transformers no construtor do seu controller:
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+public function __construct()
+{
+    parent::__construct();
+
+    // Adiciona um transformer
+    $this->addTransformer('dt_pedido', function ($value, $object) {
+        // O retorno dessa função é o valor que será incluído na resposta JSON
+        if(!empty(trim($value)))
+        {
+            try
+            {
+                // Transforma a data para o formato brasileiro
+                $date = new DateTime($value);
+                return $date->format('d/m/Y');
+            }
+            catch (Exception $e)
+            {
+                return $value;
+            }
+        }
+    });
+}
+```
+
+Agora, sempre que o campo `dt_pedido` for incluído na resposta, ele será formatado pela função correspondente.
+
+Obs.: as transformações ficam salvas no array `transformers`, atributo da classe.
+
+### Nota a respeito de: `prepareItemForResponse`
+
+Toda a mágica de selecionar, renomear, ocultar e formatar campos acontece em um único lugar: o método `prepareItemForResponse()`. Ele é chamado para cada item da coleção antes da resposta ser enviada.
+
+O seu fluxo de trabalho é o seguinte:
+
+1.  **Verifica o contexto:** Decide se usa as regras de `$indexFields` (para listagens) ou `$showFields` (para detalhes).
+2.  **Seleciona os campos:** Se as listas acima estiverem definidas, ele as usa para montar a resposta. Caso contrário, pega todos os campos do objeto.
+3.  **Oculta campos:** Remove os campos listados em `$hiddenFields`.
+4.  **Aplica os transformers:** Por último, aplica as funções de formatação definidas em `$transformers` aos campos correspondentes. Isso é feito através do método interno `applyTransformers()`, que itera sobre as funções e executa cada uma delas.
+
+Saber disso é útil para entender a ordem em que as personalizações são aplicadas e para depurar o resultado da sua API.

@@ -1,0 +1,140 @@
+---
+title: "3. Criando um Endpoint CRUD"
+description: "Este guia mostra o passo a passo para criar um endpoint de API completo com todas as operações básicas: Listar, Visualizar, Criar, Atualizar e Deletar (CRUD)."
+---
+
+## Passo 1: Criando um Controller com Funções CRUD
+
+Ao invés de criar toda a lógica do zero, nossa API utiliza a classe `ApiResourceController`, que já vem com as funcionalidades de CRUD prontas.
+
+Crie seu arquivo de controller em `app/controller/` com a seguinte estrutura:
+
+```php
+// Em: app/controller/ApiCRUDController.php
+
+class ApiCRUDController extends ApiResourceController
+{
+    // Configurações virão aqui
+}
+```
+
+### Configuração Essencial
+
+Sendo uma classe-filha de `ApiResourceController`, no mínimo, você precisa informar ao controller qual **modelo de dados** e qual **banco de dados** ele deve usar.
+
+- `$model`: O nome da sua classe de modelo (que estende `TRecord`). **Nota:** No ambiente MadBuilder, essas classes são **geradas automaticamente** a partir do seu banco de dados e ficam em `app/model/`.
+- `$database`: O nome do arquivo de configuração da conexão (sem a extensão `.php`) localizado em `app/config/`.
+- As demais configurações são **opcionais** e serão explicadas **mais adiante**.
+
+```php
+class ApiCRUDController extends ApiResourceController
+{
+    protected $model = 'MeuModelo';
+    protected $database = 'minha_conexao';
+}
+```
+
+Abaixo, um exemplo de como `minha_conexao.php` poderia ser:
+
+```php
+// Em: app/config/minha_conexao.php
+
+return [
+    'host' => 'localhost',
+    'user' => 'meu_usuario',
+    'pass' => 'minha_senha',
+    'type' => 'sqlite',
+    'port' => '3306',
+    'name' => 'app/database/m.db',
+    'fkey' => '0',
+    'prep' => '1',
+    'slog' => 'SystemSqlLogService'
+];
+```
+
+---
+
+## Passo 2: Registrando as Rotas no `Router`
+
+Com o controller pronto, o passo final é ligar os métodos dele (`index`, `show`, etc.) aos endereços HTTP. Volte ao arquivo `app/routes/api.php` e adicione as rotas para o seu recurso:
+
+```php
+// Em: app/routes/api.php
+
+Router::group([
+    'prefix' => 'api/crud',
+    // Caso necessário, adicione um middleware aqui
+], function () {
+    Router::get('/',    'ApiCRUDController::index');      // Listar todos os registros
+    Router::get('/{id}', 'ApiCRUDController::show');      // Buscar um registro
+    Router::post('/',   'ApiCRUDController::store');      // Criar novo registro
+    Router::put('/{id}',  'ApiCRUDController::update');   // Atualizar registro
+    Router::patch('/{id}', 'ApiCRUDController::update');  // Atualizar registro parcialmente
+    Router::delete('/{id}','ApiCRUDController::destroy'); // Deletar registro
+});
+```
+
+E pronto\! Com isso, você tem um endpoint CRUD totalmente funcional.
+
+---
+
+## Passo 3: Testando as Rotas
+
+> Assim como no anteriormente, os testes serão realizados através do _Postman API_ com a variável de ambiente `base_url` definida como `http://localhost/teste`.
+
+Para este exemplo, foi criado um grupo de rotas (como o presente acima) para o endpoint `/api/pedido-venda`.
+
+Abaixo, veja a requisição HTTP POST realizada enviando os valores para um novo registro. O formato **recomendado** para enviar dados é o `JSON`:
+
+<img
+  src="https://monosnap.com/image/AlxwVLseJR8eBiTRgpiHxr1TMjJws9"
+  alt="Requisição POST Postman API"
+  className="mx-auto"
+/>
+
+Após isso, faremos uma requisição HTTP GET para buscar todos os registros:
+
+![Requisição GET Postman API](https://monosnap.com/image/2r4dKoE8DuRbTKPq6xypThtIsYwCLX)
+
+E o resultado:
+
+![Resposta GET Postman API](https://monosnap.com/image/RmfG1FKvjnn78FtSEuk27k4RSE0uaQ)
+
+> **Observação:** este exemplo utiliza uma base de dados com 809 registros. Como, por padrão, a `ApiResourceController` retorna 15 registros por página, faz-se necessário enviar o parâmetro `page` para acessar a 54ª, e última, página — diferentes bases de dados podem requerer configurações diferentes.
+>
+> É possível alterar essa configuração, mas veremos isso mais adiante.
+
+Digamos que, após analisar os dados retornados, tenhamos identificado que houve um erro de digitação no campo `valor_total` do novo registro (ID 809). Vamos então corrigir esse erro:
+
+![Requisição PATCH Postman API](https://monosnap.com/image/608wU9Na40D6lmBkI3hSMRRCVl0wMk)
+
+E o resultado:
+
+![Resposta PATCH Postman API](https://monosnap.com/image/BXpQbaCljKqC3C4eVPbpVNRSrCJBL3)
+
+> **Observação:** uma requisição PUT utilizaria o mesmo endpoint (informando o ID do registro que deseja atualizar), com a exceção de que o corpo da requisição deve conter todos os dados do registro, mesmo os que não mudaram.
+>
+> Aliás, da forma que configuramos as rotas, informar o ID numa requisição GET traria o registro correspondente.
+
+O cliente cancelou o pedido? Então, vamos deletar o registro que acabamos de criar (ID 809):
+
+![Requisição DELETE Postman API](https://monosnap.com/image/vKbOqs4XfyLYYpNi6YklJX6PPmjEEl)
+
+Em caso de sucesso, você deve receber a seguinte resposta:
+
+![Resposta DELETE Postman API](https://monosnap.com/image/dtlUFXQDOyHCEuKZBlQpNnyK0yWaJE)
+
+Ao realizar novamente aquela mesma requisição GET, é possível perceber que o registro foi deletado, e ao pé da resposta, as seguintes informações:
+
+![Resposta GET Postman API 2](https://monosnap.com/image/tqjJLxlz50jkgmMs8vvsT87gYrkcWp)
+
+Aliás, esta chave (`meta`) obtida via método `index` é de grande importância, pois nela constam:
+
+- `total`: Quantidade de registros;
+- `per_page`: Quantidade de registros por página;
+- `current_page`: Página atual;
+- `last_page`: Última página;
+
+É com essas informações que é possível, por exemplo, executar os comandos SQL `LIMIT` e `OFFSET` para retornar os registros de uma página específica, entre outros.
+
+Por fim, podemos concluir que as operações CRUD estão funcionando corretamente.

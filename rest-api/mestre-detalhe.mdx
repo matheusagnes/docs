@@ -1,0 +1,116 @@
+---
+title: '5. Trabalhando com Mestre-Detalhe'
+description: 'O `ApiResourceController` simplifica operações de mestre-detalhe, permitindo gerenciar um registro principal (o "mestre") e seus registros relacionados (os "detalhes") em uma única requisição. O caso de uso mais comum é um **Pedido de Venda** (mestre) e seus **Itens** (detalhes).
+
+Este capítulo mostra como configurar e usar essa funcionalidade passo a passo.'
+---
+
+## Passo 1: Habilitando o Relacionamento
+
+Primeiro, você precisa informar ao controller como os modelos de mestre e detalhe se conectam. Isso é feito com três propriedades:
+
+- **`$detailModel`**: a classe do modelo de detalhe.
+- **`$detailForeignKey`**: a chave estrangeira no modelo de detalhe que aponta para o mestre.
+- **`$detailProperty`**: o nome do campo no JSON que conterá a lista de detalhes.
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    protected $model = 'PedidoVenda';
+    protected $database = 'minierp';
+
+    ...
+
+    // --- Configuração Mestre-Detalhe ---
+    protected $detailModel = 'PedidoVendaItem';
+    protected $detailForeignKey = 'pedido_venda_id';
+    protected $detailProperty = 'itens_da_venda';
+
+    ...
+}
+```
+
+> Com isso, a funcionalidade é ativada. Internamente, o método `hasDetails()` passa a retornar `true`, e o controller começa a procurar pelos dados dos detalhes nas requisições.
+
+Veja abaixo um exemplo de registro (com detalhe) que foi retornado em uma resposta de requisição GET:
+
+![Resposta GET registro com detalhe](https://monosnap.com/image/3OMisOTQc9riXUeVYGGELWhNGP6RhG)
+
+---
+
+## Passo 2: Personalizando os Detalhes
+
+Agora que o controller conhece o relacionamento, você pode definir como os detalhes devem ser validados e formatados na resposta.
+
+- **`$requiredDetailFields`**: Garante que campos essenciais dos detalhes sejam enviados (em requisições _POST_ ou _PUT_).
+- **`$detailIndexFields`**: Seleciona e renomeia os campos que aparecerão na resposta JSON de cada item.
+- **`addDetailTransformer()`**: Aplica formatação customizada (ex: moedas, datas) aos campos dos detalhes.
+
+```php
+// Em app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    // --- Personalização dos Detalhes ---
+    protected $requiredDetailFields = [
+        'produto_id' => 'O Produto do item é obrigatório',
+        'quantidade' => 'A Quantidade do item é obrigatória'
+    ];
+
+    protected $detailIndexFields = [
+        'produto' => '{produto->nome}', // Busca o nome do produto relacionado
+        'qtd' => '{quantidade}',
+        'preco_unit' => '{valor}'
+    ];
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        // Formata o campo 'valor' de cada item como moeda
+        $this->addDetailTransformer('preco_unit', function($value) {
+            return 'R$ ' . number_format($value, 2, ',', '.');
+        });
+    }
+}
+```
+
+> **Observação:** perceba que, como o campo `valor` foi renomeado em `detailIndexFields` para `preco_unit`, é esse o nome utilizado em `addDetailTransformer`.
+
+Veja um exemplo de requisição GET para um pedido com detalhes:
+
+![Requisição GET detalhes com transformer](https://monosnap.com/image/m5UUdiDnnkhYHc6VIqsSGxRBAgsZHo)
+
+---
+
+## Passo 3: A Mágica em Ação (Requisição e Resposta)
+
+Com tudo configurado, você pode criar um pedido e seus itens com uma única requisição `POST`.
+
+**Exemplo de requisição `POST /api/pedido-venda`:**
+
+![Requisição POST com detalhes](https://monosnap.com/image/l8iitL2CVOln78cDVd2Ms5LlrBfpaJ)
+
+O controller irá validar, salvar o mestre, e em seguida salvar cada um dos detalhes. A resposta de um `GET` para este recurso seria assim, já com os campos renomeados e formatados:
+
+![Resposta POST com detalhes](https://monosnap.com/image/1Cyw1OzYDsxKz1dptifzDnJ8SHyoXJ)
+
+Agora, imagine que executamos a mesma requisição POST, porém, no segundo item-detalhe, esquecemos de informar o `produto_id`. Com nossa configuração de `requiredDetailFields` feita anteriormente, esta seria a resposta:
+
+![Resposta POST com detalhes com erro](https://monosnap.com/image/jTiJnPHSa0js46L6ToLq0dD4rkoFcC)
+
+### Por Baixo dos Panos...
+
+Para os curiosos, o controller gerencia todo o processo através de um conjunto de métodos internos:
+
+- **`saveDetails()`**: Chamado no `store` e `update` para salvar os detalhes enviados na requisição.
+- **`loadDetails()`**: Chamado nos métodos `index`, `show`, `store` e `update` para carregar os detalhes que serão retornados na resposta JSON.
+- **`prepareDetailForResponse()`**: Formata cada item de detalhe antes de incluí-lo na resposta final, aplicando as regras de `$detailIndexFields` e `detailTransformers`.
+
+### Deletando Detalhes de um Mestre
+
+Por fim, o `ApiResourceController` oferece o método `deleteDetails($master)` para excluir todos os registros de detalhe vinculados a um registro mestre.

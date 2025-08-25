@@ -1,0 +1,167 @@
+---
+title: '6. Configurando o Comportamento do Controller pt. 2'
+description: 'Seguindo de onde a parte 1 terminou, vamos agora abordar propriedades e métodos relacionados ao salvamento/edição de registros, como requisições **POST**, **PUT** e **PATCH**.'
+---
+
+## Validando Campos Obrigatórios
+
+Para garantir a integridade dos dados, você pode definir uma lista de campos que são obrigatórios ao criar ou atualizar um recurso. Isso é feito através da propriedade `$requiredFields`.
+
+- `$requiredFields`: Um array no formato `['nome_do_campo' => 'Rótulo para Erro']`.
+
+Quando um `POST` ou `PUT` é enviado para a API, o método interno `validateRequiredFields()` é chamado automaticamente. Se algum campo da lista estiver ausente ou vazio nos dados da requisição, a API retornará um erro com a mensagem de erro correspondente ao rótulo que você definiu.
+
+Para cenários avançados, o método aceita dois parâmetros opcionais:
+
+- **`$requiredFieldsToCheck`**: Um array que permite validar um conjunto de campos personalizado, ignorando temporariamente a propriedade `$requiredFields` da classe.
+- **`$errorPrefix`**: Uma string para adicionar um prefixo às mensagens de erro, útil para dar contexto (ex.: "Item #1: Campo obrigatório").
+
+Esses parâmetros são usados internamente pelo framework, por exemplo, para validar os itens em um relacionamento mestre-detalhe.
+
+**Exemplo:**
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    protected $requiredFields = [
+        'valor_total' => 'Valor Total',
+        'dt_pedido' => 'Data do Pedido'
+    ];
+}
+```
+
+Com essa configuração, uma tentativa de criar um pedido sem `valor_total` ou `dt_pedido` resultará em um erro, protegendo sua base de dados de registros incompletos. Veja:
+
+![Requisição POST Postman API com campos obrigatórios ausentes](https://monosnap.com/image/u44teqL0vNUXzgDMc5Z0DsaCr17Ux6)
+
+> **Observação:** caso, no modelo de dados, um campo seja definido como obrigatório (`NOT NULL`), ele será validado automaticamente.
+
+---
+
+## Ganchos (Hooks) para Personalização Avançada
+
+A classe `ApiResourceController` oferece um sistema de "ganchos" (ou _hooks_) que permite executar seu próprio código em momentos específicos do ciclo de vida de criação e atualização de registros.
+
+Esses ganchos são métodos que **não existem** por padrão. No entanto, se você os declarar no seu controller/service, o framework os detectará e executará automaticamente. Isso permite manipular dados, executar validações complexas, registrar logs ou disparar outros processos de negócio sem precisar sobrescrever os métodos `store()` ou `update()`.
+
+Vejamos a seguir os métodos ganchos disponíveis...
+
+### 1. `beforeStore`
+
+Executado imediatamente **antes** de o registro principal ser salvo no banco de dados, é o local ideal para manipular os dados do registro-mestre antes de serem persistidos. Você pode, por exemplo, definir valores padrão, calcular campos derivados, ou executar uma validação de negócio complexa.
+
+No exemplo a seguir, é feita uma verificação: caso a data do pedido não tenha sido informada, ele é definida como a data atual.
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    public function beforeStore($object, $masterData)
+    {
+        if(!isset($masterData['dt_pedido'])) {
+            $object->dt_pedido = date('Y-m-d');
+        }
+    }
+}
+```
+
+Abaixo, a resposta de uma requisição que **não informou** data:
+
+![Resposta POST sem data](https://monosnap.com/image/P9MozV4IF5eh9bEmYY4lSpLUv8RaRt)
+
+Os parâmetros recebidos pelo método `beforeStore` são:
+
+- `TRecord $object`: o objeto do modelo principal, já preenchido com os dados da requisição, mas ainda sem ID (pois não foi salvo).
+- `array $masterData`: o array de dados brutos do mestre, recebido na requisição.
+
+### 2. `afterStore`
+
+Executado **após** o registro principal ser salvo com sucesso, é útil para executar ações que dependem do registro já existir no banco de dados, como registrar logs de auditoria, enviar notificações ou atualizar estatísticas. Neste ponto, o objeto já possui a chave primária (`id`) definida.
+
+Um exemplo de uso seria enviar um e-mail de confirmação ao cliente:
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    public function afterStore($object, $masterData)
+    {
+        // Disparar e-mail de confirmação (classe EmailService fictícia)
+        try {
+            $message = EmailService::enviarNotificacaoPedido($object);
+        } catch (Exception $e) {
+            error_log("Erro ao enviar notificação: " . $e->getMessage());
+        }
+    }
+}
+```
+
+> **Observação:** ambos `beforeStore` e `afterStore` recebem os mesmos parâmetros. Entretanto, por ocorrer após o salvamento do registro-mestre, `afterStore` recebe o ID do registro salvo em `$object`.
+
+### 3. `beforeStoreDetail`
+
+Executado **dentro do loop** de salvamento dos detalhes, **antes** de cada item de detalhe ser salvo individualmente. Assim como `beforeStore`, permite manipular ou validar cada item de detalhe antes de sua persistência.
+
+Os parâmetros recebidos pelo método `beforeStoreDetail` são:
+- `TRecord $master`: o objeto do registro mestre, já salvo.
+- `TRecord $detail`: o objeto do modelo de detalhe, preenchido com os dados do item atual, mas ainda não salvo.
+- `array $detailData`: o array de dados brutos do item de detalhe específico.
+
+### 4. `afterStoreDetail`
+
+Executado **dentro do loop** de salvamento dos detalhes, **após** cada item de detalhe ser salvo individualmente. Assim como `afterStore`, permite ações pós-salvamento de cada detalhe, como atualizar o estoque de um produto específico ou registrar um log para cada item.
+
+> **Observação:** ambos `beforeStoreDetail` e `afterStoreDetail` recebem os mesmos parâmetros. Entretanto, por ocorrer dentro do loop de salvamento dos detalhes, `afterStoreDetail` recebe o ID do registro salvo em `$detail`.
+
+### 5. `afterStoreDetails`
+
+Executado **após** o loop de salvamento de **todos** os itens de detalhe ter sido concluído, é o local perfeito para realizar ações de totalização ou sumarização que dependem de todos os detalhes já estarem salvos.
+
+O exemplo mais comum é recalcular e atualizar o `valor_total` do registro mestre com base na soma dos subtotais dos detalhes:
+
+```php
+// Em: app/controller/ApiPedidovendaController.php
+
+class ApiPedidovendaController extends ApiResourceController
+{
+    ...
+
+    public function afterStoreDetails($master, $storedDetails)
+    {
+        $total = 0;
+        foreach ($storedDetails as $item) {
+            // Supondo que o detalhe tenha 'quantidade' e 'valor'
+            $subtotal = $item->quantidade * $item->valor;
+            $total += $subtotal;
+        }
+
+        // Atualiza o valor_total no objeto mestre e salva novamente
+        $master->valor_total = $total;
+        $master->store();
+    }
+}
+```
+
+Com este gancho, garantimos que o valor total do pedido esteja sempre sincronizado com a soma de seus itens, de forma automática e encapsulada na lógica do controller. Veja:
+
+![Requisição POST com valor automático](https://monosnap.com/image/ZJpJaEB9nPMk4mJI63Jf1cDRTxw931)
+
+> **Observação:** a requisição **não informou** o `valor_total`, apenas os valores dos produtos.
+
+Os parâmetros recebidos pelo método `afterStoreDetails` são:
+- `TRecord $master`: o objeto do registro mestre.
+- `array $storedDetails`: um array contendo todos os objetos `TRecord` dos detalhes que acabaram de ser salvos.
+
+---
+
+Com isso, você já está pronto para customizar seu controller/service para atender quaisquer que sejam as necessidades específicas do seu sistema.
