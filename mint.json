@@ -55,6 +55,10 @@
     {
       "name": "Services",
       "url": "services"
+    },
+    {
+      "name": "Rest API",
+      "url": "rest-api"
     }
   ],
   "anchors":
