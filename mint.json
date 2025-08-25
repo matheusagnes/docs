@@ -192,6 +192,18 @@
       [
         "services/builderhttpclientservice"
       ]
+    },
+    {
+      "group": "Rest API",
+      "pages":
+      [
+        "rest-api/rotas",
+        "rest-api/parametros",
+        "rest-api/crud-endpoint",
+        "rest-api/configurando-controller",
+        "rest-api/mestre-detalhe",
+        "rest-api/configurando-controller-pt2"
+      ]
     }
   ],
   "footerSocials": {
