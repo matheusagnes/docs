@@ -1,0 +1,201 @@
+---
+title: "1. Criando Rotas"
+description: "Este guia mostra o passo a passo para criar rotas de API em um sistema MadBuilder.
+
+As rotas são o ponto de entrada da nossa API. Elas definem os endereços (endpoints) que serão usados para se comunicar com nossa aplicação. Todas as rotas da API ficam no arquivo app/routes/api.php."
+---
+
+## Passo 1: Definindo Grupos de Rotas
+
+Embora **OPCIONAL**, para manter o código organizado, agrupamos as rotas que compartilham um caminho base (`prefix`) ou uma regra de autenticação (`middleware`). Veja um exemplo:
+
+```php
+// Em: app/routes/api.php
+
+Router::group([
+    'prefix' => '/api', 
+    'middleware' => ['BasicAuthMiddleware']
+], function () {
+    // Suas rotas vão aqui dentro
+});
+```
+
+- **`prefix`**: Define um "caminho base" para todas as rotas do grupo. Se o prefixo é `/api` e a rota é `/users`, o endereço final será `http://seu-dominio.com/api/users`.
+- **`middleware`**: É uma camada de verificação que executa _antes_ da sua rota, usada geralmente para autenticação. Será explicado mais adiante. **Por enquanto, não vamos usar**.
+
+> **Observação:** novamente, criar grupos de rotas é **OPCIONAL**. A rota pode estar avulsa, sem grupo.
+
+### Aninhando Grupos de Rotas
+
+É possível aninhar `Router::group()` para organizar suas rotas de forma ainda mais granular. Os prefixos e middlewares são combinados de fora para dentro, criando uma estrutura hierárquica.
+
+```php
+// Em: app/routes/api.php
+
+Router::group(['prefix' => '/api', 'middleware' => ['ApiAuth']], function () {
+
+    // Rotas de Vendas (prefixo final: /api/vendas)
+    Router::group(['prefix' => '/vendas'], function () {
+        // Suas rotas de vendas vão aqui
+    });
+
+    // Rotas de Estoque (prefixo final: /api/estoque)
+    Router::group(['prefix' => '/estoque'], function () {
+        // Suas rotas de estoque vão aqui
+    });
+});
+```
+
+Com isso, é possível criar endpoints como `/api/vendas/pedidos` e `/api/estoque/produtos`, ambos protegidos pelo middleware `ApiAuth`.
+
+---
+
+## Passo 2: A Classe `Router` e os Métodos HTTP
+
+A classe `Router` é a responsável por registrar todos os endereços (endpoints) da nossa API, associando cada um a uma ação específica em um `Controller` ou `Service`.
+
+Ela oferece métodos para as principais requisições HTTP, permitindo-nos criar APIs RESTful de maneira semântica. A estrutura é a mesma para todos:
+
+```php
+Router::verbo('/caminho', 'Controller::metodo');
+```
+
+Veja os métodos disponíveis e quando usá-los:
+
+- `Router::get()`: captura requisições HTTP do tipo **GET**, para **consultar** dados.
+  - Ex.: `Router::get('/caminho', 'SuaController::metodo');`
+- `Router::post()`: captura requisições HTTP do tipo **POST**, para **criar** uma nova entrada.
+  - Ex.: `Router::post('/caminho', 'SuaController::metodo');`
+- `Router::put()`: captura requisições HTTP do tipo **PUT**, para **atualizar** uma entrada. O cliente deve enviar todos os dados da entrada, mesmo os que não mudaram.
+  - Ex.: `Router::put('/caminho/{id}', 'SuaController::metodo');`
+- `Router::patch()`: captura requisições HTTP do tipo **PATCH**, para **atualizar parcialmente** uma entrada. Ideal para quando se quer alterar apenas um ou dois campos, como o status de um pedido.
+  - Ex.: `Router::patch('/caminho/{id}', 'SuaController::metodo');`
+- `Router::delete()`: captura requisições HTTP do tipo **DELETE**, para **remover** uma entrada.
+  - Ex.: `Router::delete('/caminho/{id}', 'SuaController::metodo');`
+
+Perceba que, para rotas de tipo `PUT`, `PATCH` e `DELETE`, espera-se um parâmetro `{id}` na URL. Isto ocorre pois, tipicamente, operações dessas naturezas requerem um identificador (do registro que será atualizado ou removido). Neste exemplo, o método de nossa controller espera um parâmetro `id`, então, o que o usuário inserir naquele ponto do caminho será o valor desse parâmetro. Ex.: `https://seu-dominio.com/caminho/15`.
+
+### Como Obter as Rotas Registradas?
+
+Além dos métodos HTTP básicos, a classe `Router` oferece métodos auxiliares que podem ser úteis em situações específicas. Um exemplo é `Router::getRoutes()`, que retorna um array com todas as rotas registradas no sistema. Este método é **público** e pode ser usado pelos desenvolvedores para fazer debug de rotas, criar dashboards ou painéis de controle.
+
+```php
+// Exemplo de uso
+$todasAsRotas = Router::getRoutes();
+foreach ($todasAsRotas as $rota) {
+    echo $rota->getMethod() . ' ' . $rota->getUrl() . "\n";
+}
+```
+
+### Como Criar Novos Prefixos de Rotas?
+
+Por motivos de segurança, todas as rotas são bloqueadas por padrão — a única exceção sendo a rota `/api`, que permite criar endpoints como `/api/usuarios`, `/api/produtos`, etc.
+
+Caso deseje criar um novo prefixo de rota, siga os passos abaixo:
+
+1. Acesse o arquivo `.htaccess`. Lá está a configuração que possibilita a criação de rotas com prefixo `/api`: `RewriteRule ^api/(.*)$ MadRestServer.php [L,QSA]`;
+2. Adicione uma nova regra para o prefixo desejado: `RewriteRule ^seu-prefixo/(.*)$ MadRestServer.php [L,QSA]`.
+
+Veja um exemplo:
+
+```apache
+# Redirecionar todas as outras solicitações para rest.php
+RewriteRule ^api/(.*)$ MadRestServer.php [L,QSA]
+RewriteRule ^swag/(.*)$ MadRestServer.php [L,QSA]
+```
+
+Feita a alteração, reinicie o servidor e, assim, será possível criar rotas como `Router::get('/swag', 'SwaggerController::show');`.
+
+---
+
+## Passo 3: Criando o Controller
+
+Como visto anteriormente, uma rota redireciona para um _controller_ ou _service_. Para este exemplo, vamos criar uma classe controladora (sempre em `app/controller/`) com a seguinte estrutura:
+
+```php
+// Em: app/controller/ApiTesteController.php
+
+<?php
+class ApiTesteController
+{
+    // Configurações virão aqui
+}
+```
+
+> **Observação:** caso se trate de uma _service_, certifique-se de que ela esteja em `app/service/`.
+
+Agora, vamos criar uma propriedade e alguns métodos:
+
+```php
+// Em: app/controller/ApiTesteController.php
+
+<?php
+use Mad\Rest\Request;
+
+class ApiTesteController
+{
+    // Nome do usuário padrão
+    protected $defaultUser = 'Robert';
+
+    // Exemplo GET
+    public function greet()
+    {
+        return 'Hello, ' . $this->defaultUser;
+    }
+
+    // Exemplo POST
+    public function greetUserByName(Request $request)
+    {
+        return 'Hello, ' . $request->get('user');
+    }
+}
+```
+
+> **Observação:** `Request` é uma classe que permite obter dados da requisição HTTP. Ao enviá-la para um método, é possível obter parâmetros enviados na URL. A classe será explicada em maior detalhe mais à frente.
+
+---
+
+## Passo 4: Registrando as Rotas no `Router`
+
+Com o controller pronto, o passo final é ligar os métodos dele aos endereços HTTP. Volte ao arquivo `app/routes/api.php` e adicione as rotas para o seu recurso:
+
+```php
+// Em: app/routes/api.php
+
+Router::group([
+    'prefix' => 'api'
+], function () {
+    Router::get('/hello', 'ApiTesteController::greet');
+    Router::post('/hello-to', 'ApiTesteController::greetUserByName');
+});
+```
+
+E pronto\! Com isso, você criou suas primeiras rotas.
+
+---
+
+## Passo 5: Testando as Rotas
+
+Uma boa forma de testar as rotas é através do _Postman API_, uma plataforma que nos permite enviar requisições HTTP para endpoints e visualizar as respostas, sendo possível, inclusive, definir variáveis de ambiente. No nosso caso, haverá a variável `base_url` que representa o caminho `http://localhost/teste`, onde a aplicação está sendo executada.
+
+> Para mais informações sobre como executar localmente suas aplicações geradas pelo MadBuilder, acesse: [Preparando um servidor para rodar o seu Sistema](https://manager.madbuilder.com.br/tutorials-preparando_um_servidor_para_rodar_o_seu_sistema) 
+>
+> Para aprender como definir variáveis dentro do Postman API, acesse: https://learning.postman.com/docs/sending-requests/variables/variables-intro/.
+
+Para este exemplo, foi criada uma rota para o endpoint `/api/hello`. Veja abaixo a requisição HTTP GET:
+
+![Requisição GET Postman API](https://monosnap.com/image/GEyx89TmjFluvK9gZGwe5ZkzpQObZO)
+
+E o resultado:
+
+![Resposta GET Postman API](https://monosnap.com/image/qNixT41oscRboSgifsYnAo1oRYnSEi)
+
+Da mesma forma, para o endpoint `/api/hello-to`, veja abaixo a requisição HTTP POST (realizada enviando o parâmetro `user` com o nome `Mandy`):
+
+![Requisição POST Postman API](https://monosnap.com/image/BAkoE5rMajZvOuqs9P8dP7bZbUDZ4b)
+
+E o resultado:
+
+![Resposta POST Postman API](https://monosnap.com/image/vXJsV2G5xwRp0yGQZKiDdiSHg7HaL4)
+
+Assim, podemos concluir que as rotas foram criadas e estão funcionando corretamente.
