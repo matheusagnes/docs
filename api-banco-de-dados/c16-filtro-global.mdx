@@ -1,8 +1,8 @@
 ---
-title: 'Filtros globais através de escopos globais utilizando o booted'
+title: "16. Filtros globais através de escopos globais utilizando o booted"
 ---
 
-Os **filtros globais** só podem ser definidos através do método `booted` utilizando `escopos globais` dentro da classe de modelo. Esse método do **TRecord** fornece um sistema de inicialização que permite às classes *Active Record* executar lógica de configuração personalizada após o processo de inicialização estar completo. Como o `booted` é chamado apenas uma vez por classe durante todo o ciclo de vida da aplicação, ele garante que os filtros globais sejam configurados de forma consistente e eficiente, aplicando automaticamente as regras em todas as consultas ao banco de dados.
+Os **filtros globais** só podem ser definidos através do método `booted` utilizando `escopos globais` dentro da classe de modelo. Esse método do **TRecord** fornece um sistema de inicialização que permite às classes _Active Record_ executar lógica de configuração personalizada após o processo de inicialização estar completo. Como o `booted` é chamado apenas uma vez por classe durante todo o ciclo de vida da aplicação, ele garante que os filtros globais sejam configurados de forma consistente e eficiente, aplicando automaticamente as regras em todas as consultas ao banco de dados.
 
 ## Assinatura do Método
 
