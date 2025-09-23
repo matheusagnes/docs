@@ -183,7 +183,8 @@
         "api-banco-de-dados/c12-como-depurar-filtros",
         "api-banco-de-dados/c13-exclusao-de-colecoes",
         "api-banco-de-dados/c14-como-contar-os-registros-de-uma-colecao",
-        "api-banco-de-dados/c15-como-carregar-um-vetor-indexado-pelos-atributos-de-uma-tabela"
+        "api-banco-de-dados/c15-como-carregar-um-vetor-indexado-pelos-atributos-de-uma-tabela",
+        "api-banco-de-dados/c16-filtro-global"
       ]
     },
     {

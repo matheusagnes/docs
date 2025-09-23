@@ -1,0 +1,259 @@
+---
+title: 'Filtros globais através de escopos globais utilizando o booted'
+---
+
+Os **filtros globais** só podem ser definidos através do método `booted` utilizando `escopos globais` dentro da classe de modelo. Esse método do **TRecord** fornece um sistema de inicialização que permite às classes *Active Record* executar lógica de configuração personalizada após o processo de inicialização estar completo. Como o `booted` é chamado apenas uma vez por classe durante todo o ciclo de vida da aplicação, ele garante que os filtros globais sejam configurados de forma consistente e eficiente, aplicando automaticamente as regras em todas as consultas ao banco de dados.
+
+## Assinatura do Método
+
+```php
+/**
+ * Método booted que pode ser sobrescrito pelas classes filhas.
+ * Este método é chamado apenas uma vez por classe após o processo de boot estar completo.
+ */
+protected static function booted()
+{
+    // Lógica de pós-inicialização aqui
+    // Escopos globais são tipicamente adicionados aqui
+}
+```
+
+## Exemplo: Modelo Pessoa com Métodos Boot
+
+Aqui está um exemplo completo de um modelo Pessoa que demonstra o uso do método `booted` e da aplicação de escopos globais para filtros:
+
+```php
+<?php
+
+use Adianti\Database\TRecord;
+use Adianti\Database\TFilter;
+use Adianti\Registry\TSession;
+
+/**
+ * Pessoa Active Record
+ */
+class Pessoa extends TRecord
+{
+    const TABLENAME  = 'pessoa';
+    const PRIMARYKEY = 'id';
+    const IDPOLICY   = 'max'; // {max, serial}
+    
+    /**
+     * Método construtor
+     */
+    public function __construct($id = NULL, $callObjectLoad = TRUE)
+    {
+        // Define o banco de dados de trabalho
+        parent::__construct($id, $callObjectLoad);
+        
+        // Define os atributos do objeto
+        $this->addAttribute('id');
+        $this->addAttribute('nome');
+        $this->addAttribute('email');
+        $this->addAttribute('telefone');
+        $this->addAttribute('data_nascimento');
+        $this->addAttribute('system_unit_id');
+        $this->addAttribute('ativo');
+        $this->addAttribute('created_at');
+        $this->addAttribute('updated_at');
+    }
+    
+    /**
+     * Método booted - Chamado após o processo de inicialização estar completo
+     * Use este método para adicionar escopos globais e configuração final
+     */
+    protected static function booted()
+    {
+        parent::booted();
+        
+        // Adiciona escopo global para filtrar por unidade do sistema
+        // Isso será aplicado automaticamente a todas as consultas, a menos que seja explicitamente removido
+        $unitFilter = new TFilter('system_unit_id', '=', TSession::getValue('unitid'));
+        static::addGlobalScope('unit_scope', $unitFilter);
+        
+        // Exemplo: Adicionar outros escopos globais
+        // Mostrar apenas pessoas ativas por padrão
+        $activeFilter = new TFilter('ativo', '=', 'Y');
+        static::addGlobalScope('active_scope', $activeFilter);
+        
+        // Log de que o modelo Pessoa foi totalmente inicializado
+        if (class_exists('TLoggerTXT')) {
+            TLoggerTXT::write("Modelo Pessoa - método booted() executado com escopos globais");
+        }
+    }
+}
+```
+
+## Exemplos de Uso
+
+### Uso Básico (Escopos Globais Aplicados Automaticamente)
+
+```php
+// Todas essas consultas incluirão automaticamente os escopos globais
+// (unit_scope e active_scope)
+
+// Buscar todas as pessoas - retornará apenas pessoas ativas da unidade atual
+$pessoas = Pessoa::getObjects();
+
+// Buscar pessoa específica - verificará unidade e status ativo
+$pessoa = Pessoa::find(1);
+
+// Contar pessoas - contará apenas pessoas ativas da unidade atual
+$count = Pessoa::countObjects();
+```
+
+### Usando withoutGlobalScopes()
+
+```php
+// Remover todos os escopos globais
+$todasPessoas = Pessoa::withoutGlobalScopes()->getObjects();
+
+// Remover escopo global específico
+$pessoasAtivas = Pessoa::withoutGlobalScopes('unit_scope')->getObjects();
+
+// Remover múltiplos escopos específicos
+$pessoasQualquerUnidade = Pessoa::withoutGlobalScopes(['unit_scope', 'active_scope'])->getObjects();
+```
+
+### Uso Avançado com Critérios Personalizados
+
+```php
+// Adicionar critérios adicionais mantendo os escopos globais
+$criteria = new TCriteria();
+$criteria->add(new TFilter('nome', 'like', '%João%'));
+$joaos = Pessoa::getObjects($criteria);
+
+// Usar TRepository para consultas mais complexas
+$repository = new TRepository('Pessoa');
+$repository = $repository->withoutGlobalScopes();
+$criteria = new TCriteria();
+$criteria->add(new TFilter('nome', 'like', '%João%'));
+$todosJoaos = $repository->load($criteria);
+```
+
+## Melhores Práticas
+
+### Quando Usar `booted()`
+
+- **Escopos globais**: Adicionar filtros que devem se aplicar a todas as consultas
+- **Configuração final**: Executar configurações que dependem do modelo estar totalmente inicializado
+- **Filtros de segurança**: Configurar filtros baseados em permissões ou unidades
+- **Configuração de cache**: Inicializar caches que dependem da estrutura do modelo
+
+### Melhores Práticas para Escopos Globais
+
+1. **Use nomes descritivos**: Dê aos seus escopos globais nomes descritivos
+2. **Considere a performance**: Escopos globais afetam todas as consultas, então os torne eficientes
+3. **documente o comportamento**: Documente claramente o que os escopos globais fazem
+4. **Forneça rotas de escape**: Sempre permita que desenvolvedores desabilitem escopos quando necessário
+
+```php
+// Bom: Nomes de escopo descritivos
+static::addGlobalScope('isolamento_tenant', $tenantFilter);
+static::addGlobalScope('exclusao_logica', $naoExcluidoFilter);
+
+// Ruim: Nomes de escopo genéricos
+static::addGlobalScope('filtro1', $algumFiltro);
+static::addGlobalScope('escopo', $outroFiltro);
+```
+
+## Casos de Uso Comuns
+
+### Aplicações Multi-tenant
+
+```php
+protected static function booted()
+{
+    parent::booted();
+    
+    // Filtrar automaticamente por tenant
+    $tenantId = TSession::getValue('tenant_id');
+    if ($tenantId) {
+        $tenantFilter = new TFilter('tenant_id', '=', $tenantId);
+        static::addGlobalScope('isolamento_tenant', $tenantFilter);
+    }
+}
+```
+
+### Implementação de Exclusão Lógica (Soft Delete)
+
+```php
+protected static function booted()
+{
+    parent::booted();
+    
+    // Ocultar registros excluídos logicamente por padrão
+    $naoExcluidoFilter = new TFilter('deleted_at', 'IS', NULL);
+    static::addGlobalScope('nao_excluido', $naoExcluidoFilter);
+}
+```
+
+### Controle de Acesso Baseado em Função
+
+```php
+protected static function booted()
+{
+    parent::booted();
+    
+    $userRole = TSession::getValue('user_role');
+    
+    // Gerentes podem ver todos os registros, usuários apenas os próprios
+    if ($userRole !== 'gerente') {
+        $userId = TSession::getValue('userid');
+        $proprietarioFilter = new TFilter('created_by_user_id', '=', $userId);
+        static::addGlobalScope('apenas_proprietario', $proprietarioFilter);
+    }
+}
+```
+
+## Notas Importantes
+
+- **Chamado uma vez por classe**: O método booted é chamado apenas uma vez durante o ciclo de vida da aplicação
+- **Herança**: Sempre chame `parent::booted()` ao sobrescrever
+- **Dependência de sessão**: Tenha cuidado ao usar valores de sessão em `booted()` - certifique-se de que a sessão esteja disponível
+- **Impacto na performance**: Escopos globais afetam todas as consultas, então os projete cuidadosamente
+- **Testes**: Lembre-se de considerar escopos globais em seus testes, ou desabilitá-los quando necessário
+
+## Depuração
+
+Para depurar métodos boot e escopos globais:
+
+```php
+// Verificar se escopos globais estão aplicados
+$escopos = Pessoa::getGlobalScopes();
+var_dump($escopos);
+
+// Ver o SQL real sendo gerado
+$pessoas = Pessoa::getObjects();
+// Verificar o SQL gerado nos logs do banco de dados
+
+// Usar TLoggerTXT para debug
+if (class_exists('TLoggerTXT')) {
+    TLoggerTXT::write('Debug: Escopos globais aplicados');
+}
+```
+
+## Integração com Mad Builder Framework
+
+O Mad Builder fornece funcionalidades adicionais que podem ser utilizadas no método booted:
+
+```php
+protected static function booted()
+{
+    parent::booted();
+    
+    // Usar TSession para valores de sessão (padrão do Adianti Framework)
+    $unitId = TSession::getValue('unitid');
+    $userId = TSession::getValue('userid');
+    
+    if ($unitId) {
+        $unitFilter = new TFilter('system_unit_id', '=', $unitId);
+        static::addGlobalScope('filtro_unidade', $unitFilter);
+    }
+    
+    // Usar TLoggerTXT para logs (disponível no Adianti Framework)
+    if (class_exists('TLoggerTXT')) {
+        TLoggerTXT::write("Modelo inicializado com escopos globais: " . static::class);
+    }
+}
+```
