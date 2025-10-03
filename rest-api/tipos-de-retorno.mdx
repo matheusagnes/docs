@@ -1,0 +1,99 @@
+---
+title: "4. Tipos de Retorno e Estruturação de Respostas"
+description: "Nos exemplos anteriores, utilizamos `(new Response())->json()` para retornar dados. O framework Mad Rest oferece duas opções principais de resposta:"
+---
+
+**IMPORTANTE:** para todos os exemplos abaixo, é necessário importar a classe `Response` ao início do arquivo.
+
+```php
+use Mad\Rest\Response;
+```
+
+## JSONResponse - Formato JSON
+
+A classe `JSONResponse` é a forma mais comum de retornar dados em APIs REST modernas. Ela automaticamente:
+
+- Define o header `Content-Type: application/json; charset=utf-8`
+- Converte arrays PHP em JSON válido
+
+```php
+// Dentro de uma função do controller...
+
+    // Dados simulados
+    $dados = [
+        'id' => 5,
+        'nome' => 'João',
+        'email' => 'joao@email.com'
+    ];
+
+// Resposta JSON básica
+    return (new Response())->json([
+        'dados' => $dados,
+        'status' => 'sucesso'
+    ]);
+```
+
+Também é possível retornar códigos de status HTTP personalizados:
+
+```php
+    ...
+
+    // Resposta JSON com código de status personalizado
+    return (new Response())->json([
+        'erro' => 'Dados inválidos'
+    ], 400);
+```
+
+---
+
+## HtmlResponse - Formato HTML
+
+A classe `HtmlResponse` é útil quando você precisa retornar conteúdo HTML diretamente, como páginas de documentação, relatórios formatados ou interfaces simples.
+
+```php
+// Dentro de uma função do controller...
+
+    // Página de relatório
+    $html = '<h1>Relatório</h1><p>Conteúdo do relatório aqui...</p>';
+    return (new Response())->html($html);
+```
+
+Também é possível retornar códigos de status HTTP personalizados:
+
+```php
+    ...
+
+    // Página de erro 404
+    $erro404 = '<h1>404 - Página não encontrada</h1>';
+    return (new Response())->html($erro404, 404);
+```
+
+---
+
+### Quando Usar Cada Tipo
+
+**JSONResponse:** APIs REST, front-ends, aplicações móveis, padronização de resposta.
+
+**HtmlResponse:** Relatórios, documentação, páginas de erro, acesso direto ao navegador.
+
+### Processamento Automático de Objetos
+
+Uma funcionalidade interessante da `JSONResponse` é o processamento automático de objetos do Adianti Framework:
+
+```php
+// Dentro de uma service...
+
+    public static function getUsuario($id)
+    {
+        // Supondo que você tenha um modelo Usuario do Adianti Framework
+        $usuario = new Usuario($id); // Herda de TRecord
+        
+        // A JSONResponse automaticamente converte TRecord para array
+        return (new Response())->json([
+            'usuario' => $usuario,  // Será convertido automaticamente
+            'sucesso' => true
+        ]);
+    }
+```
+
+Com essas opções de resposta, você pode criar APIs flexíveis que atendem tanto aplicações que consomem JSON quanto usuários que precisam visualizar dados diretamente no navegador.

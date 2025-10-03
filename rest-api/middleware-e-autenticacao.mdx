@@ -1,0 +1,220 @@
+---
+title: '8. Middlewares e Autenticação'
+description: 'Os middlewares são uma camada de segurança essencial em APIs, permitindo interceptar e validar requisições antes que elas cheguem aos controllers. Este guia explica como usar os middlewares disponíveis e como criar os seus próprios.
+
+Um middleware funciona como um "porteiro": ele verifica se a requisição atende aos critérios necessários (como ter um token válido) antes de permitir o acesso aos endpoints.
+'
+---
+
+
+## Passo 1: Como os Middlewares Funcionam
+
+No framework Mad Rest, um middleware é uma classe com um método `handle` que intercepta requisições. O fluxo funciona assim:
+
+1. **Requisição chega** → Middleware intercepta
+2. **Middleware verifica** → Se inválida, retorna erro imediatamente
+3. **Se válida** → Chama `$next($request)` para continuar
+4. **Controller executa** → Processa a requisição normalmente
+
+```php
+// Estrutura básica de um middleware
+class MeuMiddleware
+{
+    public function handle(Request $request, callable $next)
+    {
+        // Lógica de verificação aqui
+        if ($falhouVerificacao) {
+            return (new Response())->json(['error' => 'Acesso negado'], 401);
+        }
+        
+        // Se passou na verificação, continua o fluxo
+        return $next($request);
+    }
+}
+```
+
+---
+
+## Passo 2: Middlewares Disponíveis no Projeto
+
+O projeto já possui dois middlewares prontos para uso:
+
+### BasicAuthMiddleware
+
+Usado para autenticação via chave REST simples, configurada no arquivo de configuração do sistema.
+
+**Como funciona:**
+- Verifica o header `Authorization: Basic {rest_key}`
+- A `rest_key` deve estar definida no arquivo de configuração
+- Ideal para acesso de aplicações confiáveis
+
+**Aplicando nas rotas:**
+
+```php
+// Em: app/routes/api.php
+
+Router::group([
+    'prefix' => '/api',
+    'middleware' => ['BasicAuthMiddleware']  // Aplica o middleware
+], function () {
+    Router::get('/dados-protegidos', 'MeuController::getDados');
+});
+```
+
+#### Configurando Autenticação no Arquivo de Configuração
+
+Para usar o `BasicAuthMiddleware`, você precisa definir a `rest_key` no arquivo de configuração:
+
+```ini
+; Em: app/config/application.ini
+
+[general]
+rest_key = "minha-chave-super-secreta-123"
+```
+
+**Testando no Postman:**
+
+1. Na aba **Authorization**, selecione **"API Key"**
+2. Na aba **Headers**, adicione:
+   - **Key:** `Authorization`
+   - **Value:** `Basic sua_chave_rest_aqui`
+
+![Teste BasicAuthMiddleware](https://monosnap.com/image/tkVWSfAJDMGdehwm8J5qM9OoDSPoc4)
+
+E inserindo uma chave inválida:
+
+![Teste BasicAuthMiddleware chave errada](https://monosnap.com/image/YxGGPgdeAg6a2UE7hQcNRnAtgrEVhv)
+
+> **Importante:** nunca exponha essa chave publicamente. Use chaves diferentes para desenvolvimento e produção.
+
+### BearerAuthMiddleware
+
+Usado para autenticação via tokens Bearer JWT, integrado com o sistema de autenticação do Adianti Framework.
+
+**Como funciona:**
+- Verifica o header `Authorization: Bearer {token}`
+- Valida tokens JWT usando `ApplicationAuthenticationService`
+- Ideal para autenticação de usuários logados
+- **Importante:** Os tokens têm tempo de vida de **3 horas** após serem gerados
+
+#### Obtendo um Token de Sessão (Login)
+
+Para usar o BearerAuthMiddleware, primeiro é necessário obter um token JWT válido através de login. O sistema já possui um controller pronto (`ApiAuthController`) com o método `authenticate`.
+
+**Criando as rotas necessárias:**
+
+```php
+// Em: app/routes/api.php
+
+Router::group([
+    'prefix' => '/api'
+], function () {
+    // Rota para obter token (sem middleware - acesso público)
+    Router::post('/auth/login', 'ApiAuthController::authenticate');
+});
+
+Router::group([
+    'prefix' => '/api',
+    'middleware' => ['BearerAuthMiddleware']  // Aplica o middleware
+], function () {
+    // Rotas protegidas que exigem token válido
+    Router::get('/pedido-venda', 'ApiPedidovendaController::index');
+});
+```
+
+Após criar as rotas, é possível obter nosso token de sessão (login). No _Postman_, basta enviar uma requisição POST para `/api/auth/login` com o corpo da requisição contendo o login e senha do usuário.
+
+![Login com credenciais válidas](https://monosnap.com/image/DCwCQIJUk1lKb6oe8uyjRaDI6L0LX9)
+
+Note que é necessário fornecer informações de um usuário válido para obter um token de sessão. O método `ApiAuthController::authenticate` não é capaz de criar um usuário, ele apenas valida as credenciais de um usuário existente. Ao tentar obter um token com credenciais inválidas, recebemos um erro:
+
+![Alt text](https://monosnap.com/image/wElauCuArAPfSFDWFiOjNwVwN9Ygzp)
+
+#### Testando Rotas Protegidas
+
+Para usar o token: na aba **Authorization**, selecione **"Bearer Token"** e cole o token obtido:
+
+![Teste com Bearer token válido](https://monosnap.com/image/UAnrjDt5grIdlAfoxgoeDTrqggLRX0)
+
+Com um token inválido:
+
+![Teste com Bearer token inválido](https://monosnap.com/image/ij8Dpyx7Guhc2h9flkwR2wU59SylCL)
+
+> **Dica:** Você pode combinar múltiplos middlewares: `'middleware' => ['BasicAuthMiddleware', 'MeuMiddleware']`
+
+---
+
+## Passo 3: Criando Seus Próprios Middlewares
+
+Você pode criar middlewares personalizados para necessidades específicas. Vamos criar um exemplo prático:
+
+### Exemplo: Middleware de Header Personalizado
+
+Crie o arquivo `app/middleware/TestKeyMiddleware.php`:
+
+```php
+// Em: app/middleware/TestKeyMiddleware.php
+
+<?php
+use Mad\Rest\Request;
+use Mad\Rest\Response;
+
+/**
+ * Middleware que verifica se foi enviado um header X-API-Key
+ */
+class TestKeyMiddleware
+{
+    public function handle(Request $request, callable $next)
+    {
+        // Obtém o valor do header personalizado
+        $apiKey = $request->getHeaders()['X-API-Key'] ?? null;
+        
+        // Verifica se o header foi enviado
+        if (empty($apiKey)) {
+            return (new Response())->json([
+                'error' => 'Header X-API-Key é obrigatório'
+            ], 400);
+        }
+        
+        // Verifica se a chave é válida (exemplo simples)
+        if ($apiKey !== 'minha-api-key-123') {
+            return (new Response())->json([
+                'error' => 'API Key inválida'
+            ], 401);
+        }
+        
+        // Se passou nas verificações, continua
+        return $next($request);
+    }
+}
+```
+
+### Aplicando o Middleware Personalizado
+
+```php
+// Em: app/routes/api.php
+
+Router::group([
+    'prefix' => '/api/pedido-venda',
+    'middleware' => ['TestKeyMiddleware']
+], function () {
+    Router::get('/', 'ApiPedidovendaController::index');
+});
+```
+
+**Testando no Postman:**
+1. Na aba **Headers**, adicione:
+   - **Key:** `X-API-Key`
+   - **Value:** `minha-api-key-123`
+
+![Teste Middleware personalizado](https://monosnap.com/image/Vf8nYCzLHc5byUEA2nXkz8CBacAbpw)
+
+Enviando a chave errada:
+
+![Teste Middleware personalizado chave errada](https://monosnap.com/image/kDXCa4VhqZGJvDavVlrI3CUhTs4zB8)
+
+---
+
+> **Observação:** Use middlewares estrategicamente. Nem todos os endpoints precisam de autenticação (ex: login, documentação pública).
+
+Com middlewares bem configurados, sua API fica segura e organizada, permitindo controle fino sobre quem pode acessar cada endpoint.
