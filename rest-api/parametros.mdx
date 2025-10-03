@@ -106,7 +106,7 @@ class ApiExemploService
 
 Exemplo de requisição GET: `{{base_url}}/api/exemplo/15/3?filtro=ativo&limite=10`
 
-![Capturando parâmetros da URL 2](https://monosnap.com/image/YPsTW4xcGbN3AMCc0f3dZZqCm5xTMp)
+![Capturando parâmetros da URL 2](https://monosnap.ai/image/YPsTW4xcGbN3AMCc0f3dZZqCm5xTMp)
 
 #### 2. `getParams()` - Todos os Parâmetros
 
@@ -132,11 +132,11 @@ class ApiExemploService
 
 Exemplo de requisição GET:
 
-![Requisição GET getParams](https://monosnap.com/image/cejw8Yv6GjsHe8hU0PT4HxPhFXekXN)
+![Requisição GET getParams](https://monosnap.ai/image/cejw8Yv6GjsHe8hU0PT4HxPhFXekXN)
 
 As tags `<pre>` são usada para "embelezar" a visualização do array. Veja abaixo o resultado no modo de "Preview" do _Postman API_:
 
-![Resposta GET getParams](https://monosnap.com/image/b1LJvr8cqwzJDK3OWKco6dVak69Wjy)
+![Resposta GET getParams](https://monosnap.ai/image/b1LJvr8cqwzJDK3OWKco6dVak69Wjy)
 
 > **Observação:** perceba que, além dos parâmetros enviados via "body", constam também os que foram inseridos na URL.
 
@@ -163,11 +163,11 @@ public static function getCidade($id, $unidade_id, Request $request)
 
 Exemplo de seleção de headers na requisição (no mesmo endpoint que os exemplos anteriores):
 
-![Requisição GET getHeaders](https://monosnap.com/image/P5cyV0XM4o5hMfVzQmZi2oJdgp3GuB)
+![Requisição GET getHeaders](https://monosnap.ai/image/P5cyV0XM4o5hMfVzQmZi2oJdgp3GuB)
 
 E o resultado:
 
-![Resposta GET getHeaders](https://monosnap.com/image/QSDFtX5tBF3Ko0OsEsX8TeMOjEvBVF)
+![Resposta GET getHeaders](https://monosnap.ai/image/QSDFtX5tBF3Ko0OsEsX8TeMOjEvBVF)
 
 > **Observação:** Perceba que, além dos headers enviados manualmente, constam também headers gerados automaticamente, como `User-Agent` e `Host`.
 
@@ -230,23 +230,23 @@ class ApiExemploService
 
 Ao enviar uma requisição GET sem token de autenticação (no mesmo endpoint que os exemplos anteriores):
 
-![Resposta GET getAuthToken não fornecido](https://monosnap.com/image/lkYauiqg48bogr7pAwvQztNxhZFP5F)
+![Resposta GET getAuthToken não fornecido](https://monosnap.ai/image/lkYauiqg48bogr7pAwvQztNxhZFP5F)
 
 Da mesma forma, enviar um token inválido também causa um _Erro 401_:
 
-![Requisição GET getAuthToken inválido](https://monosnap.com/image/JA87OuqcG0la2d1scmVXSDO9ZOKT9i)
+![Requisição GET getAuthToken inválido](https://monosnap.ai/image/JA87OuqcG0la2d1scmVXSDO9ZOKT9i)
 
 Veja o resultado:
 
-![Resposta GET getAuthToken inválido](https://monosnap.com/image/Pxj3808XWRfC7zOuJ1jqmApNemOM3S)
+![Resposta GET getAuthToken inválido](https://monosnap.ai/image/Pxj3808XWRfC7zOuJ1jqmApNemOM3S)
 
 Finalmente, ao enviar um token válido, recebemos um código **200 OK**:
 
-![Requisição GET getAuthToken válido](https://monosnap.com/image/sNuZwDwjh3BfGyAob20hexWq8zrdZM)
+![Requisição GET getAuthToken válido](https://monosnap.ai/image/sNuZwDwjh3BfGyAob20hexWq8zrdZM)
 
 Resposta:
 
-![Resposta GET getAuthToken válido](https://monosnap.com/image/SnWgTef1VVepDZblw7Tu3AN7Q7eh75)
+![Resposta GET getAuthToken válido](https://monosnap.ai/image/SnWgTef1VVepDZblw7Tu3AN7Q7eh75)
 
 > **Observação:** autenticação e middlewares serão abordados em maior detalhe em capítulos posteriores.
 
