@@ -117,11 +117,11 @@ Outra forma de enviar os parâmetros é no corpo da requisição, sendo possíve
 
 No exemplo abaixo, é aplicado um filtro e uma ordenação, para trazer apenas compras menores (entre R$ 100,00 e R$ 15.000,00) que foram realizadas no mês de janeiro de 2022, ordenados pelo valor total em ordem decrescente.
 
-![Requisição GET filtering e sorting](https://monosnap.com/image/Jb6PtpMwGNszsHVdWeWQzYQcl0LHij)
+![Requisição GET filtering e sorting](https://monosnap.ai/image/Jb6PtpMwGNszsHVdWeWQzYQcl0LHij)
 
 E o resultado:
 
-![Resposta GET filtering e sorting](https://monosnap.com/image/BJFdfjHJmjiKRoLmGOyoOAVrfGXxSl)
+![Resposta GET filtering e sorting](https://monosnap.ai/image/BJFdfjHJmjiKRoLmGOyoOAVrfGXxSl)
 
 > **Observação:** caso o valor inserido não tenha sido definido como `filterable`, ele será ignorado.
 
@@ -238,7 +238,7 @@ class ApiPedidovendaController extends ApiResourceController
 
 Com essa configuração, uma tentativa de criar um pedido sem `valor_total` ou `dt_pedido` resultará em um erro, protegendo sua base de dados de registros incompletos. Veja:
 
-![Requisição POST Postman API com campos obrigatórios ausentes](https://monosnap.com/image/u44teqL0vNUXzgDMc5Z0DsaCr17Ux6)
+![Requisição POST Postman API com campos obrigatórios ausentes](https://monosnap.ai/image/u44teqL0vNUXzgDMc5Z0DsaCr17Ux6)
 
 > **Observação:** caso, no modelo de dados, um campo seja definido como obrigatório (`NOT NULL`), ele será validado automaticamente.
 
@@ -276,7 +276,7 @@ class ApiPedidovendaController extends ApiResourceController
 
 Abaixo, a resposta de uma requisição que **não informou** data:
 
-![Resposta POST sem data](https://monosnap.com/image/P9MozV4IF5eh9bEmYY4lSpLUv8RaRt)
+![Resposta POST sem data](https://monosnap.ai/image/P9MozV4IF5eh9bEmYY4lSpLUv8RaRt)
 
 Os parâmetros recebidos pelo método `beforeStore` são:
 
@@ -357,7 +357,7 @@ class ApiPedidovendaController extends ApiResourceController
 
 Com este gancho, garantimos que o valor total do pedido esteja sempre sincronizado com a soma de seus itens, de forma automática e encapsulada na lógica do controller. Veja:
 
-![Requisição POST com valor automático](https://monosnap.com/image/ZJpJaEB9nPMk4mJI63Jf1cDRTxw931)
+![Requisição POST com valor automático](https://monosnap.ai/image/ZJpJaEB9nPMk4mJI63Jf1cDRTxw931)
 
 > **Observação:** a requisição **não informou** o `valor_total`, apenas os valores dos produtos.
 

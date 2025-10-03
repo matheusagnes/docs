@@ -87,18 +87,18 @@ Para este exemplo, foi criado um grupo de rotas (como o presente acima) para o e
 Abaixo, veja a requisição HTTP POST realizada enviando os valores para um novo registro. O formato **recomendado** para enviar dados é o `JSON`:
 
 <img
-  src="https://monosnap.com/image/AlxwVLseJR8eBiTRgpiHxr1TMjJws9"
+  src="https://monosnap.ai/image/AlxwVLseJR8eBiTRgpiHxr1TMjJws9"
   alt="Requisição POST Postman API"
   className="mx-auto"
 />
 
 Após isso, faremos uma requisição HTTP GET para buscar todos os registros:
 
-![Requisição GET Postman API](https://monosnap.com/image/2r4dKoE8DuRbTKPq6xypThtIsYwCLX)
+![Requisição GET Postman API](https://monosnap.ai/image/2r4dKoE8DuRbTKPq6xypThtIsYwCLX)
 
 E o resultado:
 
-![Resposta GET Postman API](https://monosnap.com/image/RmfG1FKvjnn78FtSEuk27k4RSE0uaQ)
+![Resposta GET Postman API](https://monosnap.ai/image/RmfG1FKvjnn78FtSEuk27k4RSE0uaQ)
 
 > **Observação:** este exemplo utiliza uma base de dados com 809 registros. Como, por padrão, a `ApiResourceController` retorna 15 registros por página, faz-se necessário enviar o parâmetro `page` para acessar a 54ª, e última, página — diferentes bases de dados podem requerer configurações diferentes.
 >
@@ -106,11 +106,11 @@ E o resultado:
 
 Digamos que, após analisar os dados retornados, tenhamos identificado que houve um erro de digitação no campo `valor_total` do novo registro (ID 809). Vamos então corrigir esse erro:
 
-![Requisição PATCH Postman API](https://monosnap.com/image/608wU9Na40D6lmBkI3hSMRRCVl0wMk)
+![Requisição PATCH Postman API](https://monosnap.ai/image/608wU9Na40D6lmBkI3hSMRRCVl0wMk)
 
 E o resultado:
 
-![Resposta PATCH Postman API](https://monosnap.com/image/BXpQbaCljKqC3C4eVPbpVNRSrCJBL3)
+![Resposta PATCH Postman API](https://monosnap.ai/image/BXpQbaCljKqC3C4eVPbpVNRSrCJBL3)
 
 > **Observação:** uma requisição PUT utilizaria o mesmo endpoint (informando o ID do registro que deseja atualizar), com a exceção de que o corpo da requisição deve conter todos os dados do registro, mesmo os que não mudaram.
 >
@@ -118,15 +118,15 @@ E o resultado:
 
 O cliente cancelou o pedido? Então, vamos deletar o registro que acabamos de criar (ID 809):
 
-![Requisição DELETE Postman API](https://monosnap.com/image/vKbOqs4XfyLYYpNi6YklJX6PPmjEEl)
+![Requisição DELETE Postman API](https://monosnap.ai/image/vKbOqs4XfyLYYpNi6YklJX6PPmjEEl)
 
 Em caso de sucesso, você deve receber a seguinte resposta:
 
-![Resposta DELETE Postman API](https://monosnap.com/image/dtlUFXQDOyHCEuKZBlQpNnyK0yWaJE)
+![Resposta DELETE Postman API](https://monosnap.ai/image/dtlUFXQDOyHCEuKZBlQpNnyK0yWaJE)
 
 Ao realizar novamente aquela mesma requisição GET, é possível perceber que o registro foi deletado, e ao pé da resposta, as seguintes informações:
 
-![Resposta GET Postman API 2](https://monosnap.com/image/tqjJLxlz50jkgmMs8vvsT87gYrkcWp)
+![Resposta GET Postman API 2](https://monosnap.ai/image/tqjJLxlz50jkgmMs8vvsT87gYrkcWp)
 
 Aliás, esta chave (`meta`) obtida via método `index` é de grande importância, pois nela constam:
 

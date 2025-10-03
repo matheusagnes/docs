@@ -35,7 +35,7 @@ class ApiPedidovendaController extends ApiResourceController
 
 Veja abaixo um exemplo de registro (com detalhe) que foi retornado em uma resposta de requisição GET:
 
-![Resposta GET registro com detalhe](https://monosnap.com/image/3OMisOTQc9riXUeVYGGELWhNGP6RhG)
+![Resposta GET registro com detalhe](https://monosnap.ai/image/3OMisOTQc9riXUeVYGGELWhNGP6RhG)
 
 ---
 
@@ -82,7 +82,7 @@ class ApiPedidovendaController extends ApiResourceController
 
 Veja um exemplo de requisição GET para um pedido com detalhes:
 
-![Requisição GET detalhes com transformer](https://monosnap.com/image/m5UUdiDnnkhYHc6VIqsSGxRBAgsZHo)
+![Requisição GET detalhes com transformer](https://monosnap.ai/image/m5UUdiDnnkhYHc6VIqsSGxRBAgsZHo)
 
 ---
 
@@ -92,15 +92,15 @@ Com tudo configurado, você pode criar um pedido e seus itens com uma única req
 
 **`Exemplo de requisição POST /api/pedido-venda:`**
 
-![Requisição POST com detalhes](https://monosnap.com/image/l8iitL2CVOln78cDVd2Ms5LlrBfpaJ)
+![Requisição POST com detalhes](https://monosnap.ai/image/l8iitL2CVOln78cDVd2Ms5LlrBfpaJ)
 
 O controller irá validar, salvar o mestre, e em seguida salvar cada um dos detalhes. A resposta de um `GET` para este recurso seria assim, já com os campos renomeados e formatados:
 
-![Resposta POST com detalhes](https://monosnap.com/image/1Cyw1OzYDsxKz1dptifzDnJ8SHyoXJ)
+![Resposta POST com detalhes](https://monosnap.ai/image/1Cyw1OzYDsxKz1dptifzDnJ8SHyoXJ)
 
 Agora, imagine que executamos a mesma requisição POST, porém, no segundo item-detalhe, esquecemos de informar o `produto_id`. Com nossa configuração de `requiredDetailFields` feita anteriormente, esta seria a resposta:
 
-![Resposta POST com detalhes com erro](https://monosnap.com/image/jTiJnPHSa0js46L6ToLq0dD4rkoFcC)
+![Resposta POST com detalhes com erro](https://monosnap.ai/image/jTiJnPHSa0js46L6ToLq0dD4rkoFcC)
 
 ### Por Baixo dos Panos...
 
